@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mohammad Shaquqa | Frontend Engineer</title>
+  <meta name="description" content="Mohammad Shaquqa, Frontend Engineer specializing in React, Next.js and TypeScript. 3+ years of engineering experience building production-grade web applications." />
+  <meta name="author" content="Mohammad Shaquqa" />
+  <meta name="theme-color" content="#09090b" />
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- Theme: applied before first paint so there is no flash. Default is dark; saved choice wins. -->
+  <script>
+    (function () {
+      var t = 'dark';
+      try { t = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+      document.documentElement.classList.add(t === 'light' ? 'light' : 'dark');
+    })();
+  </script>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mohammad Shaquqa | Frontend Engineer" />
+  <meta property="og:description" content="React, Next.js and TypeScript engineer building production-grade web applications." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234f46e5'/%3E%3Ctext x='16' y='21.5' font-family='system-ui,sans-serif' font-size='14' font-weight='700' fill='white' text-anchor='middle'%3EMS%3C/text%3E%3C/svg%3E" />
+
+  <!-- Critical CSS: paints the correct background before Tailwind loads (no white flash, no shift) -->
+  <style>
+    /* Colour tokens (RGB channels). Tailwind's zinc + white read from these, so light mode is a token swap. */
+    :root {
+      --c-white: 255 255 255;
+      --z-50: 250 250 250; --z-100: 244 244 245; --z-200: 228 228 231; --z-300: 212 212 216;
+      --z-400: 161 161 170; --z-500: 113 113 122; --z-600: 82 82 91; --z-700: 63 63 70;
+      --z-800: 39 39 42; --z-900: 24 24 27; --z-950: 9 9 11;
+      color-scheme: dark;
+    }
+    html.light {
+      --c-white: 9 9 11;
+      --z-50: 9 9 11; --z-100: 24 24 27; --z-200: 39 39 42; --z-300: 63 63 70;
+      --z-400: 82 82 91; --z-500: 113 113 122; --z-600: 161 161 170; --z-700: 212 212 216;
+      --z-800: 228 228 231; --z-900: 244 244 245; --z-950: 255 255 255;
+      color-scheme: light;
+    }
+    html { background: rgb(var(--z-950)); color: rgb(var(--z-300)); scroll-padding-top: 5rem; }
+
+    /* Accent text tuned for contrast on light backgrounds */
+    html.light .text-indigo-300, html.light .text-indigo-400,
+    html.light .group:hover .group-hover\:text-indigo-300 { color: #4338ca; }
+    html.light .text-emerald-300, html.light .text-emerald-400 { color: #047857; }
+    html.light .text-red-400 { color: #dc2626; }
+    html.light .shadow-black\/60 { --tw-shadow-color: rgb(0 0 0 / .12); --tw-shadow: var(--tw-shadow-colored); }
+    html.light dialog.modal[open]::backdrop { background: rgb(9 9 11 / .45); }
+
+    /* Theme toggle: show the icon for the mode you'll switch to */
+    html.light .show-in-dark, html.dark .show-in-light { display: none; }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+    /* Inline SVG icons (sprite at top of <body>): no external requests, no layout shift */
+    svg:has(> use) { width: 1em; height: 1em; flex-shrink: 0; }
+
+    /* Screenshot placeholder grid */
+    .ph-grid {
+      background-color: rgb(var(--z-900) / .6);
+      background-image:
+        linear-gradient(to right, rgb(var(--z-700) / .3) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(var(--z-700) / .3) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Native <dialog> with a 0.2s open/close transition */
+    dialog.modal {
+      margin: auto; padding: 0; border: 0; background: transparent; color: inherit;
+      width: min(100% - 2rem, 48rem); max-height: min(100dvh - 2rem, 52rem);
+      opacity: 0; transform: translateY(8px) scale(.985);
+      transition: opacity .2s ease, transform .2s ease, overlay .2s ease allow-discrete, display .2s ease allow-discrete;
+    }
+    dialog.modal[open] { opacity: 1; transform: none; }
+    @starting-style { dialog.modal[open] { opacity: 0; transform: translateY(8px) scale(.985); } }
+    dialog.modal::backdrop {
+      background: rgb(0 0 0 / 0);
+      transition: background-color .2s ease, overlay .2s ease allow-discrete, display .2s ease allow-discrete;
+    }
+    dialog.modal[open]::backdrop { background: rgb(0 0 0 / .72); }
+    @starting-style { dialog.modal[open]::backdrop { background: rgb(0 0 0 / 0); } }
+    body:has(dialog[open]) { overflow: hidden; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after, dialog.modal, dialog.modal::backdrop { transition: none !important; }
+    }
+  </style>
+
+  <!-- Tailwind (Play CDN). For production, compile Tailwind to a static CSS file. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            white: 'rgb(var(--c-white) / <alpha-value>)',
+            zinc: Object.fromEntries([50,100,200,300,400,500,600,700,800,900,950]
+              .map((k) => [k, `rgb(var(--z-${k}) / <alpha-value>)`])),
+          },
+          fontFamily: {
+            sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-indigo-500/30 selection:text-white">
+
+  <!-- Icon sprite (Lucide, ISC licence), inlined so icons render instantly with no CDN -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <symbol id="i-download" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></g></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></g></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></g></symbol>
+      <symbol id="i-graduation-cap" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></g></symbol>
+      <symbol id="i-briefcase" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></g></symbol>
+      <symbol id="i-circle-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></g></symbol>
+      <symbol id="i-gauge" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></g></symbol>
+      <symbol id="i-accessibility" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></g></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></g></symbol>
+      <symbol id="i-palette" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></g></symbol>
+      <symbol id="i-database" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></g></symbol>
+      <symbol id="i-wrench" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></g></symbol>
+      <symbol id="i-scan-barcode" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 7v10"/><path d="M12 7v10"/><path d="M17 7v10"/></g></symbol>
+      <symbol id="i-shopping-cart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></g></symbol>
+      <symbol id="i-layout-dashboard" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></g></symbol>
+      <symbol id="i-component" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.536 11.293a1 1 0 0 0 0 1.414l2.376 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z"/><path d="M2.297 11.293a1 1 0 0 0 0 1.414l2.377 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414L6.088 8.916a1 1 0 0 0-1.414 0z"/><path d="M8.916 17.912a1 1 0 0 0 0 1.415l2.377 2.376a1 1 0 0 0 1.414 0l2.377-2.376a1 1 0 0 0 0-1.415l-2.377-2.376a1 1 0 0 0-1.414 0z"/><path d="M8.916 4.674a1 1 0 0 0 0 1.414l2.377 2.376a1 1 0 0 0 1.414 0l2.377-2.376a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z"/></g></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></g></symbol>
+      <symbol id="i-map-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></g></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></g></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></g></symbol>
+      <symbol id="i-external-link" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></g></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></g></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></g></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></g></symbol>
+  </svg>
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-indigo-600 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-indigo-50">Skip to content</a>
+
+  <!-- ============================== HEADER ============================== -->
+  <header class="sticky top-0 z-40 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur supports-[backdrop-filter]:bg-zinc-950/75">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+      <a href="#top" class="group flex min-w-0 items-baseline gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
+        <span class="truncate text-[15px] font-semibold tracking-tight text-white">Mohammad Shaquqa</span>
+        <span class="hidden text-zinc-600 sm:inline" aria-hidden="true">|</span>
+        <span class="hidden truncate text-sm text-zinc-400 sm:inline">Frontend Engineer</span>
+      </a>
+
+      <nav aria-label="Primary" class="hidden md:block">
+        <ul class="flex items-center gap-1 text-sm">
+          <li><a data-nav href="#about" class="rounded-md px-3 py-2 text-zinc-400 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 aria-[current=true]:text-white">About</a></li>
+          <li><a data-nav href="#skills" class="rounded-md px-3 py-2 text-zinc-400 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 aria-[current=true]:text-white">Skills</a></li>
+          <li><a data-nav href="#experience" class="rounded-md px-3 py-2 text-zinc-400 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 aria-[current=true]:text-white">Experience</a></li>
+          <li><a data-nav href="#projects" class="rounded-md px-3 py-2 text-zinc-400 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 aria-[current=true]:text-white">Projects</a></li>
+          <li><a data-nav href="#contact" class="rounded-md px-3 py-2 text-zinc-400 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 aria-[current=true]:text-white">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button id="theme-toggle" type="button" aria-label="Switch to light mode"
+                class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-800 text-zinc-300 transition-colors duration-200 hover:border-zinc-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+          <svg class="show-in-dark h-4 w-4" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="show-in-light h-4 w-4" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+        <!-- Replace href with the real path to your CV -->
+        <a href="assets/Mohammad-Shaquqa-CV.pdf" download
+           class="inline-flex h-9 items-center gap-2 rounded-md bg-indigo-600 px-3 text-sm font-medium text-indigo-50 transition-colors duration-200 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 sm:px-4">
+          <svg class="h-4 w-4" aria-hidden="true"><use href="#i-download"/></svg>
+          <span class="hidden sm:inline">Download CV (PDF)</span>
+          <span class="sm:hidden">CV</span>
+        </a>
+        <button id="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false"
+                class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-800 text-zinc-300 transition-colors duration-200 hover:border-zinc-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 md:hidden">
+          <span class="sr-only">Open menu</span>
+          <span data-icon-open><svg class="h-5 w-5" aria-hidden="true"><use href="#i-menu"/></svg></span>
+          <span data-icon-close class="hidden"><svg class="h-5 w-5" aria-hidden="true"><use href="#i-x"/></svg></span>
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobile-menu" aria-label="Mobile" class="hidden border-t border-zinc-800 md:hidden">
+      <ul class="mx-auto max-w-6xl space-y-1 px-4 py-3 text-sm sm:px-6">
+        <li><a href="#about" class="block rounded-md px-3 py-2.5 text-zinc-300 hover:bg-zinc-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">About</a></li>
+        <li><a href="#skills" class="block rounded-md px-3 py-2.5 text-zinc-300 hover:bg-zinc-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">Skills</a></li>
+        <li><a href="#experience" class="block rounded-md px-3 py-2.5 text-zinc-300 hover:bg-zinc-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">Experience</a></li>
+        <li><a href="#projects" class="block rounded-md px-3 py-2.5 text-zinc-300 hover:bg-zinc-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">Projects</a></li>
+        <li><a href="#contact" class="block rounded-md px-3 py-2.5 text-zinc-300 hover:bg-zinc-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================== HERO ============================== -->
+    <section id="top" aria-labelledby="hero-title" class="border-b border-zinc-800/80">
+      <div class="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 md:py-28 lg:grid-cols-[1fr_20rem] lg:items-center">
+        <div>
+          <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true"></span>
+            Available for full-time roles
+          </p>
+          <h1 id="hero-title" class="max-w-3xl text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.5rem]">
+            Frontend Engineer specializing in React, Next.js, and modern web applications.
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
+            3+ years of engineering experience delivering responsive user interfaces, integrating state management architectures, and building production-grade web systems.
+          </p>
+
+          <ul class="mt-8 flex flex-wrap gap-2 text-sm" aria-label="Quick facts">
+            <li class="inline-flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900/60 px-3 py-1.5 text-zinc-300">
+              <svg class="h-4 w-4 text-indigo-400" aria-hidden="true"><use href="#i-graduation-cap"/></svg>
+              Software Engineering Graduate (Latakia University, 2020 – 2026)
+            </li>
+            <li class="inline-flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900/60 px-3 py-1.5 text-zinc-300">
+              <svg class="h-4 w-4 text-indigo-400" aria-hidden="true"><use href="#i-briefcase"/></svg>
+              1.5+ years production experience at Davinda
+            </li>
+            <li class="inline-flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900/60 px-3 py-1.5 text-zinc-300">
+              <svg class="h-4 w-4 text-indigo-400" aria-hidden="true"><use href="#i-circle-check"/></svg>
+              Available for full-time roles
+            </li>
+          </ul>
+
+          <div class="mt-10 flex flex-wrap gap-3">
+            <a href="#projects" class="inline-flex h-11 items-center gap-2 rounded-md bg-white px-5 text-sm font-medium text-zinc-900 transition-colors duration-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
+              View projects
+            </a>
+            <a href="#contact" class="inline-flex h-11 items-center gap-2 rounded-md border border-zinc-700 px-5 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:border-zinc-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
+              Get in touch
+            </a>
+          </div>
+        </div>
+
+        <!-- At-a-glance summary for recruiters -->
+        <aside aria-label="At a glance" class="w-full max-w-sm overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/40 lg:max-w-none">
+          <!-- PROFILE PHOTO: save your photo as assets/profile.jpg (square, 640x640 or larger).
+               The placeholder underneath shows until the file exists; the space is reserved, so nothing shifts. -->
+          <figure class="relative aspect-square border-b border-zinc-800 bg-zinc-900">
+            <div class="absolute inset-0 grid place-items-center">
+              <div class="flex flex-col items-center gap-2 text-zinc-600">
+                <svg class="h-14 w-14" aria-hidden="true"><use href="#i-user"/></svg>
+                <span class="text-xs text-zinc-500">Profile photo</span>
+              </div>
+            </div>
+            <img src="assets/profile.jpg" alt="Mohammad Shaquqa" width="640" height="640"
+                 class="absolute inset-0 h-full w-full object-cover" decoding="async" fetchpriority="high"
+                 onerror="this.remove()" />
+          </figure>
+          <dl class="divide-y divide-zinc-800 text-sm">
+            <div class="flex justify-between gap-4 px-5 py-3.5"><dt class="text-zinc-500">Role</dt><dd class="text-right text-zinc-200">Frontend Engineer</dd></div>
+            <div class="flex justify-between gap-4 px-5 py-3.5"><dt class="text-zinc-500">Core stack</dt><dd class="text-right text-zinc-200">React, Next.js, TypeScript</dd></div>
+            <div class="flex justify-between gap-4 px-5 py-3.5"><dt class="text-zinc-500">State &amp; data</dt><dd class="text-right text-zinc-200">Zustand, Redux, TanStack Query</dd></div>
+            <div class="flex justify-between gap-4 px-5 py-3.5"><dt class="text-zinc-500">Experience</dt><dd class="text-right text-zinc-200">3+ yrs total, 1.5+ in production</dd></div>
+            <div class="flex justify-between gap-4 px-5 py-3.5"><dt class="text-zinc-500">Open to</dt><dd class="text-right text-zinc-200">Full-time, on-site or remote</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================== ABOUT ============================== -->
+    <section id="about" aria-labelledby="about-title" class="border-b border-zinc-800/80">
+      <div class="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[16rem_1fr]">
+        <h2 id="about-title" class="text-2xl font-semibold tracking-tight text-white">About</h2>
+        <div class="max-w-3xl space-y-5 text-base leading-relaxed text-zinc-400">
+          <p>
+            I'm a frontend engineer who cares about the parts of a product users touch every day: fast screens, predictable state, and interfaces that behave the same on a 5-inch phone and a 27-inch monitor.
+          </p>
+          <p>
+            At <span class="text-zinc-200">Davinda</span>, I ship production features end to end, from translating Figma designs into reusable components to wiring them into REST and WebSocket APIs with caching, loading, and error states handled properly. My Software Engineering degree gives me a solid grounding in algorithms, databases, and software architecture, which shapes how I structure frontend codebases that teams can maintain.
+          </p>
+          <ul class="grid gap-3 pt-2 sm:grid-cols-3">
+            <li class="rounded-lg border border-zinc-800 p-4">
+              <svg class="h-5 w-5 text-indigo-400" aria-hidden="true"><use href="#i-layers"/></svg>
+              <p class="mt-3 text-sm font-medium text-zinc-200">Maintainable architecture</p>
+              <p class="mt-1 text-sm text-zinc-500">Typed components, clear state boundaries, and folder structures that scale.</p>
+            </li>
+            <li class="rounded-lg border border-zinc-800 p-4">
+              <svg class="h-5 w-5 text-indigo-400" aria-hidden="true"><use href="#i-gauge"/></svg>
+              <p class="mt-3 text-sm font-medium text-zinc-200">Performance by default</p>
+              <p class="mt-1 text-sm text-zinc-500">Code splitting, request caching, and avoiding needless re-renders.</p>
+            </li>
+            <li class="rounded-lg border border-zinc-800 p-4">
+              <svg class="h-5 w-5 text-indigo-400" aria-hidden="true"><use href="#i-accessibility"/></svg>
+              <p class="mt-3 text-sm font-medium text-zinc-200">Accessible interfaces</p>
+              <p class="mt-1 text-sm text-zinc-500">Semantic HTML, keyboard support, and accessible component primitives.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== SKILLS ============================== -->
+    <section id="skills" aria-labelledby="skills-title" class="border-b border-zinc-800/80">
+      <div class="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[16rem_1fr]">
+        <div>
+          <h2 id="skills-title" class="text-2xl font-semibold tracking-tight text-white">Technical skills</h2>
+          <p class="mt-3 text-sm leading-relaxed text-zinc-500">Tools I use in production, grouped by where they sit in the stack.</p>
+        </div>
+
+        <div class="grid gap-px overflow-hidden rounded-lg border border-zinc-800 bg-zinc-800 sm:grid-cols-2">
+          <article class="bg-zinc-950 p-6">
+            <h3 class="flex items-center gap-2.5 text-sm font-semibold text-white">
+              <svg class="h-4 w-4 text-indigo-400" aria-hidden="true"><use href="#i-code"/></svg>
+              Frontend frameworks
+            </h3>
+            <ul class="mt-4 flex flex-wrap gap-2 text-sm">
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">React.js</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Next.js</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">TypeScript</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">JavaScript (ES6+)</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">HTML5</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Semantic Web</li>
+            </ul>
+          </article>
+
+          <article class="bg-zinc-950 p-6">
+            <h3 class="flex items-center gap-2.5 text-sm font-semibold text-white">
+              <svg class="h-4 w-4 text-indigo-400" aria-hidden="true"><use href="#i-palette"/></svg>
+              UI &amp; styling
+            </h3>
+            <ul class="mt-4 flex flex-wrap gap-2 text-sm">
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Tailwind CSS</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">CSS3</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Responsive Design</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Radix UI</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Component Libraries</li>
+            </ul>
+          </article>
+
+          <article class="bg-zinc-950 p-6">
+            <h3 class="flex items-center gap-2.5 text-sm font-semibold text-white">
+              <svg class="h-4 w-4 text-indigo-400" aria-hidden="true"><use href="#i-database"/></svg>
+              State &amp; data fetching
+            </h3>
+            <ul class="mt-4 flex flex-wrap gap-2 text-sm">
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Zustand</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Redux Toolkit</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">TanStack Query</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Axios</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">RESTful APIs</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">WebSockets</li>
+            </ul>
+          </article>
+
+          <article class="bg-zinc-950 p-6">
+            <h3 class="flex items-center gap-2.5 text-sm font-semibold text-white">
+              <svg class="h-4 w-4 text-indigo-400" aria-hidden="true"><use href="#i-wrench"/></svg>
+              Tools &amp; ecosystem
+            </h3>
+            <ul class="mt-4 flex flex-wrap gap-2 text-sm">
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Git</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">GitHub</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Vite</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">AI-augmented workflows</li>
+              <li class="rounded-md border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300">Figma inspection</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== EXPERIENCE ============================== -->
+    <section id="experience" aria-labelledby="experience-title" class="border-b border-zinc-800/80">
+      <div class="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[16rem_1fr]">
+        <div>
+          <h2 id="experience-title" class="text-2xl font-semibold tracking-tight text-white">Experience &amp; education</h2>
+          <p class="mt-3 text-sm leading-relaxed text-zinc-500">Most recent first.</p>
+        </div>
+
+        <ol class="relative border-l border-zinc-800">
+          <li class="relative pb-12 pl-8">
+            <span class="absolute -left-[7px] top-1.5 h-3 w-3 rounded-full border-2 border-indigo-400 bg-zinc-950" aria-hidden="true"></span>
+            <article>
+              <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 class="text-lg font-semibold text-white">Frontend Developer <span class="font-normal text-zinc-500">at</span> Davinda</h3>
+                <p class="text-sm text-zinc-500"><time>1.5+ years</time>, current</p>
+              </div>
+              <p class="mt-1 flex items-center gap-1.5 text-sm text-zinc-500">
+                <svg class="h-3.5 w-3.5" aria-hidden="true"><use href="#i-briefcase"/></svg> Full-time, production engineering
+              </p>
+              <ul class="mt-4 space-y-2.5 text-[15px] leading-relaxed text-zinc-400">
+                <li class="flex gap-3"><span class="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-zinc-600" aria-hidden="true"></span>Build and ship production features across customer-facing web applications using React, Next.js, and TypeScript.</li>
+                <li class="flex gap-3"><span class="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-zinc-600" aria-hidden="true"></span>Contribute to frontend architecture: component structure, client state with Zustand and Redux Toolkit, and server state with TanStack Query.</li>
+                <li class="flex gap-3"><span class="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-zinc-600" aria-hidden="true"></span>Build responsive, accessible components with Tailwind CSS and Radix UI, implemented directly from Figma specifications.</li>
+                <li class="flex gap-3"><span class="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-zinc-600" aria-hidden="true"></span>Integrate REST APIs and WebSocket streams with consistent caching, loading, retry, and error handling.</li>
+                <li class="flex gap-3"><span class="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-zinc-600" aria-hidden="true"></span>Take part in code reviews and a Git-based branching workflow with the wider engineering team.</li>
+              </ul>
+              <ul class="mt-5 flex flex-wrap gap-1.5 text-xs" aria-label="Technologies used">
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">React</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Next.js</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">TypeScript</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Zustand</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">TanStack Query</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Tailwind CSS</li>
+              </ul>
+            </article>
+          </li>
+
+          <li class="relative pl-8">
+            <span class="absolute -left-[7px] top-1.5 h-3 w-3 rounded-full border-2 border-zinc-600 bg-zinc-950" aria-hidden="true"></span>
+            <article>
+              <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 class="text-lg font-semibold text-white">B.Sc. in Software Engineering <span class="font-normal text-zinc-500">at</span> Latakia University</h3>
+                <p class="text-sm text-zinc-500"><time datetime="2020">2020</time> – <time datetime="2026">2026</time></p>
+              </div>
+              <p class="mt-1 flex items-center gap-1.5 text-sm text-zinc-500">
+                <svg class="h-3.5 w-3.5" aria-hidden="true"><use href="#i-graduation-cap"/></svg> Faculty of Information Engineering
+              </p>
+              <ul class="mt-4 space-y-2.5 text-[15px] leading-relaxed text-zinc-400">
+                <li class="flex gap-3"><span class="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-zinc-600" aria-hidden="true"></span>Core computer science: data structures, algorithms, and complexity analysis.</li>
+                <li class="flex gap-3"><span class="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-zinc-600" aria-hidden="true"></span>Software architecture, design patterns, and the software development lifecycle.</li>
+                <li class="flex gap-3"><span class="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-zinc-600" aria-hidden="true"></span>Database design, SQL, operating systems, and computer networks.</li>
+              </ul>
+            </article>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== PROJECTS ============================== -->
+    <section id="projects" aria-labelledby="projects-title" class="border-b border-zinc-800/80">
+      <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 id="projects-title" class="text-2xl font-semibold tracking-tight text-white">Featured projects</h2>
+            <p class="mt-3 max-w-xl text-sm leading-relaxed text-zinc-500">Business systems built for real operational needs. Select a project for architecture details.</p>
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+
+          <!-- Project card: POS -->
+          <article class="flex flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/30 transition-colors duration-200 hover:border-zinc-700">
+            <!-- Replace this block with: <img src="img/pos.webp" width="1280" height="800" alt="..." class="aspect-[16/10] w-full object-cover" loading="lazy" decoding="async"> -->
+            <div class="ph-grid relative grid aspect-[16/10] place-items-center border-b border-zinc-800" role="img" aria-label="Screenshot placeholder for the POS and inventory system">
+              <div class="flex flex-col items-center gap-2 text-zinc-500">
+                <svg class="h-8 w-8" aria-hidden="true"><use href="#i-scan-barcode"/></svg>
+                <span class="text-xs">Screenshot</span>
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-lg font-semibold text-white">POS &amp; Inventory Management System</h3>
+              <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-zinc-400">Point-of-sale and stock control for multi-branch retail, with offline-tolerant checkout and live inventory sync across stores.</p>
+              <ul class="mt-4 flex flex-wrap gap-1.5 text-xs" aria-label="Technologies">
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">React</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">TypeScript</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Zustand</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">TanStack Query</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Tailwind CSS</li>
+              </ul>
+              <div class="mt-auto pt-6">
+                <button type="button" data-project="pos" class="inline-flex h-9 items-center gap-2 rounded-md border border-zinc-700 px-4 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:border-indigo-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+                  View details <span class="sr-only">for POS &amp; Inventory Management System</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project card: E-commerce -->
+          <article class="flex flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/30 transition-colors duration-200 hover:border-zinc-700">
+            <div class="ph-grid relative grid aspect-[16/10] place-items-center border-b border-zinc-800" role="img" aria-label="Screenshot placeholder for the e-commerce platform">
+              <div class="flex flex-col items-center gap-2 text-zinc-500">
+                <svg class="h-8 w-8" aria-hidden="true"><use href="#i-shopping-cart"/></svg>
+                <span class="text-xs">Screenshot</span>
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-lg font-semibold text-white">E-Commerce Platform</h3>
+              <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-zinc-400">Server-rendered storefront with faceted search, a persistent cart, and a multi-step checkout designed for fast first loads on mobile.</p>
+              <ul class="mt-4 flex flex-wrap gap-1.5 text-xs" aria-label="Technologies">
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Next.js</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">TypeScript</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Redux Toolkit</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Tailwind CSS</li>
+              </ul>
+              <div class="mt-auto pt-6">
+                <button type="button" data-project="ecommerce" class="inline-flex h-9 items-center gap-2 rounded-md border border-zinc-700 px-4 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:border-indigo-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+                  View details <span class="sr-only">for E-Commerce Platform</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project card: Operations dashboard -->
+          <article class="flex flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/30 transition-colors duration-200 hover:border-zinc-700">
+            <div class="ph-grid relative grid aspect-[16/10] place-items-center border-b border-zinc-800" role="img" aria-label="Screenshot placeholder for the operations dashboard">
+              <div class="flex flex-col items-center gap-2 text-zinc-500">
+                <svg class="h-8 w-8" aria-hidden="true"><use href="#i-layout-dashboard"/></svg>
+                <span class="text-xs">Screenshot</span>
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-lg font-semibold text-white">Real-time Operations Dashboard</h3>
+              <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-zinc-400">Live monitoring of orders, staff activity, and KPIs for operations managers, streamed over WebSockets with role-based views.</p>
+              <ul class="mt-4 flex flex-wrap gap-1.5 text-xs" aria-label="Technologies">
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">React</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">WebSockets</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">TanStack Query</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Zustand</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Axios</li>
+              </ul>
+              <div class="mt-auto pt-6">
+                <button type="button" data-project="dashboard" class="inline-flex h-9 items-center gap-2 rounded-md border border-zinc-700 px-4 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:border-indigo-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+                  View details <span class="sr-only">for Real-time Operations Dashboard</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project card: Component library -->
+          <article class="flex flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/30 transition-colors duration-200 hover:border-zinc-700">
+            <div class="ph-grid relative grid aspect-[16/10] place-items-center border-b border-zinc-800" role="img" aria-label="Screenshot placeholder for the UI component library">
+              <div class="flex flex-col items-center gap-2 text-zinc-500">
+                <svg class="h-8 w-8" aria-hidden="true"><use href="#i-component"/></svg>
+                <span class="text-xs">Screenshot</span>
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-lg font-semibold text-white">Internal UI Component Library</h3>
+              <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-zinc-400">A typed, accessible component kit built on Radix primitives and Tailwind tokens, shared across several product teams.</p>
+              <ul class="mt-4 flex flex-wrap gap-1.5 text-xs" aria-label="Technologies">
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">React</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Radix UI</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Tailwind CSS</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">Vite</li>
+                <li class="rounded bg-indigo-500/10 px-2 py-0.5 text-indigo-300 ring-1 ring-inset ring-indigo-500/20">TypeScript</li>
+              </ul>
+              <div class="mt-auto pt-6">
+                <button type="button" data-project="library" class="inline-flex h-9 items-center gap-2 rounded-md border border-zinc-700 px-4 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:border-indigo-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+                  View details <span class="sr-only">for Internal UI Component Library</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CONTACT ============================== -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.3fr]">
+        <div>
+          <h2 id="contact-title" class="text-2xl font-semibold tracking-tight text-white">Contact</h2>
+          <p class="mt-3 max-w-md text-base leading-relaxed text-zinc-400">
+            Hiring for a frontend or full-time software engineering role? Send a message and I'll reply within one business day.
+          </p>
+
+          <!-- Replace the placeholder handles below with your real links -->
+          <ul class="mt-8 space-y-3 text-sm">
+            <li>
+              <a href="mailto:mohammad.shaquqa@example.com" class="group inline-flex items-center gap-3 rounded-md text-zinc-300 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+                <span class="grid h-9 w-9 place-items-center rounded-md border border-zinc-800 text-zinc-400 group-hover:border-zinc-700 group-hover:text-indigo-300">
+                  <svg class="h-4 w-4" aria-hidden="true"><use href="#i-mail"/></svg>
+                </span>
+                mohammad.shaquqa@example.com
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/mohammad-shaquqa" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 rounded-md text-zinc-300 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+                <span class="grid h-9 w-9 place-items-center rounded-md border border-zinc-800 text-zinc-400 group-hover:border-zinc-700 group-hover:text-indigo-300">
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </span>
+                linkedin.com/in/mohammad-shaquqa
+                <span class="sr-only">(opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/mohammad-shaquqa" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 rounded-md text-zinc-300 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+                <span class="grid h-9 w-9 place-items-center rounded-md border border-zinc-800 text-zinc-400 group-hover:border-zinc-700 group-hover:text-indigo-300">
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </span>
+                github.com/mohammad-shaquqa
+                <span class="sr-only">(opens in a new tab)</span>
+              </a>
+            </li>
+            <li class="inline-flex items-center gap-3 text-zinc-400">
+              <span class="grid h-9 w-9 place-items-center rounded-md border border-zinc-800 text-zinc-400">
+                <svg class="h-4 w-4" aria-hidden="true"><use href="#i-map-pin"/></svg>
+              </span>
+              Latakia, Syria, open to remote and relocation
+            </li>
+          </ul>
+        </div>
+
+        <form id="contact-form" novalidate class="rounded-lg border border-zinc-800 bg-zinc-900/30 p-6 sm:p-8" aria-describedby="form-note">
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="cf-name" class="block text-sm font-medium text-zinc-200">Name</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" required minlength="2" aria-describedby="cf-name-error"
+                     class="mt-2 block h-11 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-sm text-white placeholder:text-zinc-600 transition-colors duration-200 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/30 aria-[invalid=true]:border-red-400"
+                     placeholder="Jane Doe" />
+              <p id="cf-name-error" class="mt-1.5 min-h-[1.25rem] text-xs text-red-400"></p>
+            </div>
+            <div>
+              <label for="cf-email" class="block text-sm font-medium text-zinc-200">Email</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" required aria-describedby="cf-email-error"
+                     class="mt-2 block h-11 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-sm text-white placeholder:text-zinc-600 transition-colors duration-200 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/30 aria-[invalid=true]:border-red-400"
+                     placeholder="jane@company.com" />
+              <p id="cf-email-error" class="mt-1.5 min-h-[1.25rem] text-xs text-red-400"></p>
+            </div>
+          </div>
+          <div class="mt-1">
+            <label for="cf-message" class="block text-sm font-medium text-zinc-200">Message</label>
+            <textarea id="cf-message" name="message" rows="5" required minlength="20" aria-describedby="cf-message-error"
+                      class="mt-2 block w-full resize-y rounded-md border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-white placeholder:text-zinc-600 transition-colors duration-200 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/30 aria-[invalid=true]:border-red-400"
+                      placeholder="Role, team, and a little about what you're building"></textarea>
+            <p id="cf-message-error" class="mt-1.5 min-h-[1.25rem] text-xs text-red-400"></p>
+          </div>
+
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-4">
+            <p id="form-note" class="text-xs text-zinc-500">All fields are required.</p>
+            <button type="submit" class="inline-flex h-11 items-center gap-2 rounded-md bg-indigo-600 px-5 text-sm font-medium text-indigo-50 transition-colors duration-200 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 disabled:cursor-not-allowed disabled:opacity-60">
+              <svg class="h-4 w-4" aria-hidden="true"><use href="#i-send"/></svg>
+              Send message
+            </button>
+          </div>
+          <p id="form-status" role="status" aria-live="polite" class="mt-4 min-h-[1.25rem] text-sm"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="border-t border-zinc-800/80">
+    <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm text-zinc-500 sm:px-6 md:flex-row md:items-center md:justify-between">
+      <p>&copy; <span id="year">2026</span> Mohammad Shaquqa. B.Sc. Software Engineering, Latakia University.</p>
+      <nav aria-label="Footer">
+        <ul class="flex flex-wrap gap-x-5 gap-y-2">
+          <li><a href="#top" class="transition-colors duration-200 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded">Back to top</a></li>
+          <li><a href="assets/Mohammad-Shaquqa-CV.pdf" download class="transition-colors duration-200 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded">CV (PDF)</a></li>
+          <li><a href="https://www.linkedin.com/in/mohammad-shaquqa" target="_blank" rel="noopener noreferrer" class="transition-colors duration-200 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded">LinkedIn</a></li>
+          <li><a href="https://github.com/mohammad-shaquqa" target="_blank" rel="noopener noreferrer" class="transition-colors duration-200 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- ============================== PROJECT MODAL ============================== -->
+  <dialog id="project-modal" class="modal" aria-labelledby="modal-title">
+    <div class="flex max-h-[inherit] flex-col overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950 shadow-2xl shadow-black/60">
+      <div class="flex items-start justify-between gap-4 border-b border-zinc-800 px-6 py-5">
+        <div>
+          <h2 id="modal-title" class="text-xl font-semibold tracking-tight text-white"></h2>
+          <p id="modal-subtitle" class="mt-1 text-sm text-zinc-500"></p>
+        </div>
+        <button type="button" data-close class="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-zinc-800 text-zinc-400 transition-colors duration-200 hover:border-zinc-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+          <svg class="h-4 w-4" aria-hidden="true"><use href="#i-x"/></svg>
+          <span class="sr-only">Close dialog</span>
+        </button>
+      </div>
+      <div id="modal-body" class="overflow-y-auto px-6 py-6"></div>
+    </div>
+  </dialog>
+
+  <!-- ============================== PROJECT DETAIL TEMPLATES ==============================
+       Edit project details here. Each <template> is cloned into the dialog on open. -->
+
+  <template id="tpl-pos" data-title="POS &amp; Inventory Management System" data-subtitle="Multi-branch retail, internal business system">
+    <div class="space-y-7 text-[15px] leading-relaxed text-zinc-400">
+      <section>
+        <h3 class="text-sm font-semibold text-white">Overview &amp; business problem</h3>
+        <p class="mt-2">Store staff were reconciling sales and stock across branches with spreadsheets, which meant stock counts drifted from reality and managers found out about shortages too late. The system replaces that with a single web-based POS and inventory tool used at the counter and in the back office.</p>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Architecture</h3>
+        <p class="mt-2">React + TypeScript SPA built with Vite. Server state (products, stock levels, orders) lives in TanStack Query with per-resource cache keys; transient UI state (the active cart, register session, selected branch) lives in small, focused Zustand stores. Feature-based folder structure keeps checkout, inventory, and reporting independently maintainable.</p>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Key technical features</h3>
+        <ul class="mt-2 list-disc space-y-1.5 pl-5 marker:text-zinc-600">
+          <li>Keyboard-first checkout with barcode scanner input, optimised for speed at the counter.</li>
+          <li>Optimistic cart and stock updates with automatic rollback when the API rejects a change.</li>
+          <li>Queued sales when the connection drops, replayed in order once the register is back online.</li>
+          <li>Role-based access for cashiers, branch managers, and admins, enforced in routing and UI.</li>
+          <li>Printable receipts and exportable daily sales reports.</li>
+        </ul>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Stack</h3>
+        <p class="mt-2">React, TypeScript, Zustand, TanStack Query, Axios, Tailwind CSS, Vite.</p>
+      </section>
+      <div class="flex flex-wrap gap-3 border-t border-zinc-800 pt-6">
+        <span class="inline-flex h-10 items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900 px-4 text-sm text-zinc-400">
+          <svg class="h-4 w-4" aria-hidden="true"><use href="#i-lock"/></svg> Internal system, under NDA
+        </span>
+        <a href="#contact" data-close class="inline-flex h-10 items-center gap-2 rounded-md border border-zinc-700 px-4 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:border-indigo-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">Request a walkthrough</a>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-ecommerce" data-title="E-Commerce Platform" data-subtitle="Customer-facing storefront">
+    <div class="space-y-7 text-[15px] leading-relaxed text-zinc-400">
+      <section>
+        <h3 class="text-sm font-semibold text-white">Overview &amp; business problem</h3>
+        <p class="mt-2">Most shoppers arrive on mobile from search and social links, so slow first loads and a long checkout were costing sales. The storefront was rebuilt around fast server-rendered pages, search-friendly product URLs, and a shorter checkout.</p>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Architecture</h3>
+        <p class="mt-2">Next.js with a mix of static generation for catalogue pages and server rendering for personalised pages. Redux Toolkit manages the cart and checkout flow, persisted to storage so the cart survives reloads. Product data is fetched through a typed API layer shared between server and client.</p>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Key technical features</h3>
+        <ul class="mt-2 list-disc space-y-1.5 pl-5 marker:text-zinc-600">
+          <li>Faceted filtering and sorting synced to the URL, so every result set is shareable and indexable.</li>
+          <li>Multi-step checkout with inline validation and clear recovery from payment errors.</li>
+          <li>Optimised images with explicit dimensions to avoid layout shift on product grids.</li>
+          <li>Structured data and meta tags generated per product for search engines.</li>
+          <li>Fully responsive layout tested down to 320px viewports.</li>
+        </ul>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Stack</h3>
+        <p class="mt-2">Next.js, TypeScript, Redux Toolkit, Axios, Tailwind CSS.</p>
+      </section>
+      <div class="flex flex-wrap gap-3 border-t border-zinc-800 pt-6">
+        <!-- Replace # with real URLs -->
+        <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center gap-2 rounded-md bg-indigo-600 px-4 text-sm font-medium text-indigo-50 transition-colors duration-200 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300">
+          <svg class="h-4 w-4" aria-hidden="true"><use href="#i-external-link"/></svg> Live demo
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center gap-2 rounded-md border border-zinc-700 px-4 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:border-indigo-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+          <svg class="h-4 w-4" aria-hidden="true"><use href="#i-code"/></svg> Source code
+        </a>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-dashboard" data-title="Real-time Operations Dashboard" data-subtitle="Internal tool for operations managers">
+    <div class="space-y-7 text-[15px] leading-relaxed text-zinc-400">
+      <section>
+        <h3 class="text-sm font-semibold text-white">Overview &amp; business problem</h3>
+        <p class="mt-2">Operations managers relied on end-of-day reports, so delays and bottlenecks were discovered hours after they happened. The dashboard gives them a live view of orders, staff activity, and key metrics so they can act during the shift.</p>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Architecture</h3>
+        <p class="mt-2">React SPA with a single WebSocket connection manager that merges live events into the TanStack Query cache, so REST snapshots and streamed updates share one source of truth. Zustand holds dashboard preferences such as filters, time range, and panel layout.</p>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Key technical features</h3>
+        <ul class="mt-2 list-disc space-y-1.5 pl-5 marker:text-zinc-600">
+          <li>Automatic reconnection with backoff and a resync of missed data after reconnecting.</li>
+          <li>Batched event updates to keep rendering smooth during bursts of activity.</li>
+          <li>Virtualised tables for large order lists.</li>
+          <li>Role-based views for managers and team leads.</li>
+          <li>Visible connection status so users always know whether data is live.</li>
+        </ul>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Stack</h3>
+        <p class="mt-2">React, TypeScript, WebSockets, TanStack Query, Zustand, Axios, Tailwind CSS.</p>
+      </section>
+      <div class="flex flex-wrap gap-3 border-t border-zinc-800 pt-6">
+        <span class="inline-flex h-10 items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900 px-4 text-sm text-zinc-400">
+          <svg class="h-4 w-4" aria-hidden="true"><use href="#i-lock"/></svg> Internal system, under NDA
+        </span>
+        <a href="#contact" data-close class="inline-flex h-10 items-center gap-2 rounded-md border border-zinc-700 px-4 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:border-indigo-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">Request a walkthrough</a>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-library" data-title="Internal UI Component Library" data-subtitle="Shared design system for product teams">
+    <div class="space-y-7 text-[15px] leading-relaxed text-zinc-400">
+      <section>
+        <h3 class="text-sm font-semibold text-white">Overview &amp; business problem</h3>
+        <p class="mt-2">Each product team had its own buttons, modals, and form inputs, with inconsistent behaviour and repeated accessibility bugs. The library gives every team the same tested, accessible building blocks, so new screens are faster to build and look consistent.</p>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Architecture</h3>
+        <p class="mt-2">Components are thin, typed wrappers around Radix UI primitives, styled with Tailwind and shared design tokens for colour, spacing, and type. Variants are expressed as typed props rather than ad-hoc class names. Built and bundled with Vite in library mode with tree-shakeable exports.</p>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Key technical features</h3>
+        <ul class="mt-2 list-disc space-y-1.5 pl-5 marker:text-zinc-600">
+          <li>Dialogs, menus, tabs, selects, and tooltips with full keyboard and screen reader support.</li>
+          <li>Form components integrated with validation and consistent error messaging.</li>
+          <li>Light and dark themes driven by tokens rather than duplicated styles.</li>
+          <li>Documented usage examples for each component.</li>
+        </ul>
+      </section>
+      <section>
+        <h3 class="text-sm font-semibold text-white">Stack</h3>
+        <p class="mt-2">React, TypeScript, Radix UI, Tailwind CSS, Vite.</p>
+      </section>
+      <div class="flex flex-wrap gap-3 border-t border-zinc-800 pt-6">
+        <!-- Replace # with real URLs -->
+        <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center gap-2 rounded-md bg-indigo-600 px-4 text-sm font-medium text-indigo-50 transition-colors duration-200 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300">
+          <svg class="h-4 w-4" aria-hidden="true"><use href="#i-external-link"/></svg> Live demo
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center gap-2 rounded-md border border-zinc-700 px-4 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:border-indigo-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+          <svg class="h-4 w-4" aria-hidden="true"><use href="#i-code"/></svg> Source code
+        </a>
+      </div>
+    </div>
+  </template>
+
+  <!-- ============================== SCRIPT ============================== -->
+  <script>
+    (() => {
+      'use strict';
+
+      /* ---------- Theme toggle ---------- */
+      const root = document.documentElement;
+      const themeBtn = document.getElementById('theme-toggle');
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+      const applyTheme = (theme) => {
+        root.classList.toggle('light', theme === 'light');
+        root.classList.toggle('dark', theme !== 'light');
+        themeBtn.setAttribute('aria-label', theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+        themeMeta.setAttribute('content', theme === 'light' ? '#ffffff' : '#09090b');
+      };
+      applyTheme(root.classList.contains('light') ? 'light' : 'dark');
+
+      themeBtn.addEventListener('click', () => {
+        const next = root.classList.contains('light') ? 'dark' : 'light';
+        applyTheme(next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+
+      /* ---------- Footer year ---------- */
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      /* ---------- Mobile menu ---------- */
+      const menuBtn = document.getElementById('menu-toggle');
+      const menu = document.getElementById('mobile-menu');
+
+      const setMenu = (open) => {
+        menu.classList.toggle('hidden', !open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.querySelector('.sr-only').textContent = open ? 'Close menu' : 'Open menu';
+        menuBtn.querySelector('[data-icon-open]').classList.toggle('hidden', open);
+        menuBtn.querySelector('[data-icon-close]').classList.toggle('hidden', !open);
+      };
+
+      menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {
+          setMenu(false);
+          menuBtn.focus();
+        }
+      });
+      window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
+
+      /* ---------- Anchor jumps: smooth scroll (CSS), close menu, move focus ---------- */
+      document.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href^="#"]');
+        if (!link) return;
+        const id = link.getAttribute('href').slice(1);
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        e.preventDefault();
+        setMenu(false);
+        target.scrollIntoView({ block: 'start' });
+        history.pushState(null, '', '#' + id);
+        // Move keyboard focus to the section without an extra scroll jump
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      });
+
+      /* ---------- Active nav state ---------- */
+      const navLinks = [...document.querySelectorAll('[data-nav]')];
+      const sections = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach((a) => a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + entry.target.id)));
+          });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        sections.forEach((s) => io.observe(s));
+      }
+
+      /* ---------- Project modal ---------- */
+      const modal = document.getElementById('project-modal');
+      const modalTitle = document.getElementById('modal-title');
+      const modalSubtitle = document.getElementById('modal-subtitle');
+      const modalBody = document.getElementById('modal-body');
+      let lastTrigger = null;
+
+      const openProject = (key, trigger) => {
+        const tpl = document.getElementById('tpl-' + key);
+        if (!tpl) return;
+        lastTrigger = trigger;
+        modalTitle.textContent = tpl.dataset.title;
+        modalSubtitle.textContent = tpl.dataset.subtitle || '';
+        modalBody.replaceChildren(tpl.content.cloneNode(true));
+        modalBody.scrollTop = 0;
+        if (typeof modal.showModal === 'function') modal.showModal();
+        else modal.setAttribute('open', '');
+      };
+
+      const closeModal = () => {
+        if (typeof modal.close === 'function') modal.close();
+        else modal.removeAttribute('open');
+      };
+
+      document.querySelectorAll('[data-project]').forEach((btn) => {
+        btn.addEventListener('click', () => openProject(btn.dataset.project, btn));
+      });
+
+      modal.addEventListener('click', (e) => {
+        // Backdrop click: the click lands on the <dialog> itself, outside the panel
+        if (e.target === modal) return closeModal();
+        const closer = e.target.closest('[data-close]');
+        if (!closer) return;
+        if (closer.matches('a[href^="#"]')) {
+          // Let the document-level anchor handler scroll after the dialog closes
+          lastTrigger = null;
+          closeModal();
+          return;
+        }
+        closeModal();
+      });
+
+      modal.addEventListener('close', () => {
+        if (lastTrigger) lastTrigger.focus();
+      });
+
+      /* ---------- Contact form ---------- */
+      // Set this to a form backend (e.g. a Formspree endpoint) to send via fetch.
+      // When empty, the form opens the visitor's email client with the message prefilled.
+      const FORM_ENDPOINT = '';
+      const CONTACT_EMAIL = 'mohammad.shaquqa@example.com';
+
+      const form = document.getElementById('contact-form');
+      const status = document.getElementById('form-status');
+      const fields = {
+        name: {
+          el: form.elements.name,
+          check: (v) => v.trim().length >= 2 || 'Enter your name (at least 2 characters).',
+        },
+        email: {
+          el: form.elements.email,
+          check: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Enter a valid email address, like name@company.com.',
+        },
+        message: {
+          el: form.elements.message,
+          check: (v) => v.trim().length >= 20 || 'Write a message of at least 20 characters.',
+        },
+      };
+
+      const validateField = (f) => {
+        const result = f.check(f.el.value);
+        const errorEl = document.getElementById(f.el.id + '-error');
+        const ok = result === true;
+        f.el.setAttribute('aria-invalid', String(!ok));
+        errorEl.textContent = ok ? '' : result;
+        return ok;
+      };
+
+      Object.values(fields).forEach((f) => {
+        f.el.addEventListener('blur', () => { if (f.el.value) validateField(f); });
+        f.el.addEventListener('input', () => { if (f.el.getAttribute('aria-invalid') === 'true') validateField(f); });
+      });
+
+      const setStatus = (msg, tone) => {
+        status.textContent = msg;
+        status.className = 'mt-4 min-h-[1.25rem] text-sm ' + (tone === 'error' ? 'text-red-400' : 'text-emerald-400');
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const results = Object.values(fields).map(validateField);
+        const firstInvalid = Object.values(fields).find((f, i) => !results[i]);
+        if (firstInvalid) {
+          setStatus('Check the highlighted fields and try again.', 'error');
+          firstInvalid.el.focus();
+          return;
+        }
+
+        const data = {
+          name: fields.name.el.value.trim(),
+          email: fields.email.el.value.trim(),
+          message: fields.message.el.value.trim(),
+        };
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        if (!FORM_ENDPOINT) {
+          const subject = encodeURIComponent('Portfolio enquiry from ' + data.name);
+          const body = encodeURIComponent(data.message + '\n\n' + data.name + '\n' + data.email);
+          window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
+          setStatus('Your email app should open with the message ready to send.', 'ok');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        setStatus('Sending…', 'ok');
+        try {
+          const res = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(data),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          form.reset();
+          Object.values(fields).forEach((f) => f.el.removeAttribute('aria-invalid'));
+          setStatus('Message sent. I\u2019ll reply within one business day.', 'ok');
+        } catch (err) {
+          setStatus('The message didn\u2019t send. Email ' + CONTACT_EMAIL + ' directly instead.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
