@@ -15,10 +15,11 @@ export function ProjectCard({ project }: { project: Project }) {
     <article className="group relative flex flex-col overflow-hidden rounded-lg border border-border bg-card/30 transition-colors duration-200 hover:border-input">
       <div className="relative aspect-[16/10] border-b border-border">
         {project.image ? (
-          <Image src={project.image} alt={project.imageAlt} fill
+          <Image src={project.image.src} alt={project.image.alt} fill
                  sizes="(min-width: 768px) 36rem, 100vw" className="object-cover" />
         ) : (
-          <ImagePlaceholder grid icon={<Icon className="size-8" />} label="Screenshot" />
+          <ImagePlaceholder grid icon={<Icon className="size-8" />}
+                            label={projectLabels.placeholder} ariaLabel={project.placeholderLabel} />
         )}
       </div>
       <div className="flex flex-1 flex-col p-6">
@@ -46,8 +47,7 @@ export function ProjectCard({ project }: { project: Project }) {
 ## 2. Projects section: `src/components/sections/projects.tsx`
 ```tsx
 <Section id="projects" labelledBy="projects-title">
-  <SectionHeading id="projects-title" title="Featured projects"
-    description="Business systems built for real operational needs. Select a project for architecture details." />
+  <SectionHeading id="projects-title" {...site.sections.projects} />
   <div className="mt-10 grid gap-6 md:grid-cols-2">
     {getAllProjects().map((p) => <ProjectCard key={p.slug} project={p} />)}
   </div>
@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: project.title,
       description: project.summary,
-      images: project.image ? [project.image] : undefined,
+      images: project.image ? [project.image.src] : undefined,
     },
   };
 }
@@ -112,26 +112,28 @@ export default async function ProjectPage({ params }: Props) {
   </figure>
 
   <div className="mt-12 space-y-10 text-[15px] leading-relaxed text-muted-foreground">
-    <DetailSection title="Overview & business problem"> <p>{overview}</p> </DetailSection>
-    <DetailSection title="Architecture">                <p>{architecture}</p> </DetailSection>
-    <DetailSection title="Key technical features">
+    <DetailSection title={projectLabels.overview}>     <p>{overview}</p> </DetailSection>
+    <DetailSection title={projectLabels.architecture}> <p>{architecture}</p> </DetailSection>
+    <DetailSection title={projectLabels.features}>
       <ul className="list-disc space-y-1.5 pl-5 marker:text-subtle">…features</ul>
     </DetailSection>
-    <DetailSection title="Stack"> <p>{stack.join(", ")}.</p> </DetailSection>
+    <DetailSection title={projectLabels.stack}> <p>{stack.join(", ")}.</p> </DetailSection>
   </div>
 
+  {/* 3 حالات: NDA ← شارة NDA + walkthrough. في روابط ← الأزرار.
+      ما في روابط (ما في رابط عام أو داشبورد خاص) ← شارة "No public demo" + walkthrough. */}
   <div className="mt-12 flex flex-wrap gap-3 border-t border-border pt-8">
-    {nda ? (
+    {nda || !hasLinks ? (
       <>
         <span className="inline-flex h-10 items-center gap-2 rounded-md border border-border bg-muted px-4 text-sm text-muted-foreground">
-          <Lock className="size-4" /> Internal system, under NDA
+          <Lock className="size-4" /> {nda ? projectLabels.nda : projectLabels.noPublicDemo}
         </span>
-        <Button asChild variant="outline"><Link href="/#contact">Request a walkthrough</Link></Button>
+        <Button asChild variant="outline"><Link href="/#contact">{projectLabels.requestWalkthrough}</Link></Button>
       </>
     ) : (
       <>
-        {links.demo && <Button asChild><a href={links.demo} target="_blank" rel="noopener noreferrer"><ExternalLink/> Live demo</a></Button>}
-        {links.source && <Button asChild variant="outline"><a href={links.source} target="_blank" rel="noopener noreferrer"><Code/> Source code</a></Button>}
+        {links.demo && <Button asChild><a href={links.demo} target="_blank" rel="noopener noreferrer"><ExternalLink/> {projectLabels.liveDemo}</a></Button>}
+        {links.source && <Button asChild variant="outline"><a href={links.source} target="_blank" rel="noopener noreferrer"><Code/> {projectLabels.sourceCode}</a></Button>}
       </>
     )}
   </div>
@@ -141,6 +143,7 @@ export default async function ProjectPage({ params }: Props) {
   </nav>
 </article>
 ```
+- `const hasLinks = Boolean(links.demo || links.source);`
 - `DetailSection`: `<section><h2 className="text-sm font-semibold text-foreground">{title}</h2><div className="mt-2">{children}</div></section>`.
   > بالمودال كانت `h3`، بس هون الصفحة إلها `h1`، فالأقسام بتصير `h2`.
 - الروابط الخارجية فيها `<span className="sr-only">(opens in a new tab)</span>`.
@@ -160,4 +163,4 @@ export default async function ProjectPage({ params }: Props) {
 - [ ] الكرت كله clickable، وفيه رابط واحد بس بالـ Tab order.
 - [ ] الرجوع من صفحة المشروع لـ `/#projects` بينزل على القسم الصح.
 - [ ] كل صفحة إلها `<title>` و description مختلفين (افحص الـ `<head>`).
-- [ ] مشاريع الـ NDA بتعرض الشارة و"Request a walkthrough"، والباقي بيعرض الأزرار بس إذا في روابط.
+- [ ] مشاريع الـ NDA بتعرض شارة الـ NDA و"Request a walkthrough". المشاريع اللي إلها روابط بتعرض الأزرار. واللي ما إلها روابط بتعرض "No public demo available" و"Request a walkthrough" (ما في سطر فاضي).

@@ -25,9 +25,7 @@ export const metadata: Metadata = {
     default: `${site.name} | ${site.role}`,           // الاسم أول شي
     template: `%s | ${site.name}`,
   },
-  description:
-    `${site.name}, Frontend Engineer specializing in React, Next.js and TypeScript. ` +
-    `3+ years of engineering experience building production-grade web applications.`,
+  description: site.description,
   keywords: site.keywords,
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
@@ -37,7 +35,7 @@ export const metadata: Metadata = {
     url: "/",
     siteName: site.name,
     title: `${site.name} | ${site.role}`,
-    description: "React, Next.js and TypeScript engineer building production-grade web applications.",
+    description: site.ogDescription,
     locale: "en_US",
     firstName: "Mohammad",
     lastName: "Shaquqa",
@@ -144,16 +142,16 @@ export function personJsonLd() {
     description: site.description,
     url: site.url,
     image: site.profileImage ? `${site.url}${site.profileImage}` : undefined,
-    email: `mailto:${site.email}`,
+    email: site.email ? `mailto:${site.email}` : undefined,
     address: { "@type": "PostalAddress", addressLocality: "Latakia", addressCountry: "SY" },
-    alumniOf: { "@type": "CollegeOrUniversity", name: "Latakia University" },
-    worksFor: { "@type": "Organization", name: "Davinda" },
+    alumniOf: { "@type": "CollegeOrUniversity", name: university.org }, // من @/content/experience
+    // قائمة منقّاية بقصد: تقنيات بيعرفها Google، مش كل نصوص قسم Skills
     knowsAbout: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Zustand", "Redux Toolkit", "TanStack Query"],
     sameAs: [
       site.socials.linkedin,
       site.socials.github,
       ...(site.socials.others ?? []).map((s) => s.url),
-    ].filter((u) => u.startsWith("http")), // الـ TODO ما بتنضاف
+    ].filter((u): u is string => !!u && /^https?:\/\//.test(u)), // لا null (لسا ما وصل) ولا رابط ناقص
   };
 }
 
@@ -191,7 +189,7 @@ export function projectJsonLd(project: Project) {
         name: project.title,
         description: project.summary,
         url: `${site.url}/projects/${project.slug}`,
-        image: project.image ? `${site.url}${project.image}` : undefined,
+        image: project.image ? `${site.url}${project.image.src}` : undefined,
         creator: { "@id": personId },
         keywords: project.stack.join(", "),
       },

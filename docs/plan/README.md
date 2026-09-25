@@ -24,7 +24,7 @@
 
 - [x] 01: المشروع شغّال و`npm run build` ناجح
 - [x] 02: الثيمين شغالين بدون flash والألوان مطابقة
-- [ ] 03: كل المحتوى بـ `src/content/`
+- [x] 03: كل المحتوى بـ `src/content/`
 - [ ] 04: الـ Header والـ Nav (desktop و mobile) والـ Footer
 - [ ] 05: Hero وAbout
 - [ ] 06: Skills وExperience

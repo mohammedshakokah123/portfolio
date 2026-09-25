@@ -45,8 +45,9 @@
 3. **Lead**: `mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground`
 4. **Quick facts**: `li` بـ `inline-flex items-center gap-2 rounded-md border border-border bg-muted/60 px-3 py-1.5 text-body` مع أيقونة `size-4 text-brand`.
 5. **CTA**:
-   - `<Button asChild variant="inverted" size="lg"><a href="#projects">View projects</a></Button>`
-   - `<Button asChild variant="outline" size="lg"><a href="#contact">Get in touch</a></Button>`
+   - `<Button asChild variant="inverted" size="lg"><a href={primary.href}>{primary.label}</a></Button>`
+   - `<Button asChild variant="outline" size="lg"><a href={secondary.href}>{secondary.label}</a></Button>`
+   - (`const { primary, secondary } = site.hero.ctas;`)
    - الارتفاع `h-11 px-5`.
 
 ## GlanceCard: جوّا `hero.tsx` أو ملف منفصل
@@ -72,15 +73,15 @@
 ```
 - **`priority`** (أو `preload` بـ Next 16): الصورة غالباً هي الـ LCP.
 - `aspect-square` + `fill`: المساحة محجوزة، فما في layout shift.
-- التصميم كان بيعمل `onerror="this.remove()"`. هون منستعمل `profileImage: null` بـ `site.tsx` لحد ما تحط الصورة بـ `public/profile.jpg`.
+- التصميم كان بيعمل `onerror="this.remove()"`. هون منستعمل `profileImage: null` بـ `site.ts` لحد ما تحط الصورة بـ `public/profile.jpg`.
 
 ## ImagePlaceholder: `src/components/shared/image-placeholder.tsx`
 ```tsx
-export function ImagePlaceholder({ icon, label, grid = false, className }: {
-  icon: React.ReactNode; label: string; grid?: boolean; className?: string;
+export function ImagePlaceholder({ icon, label, ariaLabel = label, grid = false, className }: {
+  icon: React.ReactNode; label: string; ariaLabel?: string; grid?: boolean; className?: string;
 }) {
   return (
-    <div role="img" aria-label={label}
+    <div role="img" aria-label={ariaLabel}
          className={cn("absolute inset-0 grid place-items-center", grid && "ph-grid", className)}>
       <div className="flex flex-col items-center gap-2 text-subtle">
         {icon}
@@ -90,14 +91,14 @@ export function ImagePlaceholder({ icon, label, grid = false, className }: {
   );
 }
 ```
-(بينستعمل كمان بكروت المشاريع مع `grid`.)
+(بينستعمل كمان بكروت المشاريع مع `grid`، والـ `ariaLabel` بيجي من `project.placeholderLabel`.)
 
 ## About: `src/components/sections/about.tsx`
 ```tsx
 <Section id="about" labelledBy="about-title" className="grid gap-10 lg:grid-cols-[16rem_1fr]">
-  <h2 id="about-title" className="text-2xl font-semibold tracking-tight text-foreground">About</h2>
+  <h2 id="about-title" className="text-2xl font-semibold tracking-tight text-foreground">{site.sections.about.title}</h2>
   <div className="max-w-3xl space-y-5 text-base leading-relaxed text-muted-foreground">
-    {site.about.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+    {site.about.paragraphs.map((p, i) => <RichTextParagraph key={i} text={p} />)}
     <ul className="grid gap-3 pt-2 sm:grid-cols-3">
       {site.about.principles.map(({ icon: Icon, title, description }) => (
         <li key={title} className="rounded-lg border border-border p-4">
@@ -110,7 +111,10 @@ export function ImagePlaceholder({ icon, label, grid = false, className }: {
   </div>
 </Section>
 ```
-> كلمة `Davinda` بالفقرة: `<span className="text-emphasis">Davinda</span>` جوّا `site.tsx`.
+> **`RichTextParagraph`** (بـ `shared/`): بيلف كل جزء `{ emphasis }` بـ `<span className="text-emphasis">`، والـ string بيعرضه متل ما هو:
+> ```tsx
+> <p>{text.map((seg, i) => typeof seg === "string" ? seg : <span key={i} className="text-emphasis">{seg.emphasis}</span>)}</p>
+> ```
 
 ## `src/app/page.tsx`
 ```tsx

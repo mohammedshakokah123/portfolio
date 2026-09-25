@@ -5,125 +5,51 @@
 
 ## الخطوات
 
-### 1. `src/types/content.ts`
-```ts
-import type { LucideIcon } from "lucide-react";
+### ✅ 1. `src/types/content.ts`
+المرجع هو الملف نفسه. أهم القرارات فيه:
 
-export type NavItem = { label: string; href: `/#${string}` };
-
-export type QuickFact = { icon: LucideIcon; text: string };
-
-export type GlanceItem = { label: string; value: string };
-
-export type Principle = { icon: LucideIcon; title: string; description: string };
-
-export type SiteConfig = {
-  name: string;
-  alternateNames: string[]; // طرق تانية لكتابة الاسم (إنجليزي/عربي) ← SEO
-  role: string;
-  url: string;
-  description: string;
-  keywords: string[]; // ← SEO
-  email: string;
-  location: string;
-  cvPath: string;
-  profileImage: string | null; // null = يعرض placeholder
-  availability: string;
-  socials: {
-    linkedin: string;
-    github: string;
-    others?: { label: string; url: string }[]; // X، Stack Overflow، dev.to...
-  };
-  nav: NavItem[];
-  hero: {
-    title: string;
-    lead: string;
-    quickFacts: QuickFact[];
-    glance: GlanceItem[];
-  };
-  about: {
-    paragraphs: string[]; // ممكن فيها <strong> ← منستعمل ReactNode أو markdown بسيط
-    principles: Principle[];
-  };
-  contact: { intro: string };
-};
-
-export type SkillGroup = { title: string; icon: LucideIcon; items: string[] };
-
-export type ExperienceItem = {
-  title: string;
-  org: string;
-  period: { label: string; start?: string; end?: string }; // start/end للـ <time dateTime>
-  meta: { icon: LucideIcon; text: string };
-  current: boolean;
-  highlights: string[];
-  tech?: string[];
-};
-
-export type Project = {
-  slug: string;
-  title: string;
-  subtitle: string;
-  summary: string; // النص المختصر بالكرت
-  icon: LucideIcon; // أيقونة الـ placeholder
-  image: string | null; // "/projects/pos.webp"
-  imageAlt: string;
-  tech: string[]; // badges الكرت
-  overview: string;
-  architecture: string;
-  features: string[];
-  stack: string[];
-  links: { demo?: string; source?: string };
-  nda: boolean;
-};
-```
+| الحقل | النوع | ليش |
+|------|------|-----|
+| `email`، `socials.linkedin`، `socials.github` | `string \| null` | `null` = لسا ما وصل. TypeScript بيجبر المكوّن يتعامل معه (يخفي الرابط)، فما بيطلع رابط مكسور أو `mailto:TODO`. |
+| `url` | `string` | بدون `/` بالآخر (راجع `resolveSiteUrl` بـ `site.ts`). |
+| `sections` | `Record<"about" \| "skills" \| "experience" \| "projects" \| "contact", { title; description? }>` | عناوين الأقسام ووصفها ← `SectionHeading`. |
+| `hero.ctas` | `{ primary, secondary }` | "View projects" و"Get in touch". |
+| `about.paragraphs` | `RichText[]` | كل فقرة array من `string` أو `{ emphasis }`. هيك الملف بيضل `.ts` بدون JSX، والنص serializable. |
+| `footer.credit` | `string` | "B.Sc. Software Engineering, Latakia University." |
+| `ExperienceItem.period` | `{ start: string; end: string \| null }` | `"YYYY"` أو `"YYYY-MM"` للـ `<time dateTime>`. `end: null` = لهلق (بدل `current`). النص بيتولّد بـ `formatPeriod`. |
+| `Project.image` | `{ src; alt } \| null` | الـ alt بيتكتب مع الصورة. لما `null` منستعمل `placeholderLabel` كـ `aria-label`. |
 
 > **ملاحظة:** الأيقونات (`LucideIcon`) بتنعرض بس جوّا **Server Components**. إذا احتجت تبعت شي لمكوّن client، ابعته كـ `children` مش كـ prop.
 
-> **فقرة About الثانية** فيها كلمة `Davinda` مميزة (`text-zinc-200`). أبسط حل: `paragraphs: React.ReactNode[]` والملف يصير `site.tsx`، أو تخلي كلمة الشركة `highlight` منفصلة. اختار الأول (`site.tsx`).
+### ✅ 2. `src/content/site.ts`
+منقول **حرفياً** من `design/reference.html`:
+- الاسم والدور والـ `description` (من `<meta name="description">`) والـ `ogDescription` (من `og:description`)
+- `url`: بالترتيب `NEXT_PUBLIC_SITE_URL`، بعدين `NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL` (Vercel بيعطيه تلقائياً)، وبالآخر `localhost`. هيك build على Vercel ما بيطلع فيه `localhost` حتى لو نسيت المتغيّر. المسافات بتنشال، وإذا الرابط بدون `https://` بينضاف تلقائياً، وبيرجع الـ origin بس (حروف صغيرة وبدون `/` بالآخر). وأي رابط غلط بيوقّف الـ build برسالة واضحة.
+- الإيميل والروابط `null` لحد ما يوصلوا (مرحلة 11)
+- `location` و`cvPath` و`nav` و`sections` و`hero` (مع `ctas` و3 quick facts و`glance`) و`about` و`footer`
 
-### 2. `src/content/site.tsx`
-انقل **حرفياً** من `design/reference.html`:
-- الاسم: `Mohammad Shaquqa`، الدور: `Frontend Engineer`
-- الـ description من `<meta name="description">`
-- الإيميل والروابط (هلق placeholders، وبتنعدل بمرحلة 11)
-- `location`: `Latakia, Syria, open to remote and relocation`
-- `cvPath`: `/cv/Mohammad-Shaquqa-CV.pdf`
-- `nav`: About و Skills و Experience و Projects و Contact ← `/#about`...
-- `hero.title` و`hero.lead` و3 quick facts (GraduationCap، Briefcase، CircleCheck)
-- `hero.glance`: Role، Core stack، State & data، Experience، Open to
-- `about.paragraphs` و3 principles (Layers، Gauge، Accessibility)
-- `contact.intro`
+**كل معلومة بمكان واحد:**
+- `name` و`role` و`availability` و`engineeringYears` (`"3+"`، **بتعدّله بإيدك**، مش محسوب) ثوابت فوق الملف، ومنها بيتبنى الـ description والـ keywords والـ hero والـ glance.
+- المدة (`productionYears`) وسنين الجامعة من `experience.ts`، و`formatYears` بيكتب `year` أو `years` حسب الرقم.
+- `footer.credit` من `university.title` و`university.org`.
 
-```ts
-export const site: SiteConfig = {
-  name: "Mohammad Shaquqa",
-  // TODO(SEO): أكّد كل طرق كتابة الاسم اللي ممكن حدا يبحث فيها
-  alternateNames: ["محمد شقوقة" /* , "Mohammad Shakokah", "Mohammed Shaquqa" ... */],
-  role: "Frontend Engineer",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  keywords: [
-    "Mohammad Shaquqa", "Frontend Engineer", "Frontend Developer",
-    "React Developer", "Next.js Developer", "TypeScript", "Latakia", "Syria",
-  ],
-  socials: {
-    linkedin: "TODO: رابط LinkedIn الحقيقي",
-    github: "TODO: رابط GitHub الحقيقي",
-    others: [], // TODO: أي حسابات تانية (X، Stack Overflow...)
-  },
-  // ...
-};
-```
+> **كل الروابط اللي عليها `TODO`** رح يبعتها صاحب الموقع لاحقاً. ولا تعتمد على الروابط التخمينية اللي بالتصميم.
 
-> **كل الروابط اللي عليها `TODO`** رح يبعتها صاحب الموقع لاحقاً. لحد وقتها خليها placeholders، ولا تعتمد على الروابط التخمينية اللي بالتصميم.
-
-### 3. `src/content/skills.ts`
+### ✅ 3. `src/content/skills.ts`
 4 مجموعات بنفس الترتيب: Frontend frameworks (`Code`)، UI & styling (`Palette`)، State & data fetching (`Database`)، Tools & ecosystem (`Wrench`).
 
-### 4. `src/content/experience.ts`
-عنصرين: Frontend Developer at Davinda (`current: true` مع tech badges)، وB.Sc. in Software Engineering at Latakia University (2020 لـ 2026).
+### ✅ 4. `src/content/experience.ts`
+عنصرين (`davinda` و`university`، ومصدّرين لحالهم):
+- Frontend Developer at Davinda: من `2025-02` لـ `2026-09` (خلص الشغل)، مع tech badges. الـ highlights بصيغة الماضي.
+- B.Sc. in Software Engineering at Latakia University: من `2020` لـ `2026`.
 
-### 5. `src/content/projects.ts`
+و`productionYears` بتنحسب من تواريخ Davinda بـ `yearsBetween`. الحساب بيشمل شهر النهاية، متل ما بتنقرا "Feb 2025 – Sep 2026" (يعني 20 شهر). والنتيجة مقرّبة **لتحت** لأقرب نص سنة، هيك ما منكبّر الخبرة: 20 شهر ← `1.5`، و17 ← `1`، وأقل من 6 شهور ← `<1`.
+
+`davinda` معرّف بـ `satisfies ExperienceItem`، يعني TypeScript بيعرف إنه `end` مش `null`. إذا رجعت عالشغل وصار `end: null`، حساب `productionYears` بيطلع خطأ compile وبتنتبه عليه.
+
+الـ helpers بـ `src/lib/dates.ts`: `formatYearMonth` و`formatPeriod` و`yearsBetween` و`formatYearCount` و`formatYears`. إذا التاريخ سنة بس (`"YYYY"`)، بالبداية بينحسب من أول السنة وبالنهاية لآخرها. كلهم بيقبلوا `"YYYY"` أو `"YYYY-MM"` بس. أي تاريخ غلط (متل `"2026-13"`)، أو `end` قبل `start`، بيوقّف الـ build برسالة واضحة بدل ما يطلع `undefined` بالصفحة.
+
+### ✅ 5. `src/content/projects.ts`
 4 مشاريع، **الـ slugs**:
 
 | slug | العنوان | icon | nda |
@@ -133,32 +59,17 @@ export const site: SiteConfig = {
 | `operations-dashboard` | Real-time Operations Dashboard | `LayoutDashboard` | true |
 | `ui-component-library` | Internal UI Component Library | `Component` | false |
 
-انقل كل النصوص من الـ `<template id="tpl-...">` (الأسطر 663 لـ 798 بالمرجع): الـ subtitle والـ overview والـ architecture والـ features والـ stack.
+النصوص منقولة من الـ `<template id="tpl-...">` (الأسطر 663 لـ 798 بالمرجع)، والـ `placeholderLabel` من `aria-label` تبع الـ placeholder بالكروت.
 
-```ts
-export const projects: Project[] = [ /* ... */ ];
-
-export function getAllProjects() {
-  return projects;
-}
-
-export function getProjectBySlug(slug: string) {
-  return projects.find((p) => p.slug === slug);
-}
-
-export function getAdjacentProjects(slug: string) {
-  const i = projects.findIndex((p) => p.slug === slug);
-  return {
-    prev: i > 0 ? projects[i - 1] : null,
-    next: i < projects.length - 1 ? projects[i + 1] : null,
-  };
-}
-```
+- `projects` نوعها `readonly Project[]`، يعني `.sort()` عليها بيطلع خطأ TypeScript (انسخ الأول: `[...projects].sort()`).
+- `getAdjacentProjects` بترجّع `{ prev: null, next: null }` إذا الـ slug مش موجود.
+- `projectLabels`: النصوص الثابتة بالكروت وصفحة التفاصيل ("View details"، عناوين الأقسام، "Internal system, under NDA"، "No public demo available"، "Request a walkthrough"، "Live demo"، "Source code").
+- **مشروع بدون روابط طبيعي:** يا ما إلو رابط عام، يا هو داشبورد خاص ما بينعرض. بيضل `links: {}`، وصفحة التفاصيل بتعرض "No public demo available" مع "Request a walkthrough" (التفاصيل بالمرحلة 07).
 
 ## الملفات
-`src/types/content.ts` و`src/content/site.tsx` و`src/content/skills.ts` و`src/content/experience.ts` و`src/content/projects.ts`
+`src/types/content.ts` و`src/lib/dates.ts` و`src/content/site.ts` و`src/content/skills.ts` و`src/content/experience.ts` و`src/content/projects.ts`
 
 ## Definition of Done
-- [ ] كل النصوص من المرجع منقولة بدون ما ينقص شي (قارن قسم بقسم).
-- [ ] `npx tsc --noEmit` بدون أخطاء.
-- [ ] ما في ولا نص hard-coded رح يكون بمكونات `sections/` (بتتأكد منها بالمراحل الجاية).
+- [x] كل نصوص المحتوى من المرجع منقولة بدون ما ينقص شي (قارن قسم بقسم). **برّا الـ scope:** نصوص الواجهة العامة (labels الفورم وplaceholders ورسائله، و`aria-label`، و"Skip to content"، وأزرار الـ header والـ footer) بتضل بالمكونات تبعها.
+- [x] `npx tsc --noEmit` بدون أخطاء.
+- [x] كل نص رح تحتاجه مكونات `sections/` إلو حقل بـ `src/content/` (`sections` و`hero.ctas` و`footer` و`projectLabels`). التأكد إنه ما في نص hard-coded بيصير بالمراحل الجاية.

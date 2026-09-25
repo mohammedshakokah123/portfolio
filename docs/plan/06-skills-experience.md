@@ -28,11 +28,10 @@ export function TechList({ items, label = "Technologies", className }: {
 ## Skills: `src/components/sections/skills.tsx`
 ```tsx
 <Section id="skills" labelledBy="skills-title" className="grid gap-10 lg:grid-cols-[16rem_1fr]">
-  <SectionHeading id="skills-title" title="Technical skills"
-    description="Tools I use in production, grouped by where they sit in the stack." />
+  <SectionHeading id="skills-title" {...site.sections.skills} />
 
   <div className="grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2">
-    {skillGroups.map(({ title, icon: Icon, items }) => (
+    {skills.map(({ title, icon: Icon, items }) => (
       <article key={title} className="bg-background p-6">
         <h3 className="flex items-center gap-2.5 text-sm font-semibold text-foreground">
           <Icon className="size-4 text-brand" aria-hidden /> {title}
@@ -52,14 +51,14 @@ export function TechList({ items, label = "Technologies", className }: {
 ## Experience: `src/components/sections/experience.tsx`
 ```tsx
 <Section id="experience" labelledBy="experience-title" className="grid gap-10 lg:grid-cols-[16rem_1fr]">
-  <SectionHeading id="experience-title" title="Experience & education" description="Most recent first." />
+  <SectionHeading id="experience-title" {...site.sections.experience} />
 
   <ol className="relative border-l border-border">
     {experience.map((item, i) => (
       <li key={item.title} className={cn("relative pl-8", i < experience.length - 1 && "pb-12")}>
         <span aria-hidden className={cn(
           "absolute -left-[7px] top-1.5 size-3 rounded-full border-2 bg-background",
-          item.current ? "border-brand" : "border-subtle",
+          item.period.end === null ? "border-brand" : "border-subtle", // الـ brand بس للشغل الحالي
         )} />
         <article>
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -86,7 +85,7 @@ export function TechList({ items, label = "Technologies", className }: {
   </ol>
 </Section>
 ```
-- **الـ Period:** Davinda: `<time>1.5+ years</time>, current`، والجامعة: `<time dateTime="2020">2020</time> – <time dateTime="2026">2026</time>`. اعمل helper صغير `PeriodLabel` بيقرأ `period`.
+- **الـ Period:** اعمل helper صغير `PeriodLabel` بيقرأ `period` ويستعمل `formatYearMonth` من `@/lib/dates`: `<time dateTime="2025-02">Feb 2025</time> – <time dateTime="2026-09">Sep 2026</time>`، والجامعة `2020 – 2026`. إذا `end === null` بيكتب `Present` بدون `<time>`.
 - ملاحظة: `<item.meta.icon />` ما بيشتغل مباشرة بـ JSX. اعمل `const MetaIcon = item.meta.icon;` قبل الـ return.
 
 ## ضيفهم لـ `page.tsx`

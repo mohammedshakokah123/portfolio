@@ -5,14 +5,14 @@
 
 ## 1. الروابط والمعلومات المطلوبة (صاحب الموقع بيبعتها)
 
-> ⏳ **مستنيين:** عبّي هالجدول لما توصل الروابط، وبعدين حدّث `src/content/site.tsx` و`src/content/projects.ts`.
+> ⏳ **مستنيين:** عبّي هالجدول لما توصل الروابط، وبعدين حدّث `src/content/site.ts` و`src/content/projects.ts` (بدّل الـ `null` بالقيمة الحقيقية).
 
 | المعلومة | المكان بالكود | القيمة |
 |---------|---------------|--------|
 | رابط LinkedIn | `site.socials.linkedin` | ⏳ TODO |
 | رابط GitHub | `site.socials.github` | ⏳ TODO |
 | حسابات تانية (X، Stack Overflow، dev.to، Medium...) | `site.socials.others` | ⏳ TODO (اختياري) |
-| الإيميل العام للتواصل | `site.email` | ⏳ TODO (هلق `example.com` ❌) |
+| الإيميل العام للتواصل | `site.email` | ⏳ TODO (هلق `null`) |
 | طرق كتابة الاسم (إنجليزي/عربي) | `site.alternateNames` | ⏳ TODO |
 | الـ Domain | `NEXT_PUBLIC_SITE_URL` | ⏳ TODO |
 | روابط Demo/Source للمشاريع اللي مش NDA | `projects.ts` ← `links` | ⏳ TODO (هلق `#` ❌) |

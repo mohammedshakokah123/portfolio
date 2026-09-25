@@ -76,9 +76,9 @@ portfolio/
     │   ├── motion/               ← motion-provider, reveal, stagger, hover-lift
     │   ├── shared/               ← section, section-heading, tech-badge, image-placeholder, brand-icons, json-ld
     │   └── providers/            ← theme-provider
-    ├── content/                  ← site.tsx, skills.ts, experience.ts, projects.ts
+    ├── content/                  ← site.ts, skills.ts, experience.ts, projects.ts
     ├── hooks/                    ← use-active-section.ts
-    ├── lib/                      ← utils.ts, validations/contact.ts, seo/json-ld.ts
+    ├── lib/                      ← utils.ts, dates.ts, validations/contact.ts, seo/json-ld.ts
     └── types/                    ← content.ts
 ```
 

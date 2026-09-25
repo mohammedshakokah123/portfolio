@@ -69,7 +69,12 @@ export async function sendContact(input: unknown): Promise<ContactResult> {
 
   if (error) {
     console.error("[contact] resend error", error);
-    return { ok: false, error: `The message didn't send. Email ${site.email} directly instead.` };
+    return {
+      ok: false,
+      error: site.email
+        ? `The message didn't send. Email ${site.email} directly instead.`
+        : "The message didn't send. Please try again later.",
+    };
   }
   return { ok: true };
 }
@@ -146,12 +151,13 @@ async function onSubmit(values: ContactInput) {
 <Section id="contact" labelledBy="contact-title" bordered={false}
          className="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
   <div>
-    <h2 id="contact-title" ...>Contact</h2>
-    <p className="mt-3 max-w-md text-base leading-relaxed text-muted-foreground">{site.contact.intro}</p>
+    <h2 id="contact-title" ...>{site.sections.contact.title}</h2>
+    <p className="mt-3 max-w-md text-base leading-relaxed text-muted-foreground">{site.sections.contact.description}</p>
     <ul className="mt-8 space-y-3 text-sm">
-      <ContactLink href={`mailto:${site.email}`} icon={<Mail/>}>{site.email}</ContactLink>
-      <ContactLink href={site.socials.linkedin} external icon={<LinkedInIcon/>}>linkedin.com/in/…</ContactLink>
-      <ContactLink href={site.socials.github} external icon={<GitHubIcon/>}>github.com/…</ContactLink>
+      {/* كل رابط بينعرض بس إذا مش null */}
+      {site.email && <ContactLink href={`mailto:${site.email}`} icon={<Mail/>}>{site.email}</ContactLink>}
+      {site.socials.linkedin && <ContactLink href={site.socials.linkedin} external icon={<LinkedInIcon/>}>linkedin.com/in/…</ContactLink>}
+      {site.socials.github && <ContactLink href={site.socials.github} external icon={<GitHubIcon/>}>github.com/…</ContactLink>}
       <li> <MapPin/> {site.location} </li>
     </ul>
   </div>

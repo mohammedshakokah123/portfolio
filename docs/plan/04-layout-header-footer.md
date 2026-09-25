@@ -160,7 +160,8 @@ export function SectionHeading({ id, title, description }: { id: string; title: 
 ```
 
 ### 10. `src/components/layout/site-footer.tsx`
-- `© {new Date().getFullYear()} Mohammad Shaquqa. B.Sc. Software Engineering, Latakia University.`
+- `© {new Date().getFullYear()} {site.name}. {site.footer.credit}`
+- روابط LinkedIn وGitHub بس إذا مش `null` (`site.socials.linkedin && …`).
 - `<nav aria-label="Footer">`: Back to top (`/#top`)، CV (PDF) (download)، LinkedIn، GitHub (`target="_blank" rel="noopener noreferrer"`).
 - الـ classes: `border-t border-border/80` و`text-sm text-subtle` و`hover:text-emphasis`.
 
