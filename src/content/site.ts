@@ -11,14 +11,18 @@ import type { SiteConfig } from "@/types/content";
  * منرجّع الـ origin بس (متل "https://example.com"): حروف صغيرة وبدون "/" بالآخر.
  */
 function resolveSiteUrl() {
-  const raw = (
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ||
-    "http://localhost:3000"
-  ).trim();
+  // الـ trim قبل الـ || مشان قيمة فيها مسافات بس تنحسب فاضية ونروح عالخيار اللي بعدها
+  const raw =
+    process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL?.trim() ||
+    "http://localhost:3000";
   const url = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
-  if (!URL.canParse(url)) throw new Error(`Invalid site URL "${raw}"`);
-  return new URL(url).origin;
+  // new URL بدل URL.canParse: الأخيرة مش موجودة بـ Safari < 17 إذا الملف وصل للمتصفح
+  try {
+    return new URL(url).origin;
+  } catch {
+    throw new Error(`Invalid site URL "${raw}"`);
+  }
 }
 
 const name = "Mohammad Shaquqa";

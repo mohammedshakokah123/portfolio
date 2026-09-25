@@ -36,7 +36,8 @@ export function formatYearCount(years: number) {
   return years === 0 ? "<1" : String(years);
 }
 
-/** "<1 year"، "1 year"، "1.5 years" */
+/** 0 ← "<1 year"، 0.5 ← "0.5 years"، 1 ← "1 year"، 1.5 ← "1.5 years" */
 export function formatYears(years: number) {
-  return `${formatYearCount(years)} ${years <= 1 ? "year" : "years"}`;
+  const singular = years === 0 || years === 1; // "<1 year" و"1 year"
+  return `${formatYearCount(years)} ${singular ? "year" : "years"}`;
 }
