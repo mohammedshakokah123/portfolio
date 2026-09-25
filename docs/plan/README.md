@@ -29,7 +29,7 @@
 - [x] 05: Hero وAbout
 - [x] 06: Skills وExperience
 - [x] 07: كروت المشاريع وصفحات التفاصيل (4 صفحات static)
-- [ ] 08: الفورم بيبعت إيميل حقيقي
+- [x] 08: الفورم بيبعت إيميل حقيقي
 - [ ] 09: الحركات مع احترام `prefers-reduced-motion`
 - [ ] 10: Lighthouse ≥ 95 (SEO = 100)، والـ JSON-LD سليم، وما في أخطاء axe
 - [ ] 11: الموقع live، ومسجّل بـ Search Console وBing، وحساباتك بتربط عليه

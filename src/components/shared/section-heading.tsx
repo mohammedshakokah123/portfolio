@@ -1,12 +1,31 @@
-type SectionHeadingProps = { id: string; title: string; description?: string; className?: string };
+import { cn } from "@/lib/utils";
 
-export function SectionHeading({ id, title, description, className }: SectionHeadingProps) {
+type SectionHeadingProps = {
+  id: string;
+  title: string;
+  description?: string;
+  className?: string;
+  /** لقسم وصفه أكبر من العادي (متل Contact: text-base بلون أفتح) */
+  descriptionClassName?: string;
+};
+
+export function SectionHeading({
+  id,
+  title,
+  description,
+  className,
+  descriptionClassName,
+}: SectionHeadingProps) {
   return (
     <div className={className}>
       <h2 id={id} className="text-foreground text-2xl font-semibold tracking-tight">
         {title}
       </h2>
-      {description && <p className="text-subtle mt-3 text-sm leading-relaxed">{description}</p>}
+      {description && (
+        <p className={cn("text-subtle mt-3 text-sm leading-relaxed", descriptionClassName)}>
+          {description}
+        </p>
+      )}
     </div>
   );
 }
