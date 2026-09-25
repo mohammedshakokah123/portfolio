@@ -94,7 +94,7 @@ export function TechList({ items, label = "Technologies", className }: {
 ```
 
 ## Definition of Done
-- [ ] الـ Skills grid بخطوط فاصلة رفيعة، وعمود واحد على الموبايل وعمودين من `sm`.
-- [ ] الـ Timeline: الخط والنقاط بمكانهم بالضبط، ونقطة indigo للحالي ورمادية للباقي.
-- [ ] Semantic HTML: `ol` و`article` و`time`.
-- [ ] مطابقة بصرية بالثيمين.
+- [x] الـ Skills grid بخطوط فاصلة رفيعة، وعمود واحد على الموبايل وعمودين من `sm`.
+- [x] الـ Timeline: الخط والنقاط بمكانهم بالضبط، ونقطة indigo للحالي ورمادية للباقي.
+- [x] Semantic HTML: `ol` و`article` و`time`.
+- [x] مطابقة بصرية بالثيمين.
