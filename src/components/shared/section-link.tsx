@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 
-import { focusSection, isPlainLeftClick, sectionIdFromHref } from "@/lib/sections";
+import {
+  focusSection,
+  isPlainLeftClick,
+  requestSectionFocus,
+  sectionIdFromHref,
+} from "@/lib/sections";
 
 type SectionLinkProps = Omit<React.ComponentProps<typeof Link>, "href"> & {
   href: `/#${string}`;
@@ -40,7 +45,11 @@ export function SectionLink({
         const id = sectionIdFromHref(href);
         const section = document.getElementById(id);
         const target = section ?? (fallbackId ? document.getElementById(fallbackId) : null);
-        if (!target) return;
+        if (!target) {
+          // منتنقّل للرئيسية بـ next/link، والـ HashFocus بيعمل focus عالقسم بعد ما تنعرض
+          requestSectionFocus(id);
+          return;
+        }
 
         e.preventDefault();
         // الـ URL بيتغيّر بس إذا القسم نفسه موجود، ومع نفس الـ hash ما منضيف entry جديد بالـ history

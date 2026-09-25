@@ -56,6 +56,8 @@ export const metadata: Metadata = {
 ```
 - **الـ description** لازم يبلّش بالاسم، وطوله بين 140 و160 حرف.
 - **صفحات المشاريع:** `generateMetadata` (مرحلة 07) بيعطي title متل `POS & Inventory Management System | Mohammad Shaquqa`، ووصف مختلف، و`canonical` خاص.
+  > **انتبه:** الـ metadata بـ Next بتندمج **shallow**، يعني الـ `openGraph` تبع صفحة المشروع بيمسح الـ `openGraph` تبع الـ layout كله (`siteName` و`locale` و`type`...). لما تضيف هدول للـ layout، حط الحقول المشتركة بـ const (متل `sharedOpenGraph`) واعمله spread بـ `generateMetadata` بـ `app/projects/[slug]/page.tsx`، وحط `type: "article"` و`url: \`/projects/${slug}\``. نفس الشي لـ `twitter`.
+  > وقبل ما ينحط `metadataBase` هون، الـ canonical تبع صفحات المشاريع بيطلع على `localhost`.
 - ضيف `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` و`NEXT_PUBLIC_BING_SITE_VERIFICATION` لـ `.env.example`.
 
 ## 2. Favicon: `src/app/icon.svg`

@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { SectionLink } from "@/components/shared/section-link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { focusSection, isPlainLeftClick } from "@/lib/sections";
+import { focusSection, isPlainLeftClick, sectionIdFromHref } from "@/lib/sections";
 import type { NavItem } from "@/types/content";
 
 export function MobileNav({ items }: { items: NavItem[] }) {
@@ -14,6 +14,9 @@ export function MobileNav({ items }: { items: NavItem[] }) {
   // القسم اللي انضغط رابطه. منعمله focus بس لما القائمة تتسكّر كلياً (بعد الـ animation)،
   // لأنه قبل هيك Radix بيكون حاطط aria-hidden على باقي الصفحة ومسكّر الـ scroll.
   const pendingSectionRef = useRef<HTMLElement | null>(null);
+  // الرابط رايح لقسم مش بهالصفحة (متل من صفحة مشروع للرئيسية). الـ HashFocus بالرئيسية هو اللي
+  // بيعمل focus عالقسم، فما منخلي Radix يرجّع الـ focus لزر القائمة بعد ما تتسكّر.
+  const navigatingAwayRef = useRef(false);
 
   // لما تكبر الشاشة لـ md الزر بيختفي، فمنسكّر القائمة متل التصميم
   useEffect(() => {
@@ -37,6 +40,11 @@ export function MobileNav({ items }: { items: NavItem[] }) {
         side="top"
         className="pt-16"
         onCloseAutoFocus={(e) => {
+          if (navigatingAwayRef.current) {
+            navigatingAwayRef.current = false;
+            e.preventDefault();
+            return;
+          }
           const target = pendingSectionRef.current;
           if (!target) return; // Escape أو زر الإغلاق أو navigation عادي ← الـ focus بيرجع للزر
           pendingSectionRef.current = null;
@@ -55,7 +63,11 @@ export function MobileNav({ items }: { items: NavItem[] }) {
                   href={item.href}
                   onClick={(e) => {
                     // Ctrl/Cmd+Click بيفتح تاب جديد، فالقائمة بتضل مفتوحة متل أي رابط عادي
-                    if (isPlainLeftClick(e)) setOpen(false);
+                    if (!isPlainLeftClick(e)) return;
+                    setOpen(false);
+                    if (!document.getElementById(sectionIdFromHref(item.href))) {
+                      navigatingAwayRef.current = true;
+                    }
                   }}
                   onSectionNavigate={(target) => {
                     pendingSectionRef.current = target;

@@ -1,8 +1,8 @@
-type SectionHeadingProps = { id: string; title: string; description?: string };
+type SectionHeadingProps = { id: string; title: string; description?: string; className?: string };
 
-export function SectionHeading({ id, title, description }: SectionHeadingProps) {
+export function SectionHeading({ id, title, description, className }: SectionHeadingProps) {
   return (
-    <div>
+    <div className={className}>
       <h2 id={id} className="text-foreground text-2xl font-semibold tracking-tight">
         {title}
       </h2>
