@@ -194,7 +194,13 @@ inverted: "bg-foreground text-background hover:bg-foreground/85",
 `src/app/globals.css` و`src/components/providers/theme-provider.tsx` و`src/components/layout/theme-toggle.tsx` و`src/components/ui/button.tsx` (تعديل) و`src/app/layout.tsx`
 
 ## Definition of Done
-- [ ] أول تحميل بالثيم الـ dark، وما في flash أبيض.
-- [ ] التبديل بيشتغل وبينحفظ بعد الـ refresh.
-- [ ] ما في hydration warnings بالـ console.
-- [ ] صفحة تجربة صغيرة (مؤقتة) فيها `text-foreground` و`text-body` و`text-muted-foreground` و`text-brand` وأزرار shadcn: الألوان مطابقة للتصميم بالثيمين.
+- [x] أول تحميل بالثيم الـ dark، وما في flash أبيض.
+- [x] التبديل بيشتغل وبينحفظ بعد الـ refresh.
+- [x] ما في hydration warnings بالـ console.
+- [x] صفحة تجربة صغيرة (مؤقتة) فيها `text-foreground` و`text-body` و`text-muted-foreground` و`text-brand` وأزرار shadcn: الألوان مطابقة للتصميم بالثيمين.
+
+> ✅ **خلصت.** صفحة التجربة المؤقتة هي `src/app/page.tsx`، ورح تنشال بمرحلة 05.
+> ملاحظات التنفيذ:
+> - شلنا خط Geist من `layout.tsx`، وصرنا نستعمل الـ system fonts اللي بـ `--font-sans`.
+> - شلنا tokens الـ `chart-*` و`sidebar-*` لأنها مش مستعملة.
+> - ضفنا `color-scheme` لكل ثيم (عشان الـ scrollbars وعناصر الفورم).
