@@ -188,3 +188,4 @@ export function LinkedInIcon(props: React.SVGProps<SVGSVGElement>) {
 - [ ] إذا عبّأت الـ honeypot (من DevTools) ما بيوصل إيميل.
 - [ ] إرسال بيانات غلط مباشرة للـ action (بتجاوز الـ client) بيرفضها السيرفر.
 - [ ] ما في layout shift لما تظهر الأخطاء.
+- [ ] (من مرحلة 05) الـ Active nav على الصفحة الكاملة: كل روابط الـ nav وأزرار الـ Hero بتوصل لأقسامها، وContact بيتميّز بآخر الصفحة. واكبس "Projects" من الـ nav وتأكد إنه Projects هو اللي بيتميّز مش Contact، على 1280×800 وعلى شاشة طويلة (مثلاً 1280×1400). إذا Contact خطف التمييز، خلّي تمييز "آخر الصفحة" بـ `useActiveSection` يشتغل بس إذا آخر قسم عم يبيّن فعلاً عالشاشة.

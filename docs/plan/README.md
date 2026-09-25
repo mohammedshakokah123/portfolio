@@ -26,7 +26,7 @@
 - [x] 02: الثيمين شغالين بدون flash والألوان مطابقة
 - [x] 03: كل المحتوى بـ `src/content/`
 - [x] 04: الـ Header والـ Nav (desktop و mobile) والـ Footer
-- [ ] 05: Hero وAbout
+- [x] 05: Hero وAbout
 - [ ] 06: Skills وExperience
 - [ ] 07: كروت المشاريع وصفحات التفاصيل (4 صفحات static)
 - [ ] 08: الفورم بيبعت إيميل حقيقي
