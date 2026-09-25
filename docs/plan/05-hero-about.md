@@ -134,3 +134,5 @@ export default function HomePage() {
 - [ ] الـ Placeholder بيبيّن إذا `profileImage = null`، والصورة بتبيّن إذا موجودة، وما في shift بالحالتين.
 - [ ] الـ CTA بتنزل للأقسام بـ smooth scroll.
 - [ ] ما في نصوص hard-coded (كله من `site`).
+- [ ] أزرار الـ CTA بتستعمل `SectionLink` (مش `Link` عادي) مشان الـ focus يروح عالقسم.
+- [ ] (من مرحلة 04) الـ Active nav: شيل الأقسام المؤقتة من `page.tsx`، وتأكد إنه قسم Contact بيتميّز لما تنزلله، وإنه التمييز بينشال لما ترجع للـ Hero. إذا لأ، صلّح `useActiveSection`.

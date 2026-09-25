@@ -1,6 +1,11 @@
 import type { Metadata, Viewport } from "next";
 
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SkipLink } from "@/components/layout/skip-link";
+import { MotionProvider } from "@/components/motion/motion-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 
@@ -21,7 +26,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <MotionProvider>
+            <SkipLink />
+            <SiteHeader />
+            <main id="main" tabIndex={-1} className="focus:outline-none">
+              {children}
+            </main>
+            <SiteFooter />
+            <Toaster />
+          </MotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -162,5 +162,6 @@ export default async function ProjectPage({ params }: Props) {
 - [ ] `/projects/xyz` بيعطي 404.
 - [ ] الكرت كله clickable، وفيه رابط واحد بس بالـ Tab order.
 - [ ] الرجوع من صفحة المشروع لـ `/#projects` بينزل على القسم الصح.
+- [ ] (من مرحلة 04) لما تكبس رابط بالـ nav من صفحة مشروع، الـ focus بيروح عالقسم مش بيضل عالرابط بالـ Header. هلق `SectionLink` بيرجع لـ navigation عادي تبع `next/link`، وهاد بيعمل scroll بس. الحل: بعد ما الرئيسية تنعرض، إعمل focus عالعنصر اللي الـ id تبعه بالـ hash. وجرّب "Back to top" بالـ Footer: لازم يطلعك لأول صفحة المشروع نفسها.
 - [ ] كل صفحة إلها `<title>` و description مختلفين (افحص الـ `<head>`).
 - [ ] مشاريع الـ NDA بتعرض شارة الـ NDA و"Request a walkthrough". المشاريع اللي إلها روابط بتعرض الأزرار. واللي ما إلها روابط بتعرض "No public demo available" و"Request a walkthrough" (ما في سطر فاضي).

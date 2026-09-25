@@ -166,8 +166,26 @@ export function SectionHeading({ id, title, description }: { id: string; title: 
 - الـ classes: `border-t border-border/80` و`text-sm text-subtle` و`hover:text-emphasis`.
 
 ## Definition of Done
-- [ ] الـ Header ثابت فوق مع blur، ومطابق للتصميم على 375px و768px و1280px.
-- [ ] الـ Active nav بيتغيّر مع الـ scroll (منجرّبه بعد ما نضيف الأقسام).
-- [ ] قائمة الموبايل: بتفتح وبتتسكّر بالـ Escape وبالضغط على رابط، والـ focus بيرجع للزر.
-- [ ] الـ Skip link بيبيّن بأول Tab.
-- [ ] الـ Footer مع السنة الحالية.
+- [x] الـ Header ثابت فوق مع blur، ومطابق للتصميم على 375px و768px و1280px.
+- [x] الـ Active nav بيتغيّر مع الـ scroll (جرّبناه على أقسام مؤقتة بـ `page.tsx`، ومنرجع نتأكد بعد مرحلة 05).
+- [x] قائمة الموبايل: بتفتح وبتتسكّر بالـ Escape وبالضغط على رابط، والـ focus بيرجع للزر (مع Escape). مع الرابط الـ focus بيروح عالقسم متل التصميم.
+- [x] الـ Skip link بيبيّن بأول Tab.
+- [x] الـ Footer مع السنة الحالية.
+
+## ملاحظات التنفيذ
+- **`SectionLink`** (`src/components/shared/section-link.tsx`): `next/link` لحاله بيعمل scroll بس، والـ focus بيضل عالرابط. فعملنا wrapper بيعمل متل التصميم: `scrollIntoView` و`pushState` و`focus` عالقسم إذا كان موجود بالصفحة، وإذا مش موجود (متل صفحات المشاريع) أو الضغطة مع Ctrl/Cmd/Shift، بيرجع لـ navigation عادي. استعمله لكل روابط `/#section` (الـ nav، واللوغو، و"Back to top"، وأزرار الـ Hero بمرحلة 05).
+  - إذا الـ hash نفسه (مثلاً كبست "Projects" 3 مرات) ما بيضيف entry جديد بالـ history.
+  - الـ prop `onSectionNavigate` بتخلّي المكوّن اللي فوقه يقرر إيمتى يعمل الـ focus (قائمة الموبايل بتستعملها).
+  - الـ prop `fallbackId`: إذا القسم مش موجود بالصفحة، منروح لهاد العنصر بنفس الصفحة بدل ما نتنقّل للرئيسية. "Back to top" بالـ Footer بيستعمل `fallbackId="main"`، فبصفحات المشاريع بيطلعك لأول نفس الصفحة وما بيغيّر الـ URL.
+- **`src/lib/sections.ts`:** `sectionIdFromHref` (`"/#about"` ← `"about"`) و`focusSection` و`isPlainLeftClick`، مشتركين بين الـ nav والـ SectionLink وقائمة الموبايل.
+- **قائمة الموبايل:** لما تضغط رابط لقسم موجود، منأجّل الـ scroll والـ focus لـ `onCloseAutoFocus`، يعني بعد ما القائمة تتسكّر كلياً، لأنه قبل هيك Radix بيكون حاطط `aria-hidden` على باقي الصفحة وقارئ الشاشة ما بيعلن عن القسم. بأي حالة تانية (Escape، زر الإغلاق، رابط لصفحة تانية) الـ focus بيرجع للزر. ومع Ctrl/Cmd+Click بينفتح تاب جديد والقائمة بتضل مفتوحة.
+- **روابط التواصل بالـ Footer:** ليستة وحدة من LinkedIn وGitHub و`site.socials.others`، واللي قيمته `null` ما بيبيّن.
+- **`useActiveSection`** مربوط بالـ `usePathname()`: الـ Header ما بيعمل remount بين الصفحات، فبكل صفحة جديدة منمسح التمييز القديم ومنرجع ندوّر عالأقسام.
+- **زر الـ CV:** استعملنا `size="lg"` (‏h-9) مع `px-3 sm:px-4` بدل `size="sm"` مشان يطابق التصميم.
+- **`page.tsx`** فيه أقسام مؤقتة (stubs) بس مشان نجرّب الـ nav، وبتنشال بمرحلة 05.
+- على 768px اسم ودور اللوغو بيتقصّوا بـ `truncate` (نفس التصميم بالظبط لأن الـ nav بيبيّن من `md`).
+
+### مؤجّل (من الـ code review)
+- **التمييز ما بينشال:** إذا رجعت للـ Hero بيضل آخر قسم مميّز (نفس التصميم)، وقسم قصير بالآخر (Contact) ممكن ما يوصل لنص الشاشة وما يتميّز أبداً. منشوفها بمرحلة 05 مع الأقسام الحقيقية.
+- **سنة الـ Footer** بتنحسب وقت الـ build (الصفحة static)، فبتتحدّث مع كل deploy بس.
+- **ملف الـ CV** لسا مش موجود بـ `public/cv/`، فالرابط بيعطي 404 لحتى ينحط الـ PDF.
