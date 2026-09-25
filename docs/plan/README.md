@@ -1,6 +1,6 @@
 # خطة بناء الـ Portfolio: Next.js + TypeScript + shadcn/ui + Tailwind + Motion
 
-هاد المجلد فيه خطة تحويل التصميم الموجود بـ `Index (1).html` لموقع Next.js كامل.
+هاد المجلد فيه خطة تحويل التصميم الموجود (كان `Index (1).html`، وهلق صار بـ `design/reference.html`) لموقع Next.js كامل.
 كل ملف بيمثّل **مرحلة وحدة**. نفّذها بالترتيب، وما تنتقل على المرحلة اللي بعدها قبل ما يتحقق الـ **Definition of Done** تبع المرحلة الحالية.
 
 ## الفهرس
@@ -22,7 +22,7 @@
 
 ## متابعة التقدّم
 
-- [ ] 01: المشروع شغّال و`npm run build` ناجح
+- [x] 01: المشروع شغّال و`npm run build` ناجح
 - [ ] 02: الثيمين شغالين بدون flash والألوان مطابقة
 - [ ] 03: كل المحتوى بـ `src/content/`
 - [ ] 04: الـ Header والـ Nav (desktop و mobile) والـ Footer
@@ -45,6 +45,7 @@ npm run dev      # سيرفر التطوير على http://localhost:3000
 npm run build    # build للـ production (لازم ينجح بآخر كل مرحلة)
 npm run start    # تشغيل الـ build
 npm run lint     # ESLint
+npm run format   # Prettier
 ```
 
 ## قاعدة عامة لكل مرحلة

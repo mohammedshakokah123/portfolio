@@ -101,8 +101,8 @@ git commit -m "chore: scaffold Next.js + shadcn project"
 `package.json` و`tsconfig.json` و`components.json` و`src/app/*` و`src/components/ui/*` و`src/lib/utils.ts` و`.prettierrc` و`.env.example` و`design/reference.html`
 
 ## Definition of Done
-- [ ] `npm run dev` بيفتح صفحة فاضية بدون أخطاء.
-- [ ] `npm run build` و`npm run lint` بيخلصوا بنجاح.
-- [ ] مكونات shadcn موجودة بـ `src/components/ui/`.
-- [ ] `design/reference.html` موجود.
-- [ ] انعمل commit الـ scaffold.
+- [x] `npm run dev` بيفتح صفحة فاضية بدون أخطاء.
+- [x] `npm run build` و`npm run lint` بيخلصوا بنجاح.
+- [x] مكونات shadcn موجودة بـ `src/components/ui/`.
+- [x] `design/reference.html` موجود.
+- [x] انعمل commit الـ scaffold.
