@@ -19,48 +19,52 @@ export function ProjectCard({ project }: { project: Project }) {
   const Icon = project.icon;
 
   return (
-    <article className="group border-border bg-card/30 hover:border-input relative flex flex-col overflow-hidden rounded-lg border transition-colors duration-200">
-      <div className="border-border relative aspect-16/10 border-b">
-        {project.image ? (
-          <Image
-            src={project.image.src}
-            alt={project.image.alt}
-            fill
-            sizes="(min-width: 1152px) 34rem, (min-width: 768px) 50vw, 100vw"
-            className="object-cover"
-          />
-        ) : (
-          <ImagePlaceholder
-            grid
-            icon={<Icon className="size-8" aria-hidden />}
-            label={projectLabels.placeholder}
-            ariaLabel={project.placeholderLabel}
-          />
-        )}
-      </div>
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-foreground text-lg font-semibold">{project.title}</h3>
-        <p className="text-muted-foreground mt-2 line-clamp-2 text-sm leading-relaxed">
-          {project.summary}
-        </p>
-        <TechList items={project.tech} className="mt-4" />
-        <div className="mt-auto pt-6">
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="px-4 after:absolute after:inset-0 active:not-aria-[haspopup]:translate-none"
-          >
-            <Link href={`/projects/${project.slug}`}>
-              {projectLabels.viewDetails} <span className="sr-only">for {project.title}</span>
-              <ArrowRight
-                className="transition-transform duration-200 group-hover:translate-x-0.5"
-                aria-hidden
-              />
-            </Link>
-          </Button>
+    // الـ hover عالـ div اللي ما بيتحرك والرفعة عالـ article: لو نفس العنصر بيحس بالـ hover وبيتحرك،
+    // الماوس بآخر 4px بيطلع ويفوت عالكرت وبيرجف. motion-safe: بدون رفعة مع prefers-reduced-motion.
+    <div className="group/lift h-full">
+      <article className="group border-border bg-card/30 group-hover/lift:border-input relative flex h-full flex-col overflow-hidden rounded-lg border transition-[border-color,translate] duration-200 ease-out motion-safe:group-hover/lift:-translate-y-1">
+        <div className="border-border relative aspect-16/10 border-b">
+          {project.image ? (
+            <Image
+              src={project.image.src}
+              alt={project.image.alt}
+              fill
+              sizes="(min-width: 1152px) 34rem, (min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+            />
+          ) : (
+            <ImagePlaceholder
+              grid
+              icon={<Icon className="size-8" aria-hidden />}
+              label={projectLabels.placeholder}
+              ariaLabel={project.placeholderLabel}
+            />
+          )}
         </div>
-      </div>
-    </article>
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="text-foreground text-lg font-semibold">{project.title}</h3>
+          <p className="text-muted-foreground mt-2 line-clamp-2 text-sm leading-relaxed">
+            {project.summary}
+          </p>
+          <TechList items={project.tech} className="mt-4" />
+          <div className="mt-auto pt-6">
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="px-4 after:absolute after:inset-0 active:not-aria-[haspopup]:translate-none"
+            >
+              <Link href={`/projects/${project.slug}`}>
+                {projectLabels.viewDetails} <span className="sr-only">for {project.title}</span>
+                <ArrowRight
+                  className="transition-transform duration-200 group-hover:translate-x-0.5"
+                  aria-hidden
+                />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </article>
+    </div>
   );
 }

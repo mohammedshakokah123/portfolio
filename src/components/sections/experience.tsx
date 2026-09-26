@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/motion/reveal";
 import { Section } from "@/components/shared/section";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { TechList } from "@/components/shared/tech-badge";
@@ -14,7 +15,9 @@ export function Experience() {
       labelledBy="experience-title"
       className="grid gap-10 lg:grid-cols-[16rem_1fr]"
     >
-      <SectionHeading id="experience-title" {...site.sections.experience} />
+      <Reveal>
+        <SectionHeading id="experience-title" {...site.sections.experience} />
+      </Reveal>
 
       <ol className="border-border relative border-l">
         {experience.map((item, i) => (
@@ -33,7 +36,7 @@ function TimelineItem({ item, last }: { item: ExperienceItem; last: boolean }) {
   const MetaIcon = item.meta.icon;
 
   return (
-    <li className={cn("relative pl-8", !last && "pb-12")}>
+    <Reveal as="li" className={cn("relative pl-8", !last && "pb-12")}>
       {/* النقطة بنص الخط: الـ brand بس للشغل الحالي (end === null) */}
       <span
         aria-hidden
@@ -65,7 +68,7 @@ function TimelineItem({ item, last }: { item: ExperienceItem; last: boolean }) {
         </ul>
         {item.tech && <TechList items={item.tech} label="Technologies used" className="mt-5" />}
       </article>
-    </li>
+    </Reveal>
   );
 }
 

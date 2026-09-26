@@ -133,3 +133,12 @@
     background-size: 24px 24px;
   }
 }
+
+/* الطباعة (Ctrl+P / PDF): عناصر الـ Reveal اللي ما وصللها الـ scroll لسا opacity:0 بالـ inline style.
+   الـ !important لازم مشان يغلب الـ inline style. */
+@media print {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

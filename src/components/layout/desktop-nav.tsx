@@ -19,7 +19,7 @@ export function DesktopNav({ items }: { items: NavItem[] }) {
             <SectionLink
               href={item.href}
               aria-current={active === ids[i] ? "true" : undefined}
-              className="text-muted-foreground hover:text-foreground focus-visible:ring-ring aria-current:text-foreground rounded-md px-3 py-2 transition-colors duration-200 focus-visible:ring-2 focus-visible:outline-none"
+              className="text-muted-foreground hover:text-foreground focus-visible:ring-ring aria-current:bg-muted aria-current:text-foreground rounded-md px-3 py-2 transition-colors duration-200 focus-visible:ring-2 focus-visible:outline-none"
             >
               {item.label}
             </SectionLink>

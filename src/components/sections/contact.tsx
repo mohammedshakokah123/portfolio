@@ -1,6 +1,7 @@
 import { Mail, MapPin } from "lucide-react";
 
 import { ContactForm } from "@/components/contact/contact-form";
+import { Reveal } from "@/components/motion/reveal";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/brand-icons";
 import { Section } from "@/components/shared/section";
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -21,7 +22,7 @@ export function Contact() {
       bordered={false}
       className="grid gap-12 lg:grid-cols-[1fr_1.3fr]"
     >
-      <div>
+      <Reveal>
         <SectionHeading
           id="contact-title"
           descriptionClassName="text-muted-foreground max-w-md text-base"
@@ -62,9 +63,11 @@ export function Contact() {
             {location}
           </li>
         </ul>
-      </div>
+      </Reveal>
 
-      <ContactForm />
+      <Reveal delay={0.1}>
+        <ContactForm />
+      </Reveal>
     </Section>
   );
 }

@@ -144,9 +144,18 @@ export function HoverLift({ children, className }: { children: React.ReactNode; 
 - العناصر اللي عليها `initial={{ opacity: 0 }}` بتنرسم بالـ HTML من السيرفر (النص موجود للـ crawlers)، بس بتكون مخفية بصرياً لحد ما يتحمّل الـ JS.
 - هاد مقبول لأن الحركات قصيرة والـ JS صغير. بس **ما منطبّق هالشي على الـ Hero** بطريقة بتأخر ظهور الـ h1 (شوف 4-أ).
 
+## 6. شو تغيّر وقت التنفيذ (بعد الـ code review)
+- **الـ Hero صار CSS** (`tw-animate-css` مع `fill-mode-backwards`) بدل Motion. هيك المحتوى والـ CTAs بيبينوا حتى لو الـ JS تأخر أو فشل. الـ h1 بيتحرّك بالـ y بس، ومع `motion-reduce` بيضل الـ fade بس.
+- **ما في `Stagger`:** كل عنصر بالقائمة عليه `Reveal` لحاله مع `col={i % الأعمدة}`، و`Reveal` بيحسب الـ delay جوّاه. مع `Stagger` على الـ container، كانت العناصر اللي تحت بتخلص حركتها قبل ما توصلها عالموبايل.
+- ⚠️ **ما تصدّر قيم (أرقام، objects) من ملف `"use client"`** إذا بيستوردها Server Component. بتوصله client reference مش القيمة. هيك كان `STAGGER` عم يطلع `NaN` والـ stagger ما كان يشتغل، بدون ولا error.
+- **ما في `HoverLift`:** الرفعة صارت CSS بـ `ProjectCard`. الـ hover عالـ div الخارجي (ما بيتحرك)، والـ `motion-safe:-translate-y-1` عالـ article. لو نفس العنصر بيحس بالـ hover وبيتحرك، الكرت بيرجف لما الماوس يكون بآخر 4px منه، ومع reduced motion كان يقفز.
+- **الـ Nav indicator بالـ CSS** (`aria-current:bg-muted`) مع `domAnimation`. الـ `domMax` كان بيزيد ~13.7KB gzip مشان خلفية وحدة.
+- **`[data-reveal]`** على كل `Reveal`: `MotionNoScript` (إذا الـ JS مطفي) و`@media print` بـ `globals.css` بيرجّعوا العناصر ظاهرة. بدونهم، الأقسام اللي ما وصللها الـ scroll بتطلع فاضية.
+- **ما منستعمل `m[as]`:** الـ access الديناميكي على الـ namespace بيجيب كل عناصر motion (~170) للـ bundle. منستعمل map صريح.
+
 ## Definition of Done
-- [ ] كل الحركات ≤ 0.5 ثانية، ومرة وحدة بس.
-- [ ] بـ `prefers-reduced-motion: reduce` (من DevTools ← Rendering) ما في حركة transform.
-- [ ] Lighthouse: الـ CLS = 0، والـ LCP ما تأثر (قارن قبل وبعد).
-- [ ] ما في `motion.*`، كله `m.*` (الـ `strict` بيضمن هالشي).
-- [ ] حجم الـ JS تبع الصفحة الرئيسية معقول (افحص output الـ `npm run build`).
+- [x] كل الحركات ≤ 0.5 ثانية، ومرة وحدة بس.
+- [x] بـ `prefers-reduced-motion: reduce` (من DevTools ← Rendering) ما في حركة transform.
+- [x] Lighthouse: الـ CLS = 0، والـ LCP ما تأثر (قارن قبل وبعد).
+- [x] ما في `motion.*`، كله `m.*` (الـ `strict` بيضمن هالشي).
+- [x] حجم الـ JS تبع الصفحة الرئيسية معقول (افحص output الـ `npm run build`).
