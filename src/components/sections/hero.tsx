@@ -10,9 +10,9 @@ import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 /**
- * حركة الـ Hero بالـ CSS (tw-animate-css) مش بـ Motion: الـ Hero فوق الـ fold، فلازم يبين حتى
+ * حركة الـ Hero عند التحميل بـ tw-animate-css مش بـ Reveal: الـ Hero فوق الـ fold، فلازم يبين حتى
  * لو الـ JS تأخر أو فشل. fill-mode-backwards بيخلي العناصر اللي عليها delay مخفية من أول paint
- * (بدون flash). مع prefers-reduced-motion بيضل الـ fade بس، متل reducedMotion="user" تبع Motion.
+ * (بدون flash). مع prefers-reduced-motion بيضل الـ fade بس، متل الـ Reveal.
  */
 const rise =
   "animate-in slide-in-from-bottom-3 animation-duration-400 ease-out fill-mode-backwards motion-reduce:slide-in-from-bottom-0";
@@ -119,7 +119,7 @@ function GlanceCard() {
         {site.profileImage ? (
           <Image
             src={site.profileImage}
-            alt={site.name}
+            alt={`${site.name}, ${site.role}`}
             fill
             loading="eager"
             sizes="(min-width: 1024px) 20rem, 24rem"

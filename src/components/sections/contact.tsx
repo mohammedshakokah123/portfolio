@@ -3,6 +3,7 @@ import { Mail, MapPin } from "lucide-react";
 import { ContactForm } from "@/components/contact/contact-form";
 import { Reveal } from "@/components/motion/reveal";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/brand-icons";
+import { NewTabHint } from "@/components/shared/new-tab-hint";
 import { Section } from "@/components/shared/section";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { site } from "@/content/site";
@@ -96,7 +97,7 @@ function ContactLink({ href, icon, external, children }: ContactLinkProps) {
     >
       <IconBox>{icon}</IconBox>
       {children}
-      {external && <span className="sr-only">(opens in a new tab)</span>}
+      {external && <NewTabHint />}
     </a>
   );
 }

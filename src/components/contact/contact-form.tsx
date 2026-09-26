@@ -4,9 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Send } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm, type FieldError as FormFieldError } from "react-hook-form";
-import { toast } from "sonner";
 
 import { sendContact } from "@/app/actions/contact";
+import { toastSuccess } from "@/components/shared/lazy-toaster";
 import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -45,7 +45,7 @@ export function ContactForm() {
         setStatus({ tone: "ok", msg: "Message sent. I'll reply within one business day." });
         // الـ toast للعين بس: الـ role="status" تحت هو اللي بيقرأه قارئ الشاشة، وبدون
         // aria-hidden الـ live region تبع sonner بيعيد نفس الخبر مرة تانية
-        toast.success(<span aria-hidden>Message sent</span>);
+        void toastSuccess(<span aria-hidden>Message sent</span>);
         return;
       }
       // رجّع أخطاء السيرفر للحقول، والـ focus على أول واحد غلط

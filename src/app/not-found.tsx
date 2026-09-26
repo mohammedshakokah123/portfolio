@@ -3,7 +3,8 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
-export const metadata: Metadata = { title: "Page not found" };
+// الـ robots صريح: غير هيك بيورث "index, follow" من الـ layout جنب الـ noindex اللي Next بيحطه لحاله
+export const metadata: Metadata = { title: "Page not found", robots: { index: false } };
 
 export default function NotFound() {
   return (

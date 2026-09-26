@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ProjectDetail } from "@/components/projects/project-detail";
+import { JsonLd } from "@/components/shared/json-ld";
 import { getAdjacentProjects, getAllProjects, getProjectBySlug } from "@/content/projects";
+import { site } from "@/content/site";
+import { projectJsonLd } from "@/lib/seo/json-ld";
+import { sharedOpenGraph, sharedTwitter } from "@/lib/seo/metadata";
 
 // أي slug مش بـ generateStaticParams ← 404
 export const dynamicParams = false;
@@ -18,15 +22,23 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug);
   if (!project) return {};
 
+  const url = `/projects/${project.slug}`;
+  // الـ template تبع الـ title ما بيوصل للـ OG والـ twitter، فمنكتبه كامل
+  const fullTitle = `${project.title} | ${site.name}`;
+
+  // الصورة من opengraph-image.tsx جنب هالملف (الـ file-based بيغلب الـ config)
   return {
     title: project.title,
     description: project.summary,
-    alternates: { canonical: `/projects/${project.slug}` },
+    alternates: { canonical: url },
     openGraph: {
-      title: project.title,
+      ...sharedOpenGraph,
+      type: "article",
+      url,
+      title: fullTitle,
       description: project.summary,
-      images: project.image ? [project.image.src] : undefined,
     },
+    twitter: { ...sharedTwitter, title: fullTitle, description: project.summary },
   };
 }
 
@@ -37,5 +49,10 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
   if (!project) notFound();
 
   const { prev, next } = getAdjacentProjects(slug);
-  return <ProjectDetail project={project} prev={prev} next={next} />;
+  return (
+    <>
+      <JsonLd data={projectJsonLd(project)} />
+      <ProjectDetail project={project} prev={prev} next={next} />
+    </>
+  );
 }

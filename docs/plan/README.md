@@ -32,6 +32,11 @@
 - [x] 08: الفورم بيبعت إيميل حقيقي
 - [x] 09: الحركات مع احترام `prefers-reduced-motion`
 - [ ] 10: Lighthouse ≥ 95 (SEO = 100)، والـ JSON-LD سليم، وما في أخطاء axe
+  - [x] Metadata وOG images وfavicon وsitemap وrobots وJSON-LD
+  - [x] ولا خطأ axe، وAccessibility وBest Practices وSEO = 100
+  - [x] Performance: صفحات المشاريع 96–98، والرئيسية 92–96 على localhost (الحكم النهائي بـ PageSpeed بعد النشر ← انتقل للمرحلة 11)
+  - [x] Rich Results Test وSchema Validator ← انتقلوا للمرحلة 11 (بدهن رابط حقيقي)
+  - [ ] ⏳ مستني منك: صور المشاريع والـ CV
 - [ ] 11: الموقع live، ومسجّل بـ Search Console وBing، وحساباتك بتربط عليه
 
 ## ⏳ مستنيين من صاحب الموقع

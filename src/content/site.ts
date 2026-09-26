@@ -6,7 +6,7 @@ import type { SiteConfig } from "@/types/content";
 
 /**
  * بالترتيب: الرابط اللي حاطينه بإيدنا، بعدين الـ production domain اللي Vercel بيعطيه
- * تلقائياً، وبالآخر localhost (بس للتطوير المحلي). منشيل المسافات، وإذا ما في scheme
+ * تلقائياً، وبالآخر localhost (بس بالتطوير). منشيل المسافات، وإذا ما في scheme
  * منضيف https://، وأي رابط غلط بيوقّف الـ build برسالة واضحة.
  * منرجّع الـ origin بس (متل "https://example.com"): حروف صغيرة وبدون "/" بالآخر.
  */
@@ -14,8 +14,16 @@ function resolveSiteUrl() {
   // الـ trim قبل الـ || مشان قيمة فيها مسافات بس تنحسب فاضية ونروح عالخيار اللي بعدها
   const raw =
     process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL?.trim() ||
-    "http://localhost:3000";
+    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  if (!raw) {
+    // بالـ production الـ fallback لـ localhost بيطلّع canonical وsitemap وJSON-LD غلط بدون ما حدا ينتبه
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(
+        "NEXT_PUBLIC_SITE_URL is not set. Set it to the live URL (or http://localhost:3000 for a local production build).",
+      );
+    }
+    return "http://localhost:3000";
+  }
   const url = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
   // new URL بدل URL.canParse: الأخيرة مش موجودة بـ Safari < 17 إذا الملف وصل للمتصفح
   try {
@@ -31,13 +39,16 @@ const availability = "Available for full-time roles";
 /** مجموع سنين الخبرة الهندسية (مش بس الـ production) */
 const engineeringYears = "3+";
 
+/** آخر مرة تغيّر فيها المحتوى (الـ sitemap والـ JSON-LD). حدّثه يدوياً، مش new Date() */
+export const contentUpdatedAt = "2026-09-26";
+
 export const site: SiteConfig = {
   name,
   // TODO(SEO): أكّد كل طرق كتابة الاسم اللي ممكن حدا يبحث فيها
   alternateNames: ["محمد شقوقة" /* , "Mohammad Shakokah", "Mohammed Shaquqa" ... */],
   role,
   url: resolveSiteUrl(),
-  description: `${name}, ${role} specializing in React, Next.js and TypeScript. ${engineeringYears} years of engineering experience building production-grade web applications.`,
+  description: `${name}, ${role} specializing in React, Next.js and TypeScript. ${engineeringYears} years of engineering experience building production web applications.`,
   ogDescription:
     "React, Next.js and TypeScript engineer building production-grade web applications.",
   keywords: [
@@ -117,7 +128,10 @@ export const site: SiteConfig = {
   about: {
     paragraphs: [
       [
-        "I'm a frontend engineer who cares about the parts of a product users touch every day: fast screens, predictable state, and interfaces that behave the same on a 5-inch phone and a 27-inch monitor.",
+        // الاسم الكامل والدور والمدينة بجملة طبيعية ← SEO
+        "I'm ",
+        { emphasis: name },
+        ", a frontend engineer based in Latakia, Syria. I care about the parts of a product users touch every day: fast screens, predictable state, and interfaces that behave the same on a 5-inch phone and a 27-inch monitor.",
       ],
       [
         "At ",

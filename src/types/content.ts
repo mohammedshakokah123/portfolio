@@ -68,7 +68,7 @@ export type Project = {
   subtitle: string;
   summary: string; // النص المختصر بالكرت
   icon: LucideIcon; // أيقونة الـ placeholder
-  image: { src: string; alt: string } | null; // null = يعرض placeholder
+  image: { src: string; alt: string } | null; // null = يعرض placeholder. الـ alt وصفي (شو بيبيّن)، مش "screenshot"
   placeholderLabel: string; // aria-label للـ placeholder لما ما في صورة
   tech: string[]; // badges الكرت
   overview: string;

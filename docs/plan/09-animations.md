@@ -153,6 +153,13 @@ export function HoverLift({ children, className }: { children: React.ReactNode; 
 - **`[data-reveal]`** على كل `Reveal`: `MotionNoScript` (إذا الـ JS مطفي) و`@media print` بـ `globals.css` بيرجّعوا العناصر ظاهرة. بدونهم، الأقسام اللي ما وصللها الـ scroll بتطلع فاضية.
 - **ما منستعمل `m[as]`:** الـ access الديناميكي على الـ namespace بيجيب كل عناصر motion (~170) للـ bundle. منستعمل map صريح.
 
+## 7. بالمرحلة 10: Motion انشالت (Performance)
+- الـ `Reveal` صار **Server Component** بيحط `data-reveal` والـ delay كـ CSS variable (`--reveal-delay`) بس، والحركة نفسها بـ `globals.css` (نفس القيم: 0.5s، 16px، easeOut، stagger 0.07s، مرة وحدة).
+- **`RevealObserver`** (بالـ layout): `IntersectionObserver` واحد لكل الصفحة بيحط `data-revealed` لما العنصر يبين (`rootMargin` -80px من تحت)، وبيعيد الفحص بعد كل navigation.
+- المخفي بس مع `@media (scripting: enabled)`، فإذا الـ JS مطفي المحتوى ظاهر بدون `MotionNoScript`. ومع `prefers-reduced-motion` الـ fade بس. والطباعة بتضل بتبيّن كل شي.
+- **الـ Theme toggle** صار CSS: الأيقونتين فوق بعض، و`dark:` بيختار وحدة مع `rotate`/`opacity` transition. الـ `!` عالـ transition ضروري لأن `disableTransitionOnChange` تبع next-themes بيوقف كل الـ transitions وقت التبديل.
+- انحذفوا `MotionProvider` و`MotionNoScript` و`useMounted`، وانشالت حزمة `motion`. الـ JS بالرئيسية نزل ~32KB (gzip)، والـ Lighthouse Performance طلع من 87–91 لـ 91–93.
+
 ## Definition of Done
 - [x] كل الحركات ≤ 0.5 ثانية، ومرة وحدة بس.
 - [x] بـ `prefers-reduced-motion: reduce` (من DevTools ← Rendering) ما في حركة transform.

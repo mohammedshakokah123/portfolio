@@ -96,8 +96,9 @@ gh repo create portfolio --public --source=. --push
 - [ ] الـ 4 صفحات مشاريع بتفتح، و`/projects/xyz` ← 404.
 - [ ] **الفورم:** ابعت رسالة حقيقية وتأكد إنها وصلت (وشوف الـ Spam).
 - [ ] الـ OG preview على [opengraph.xyz](https://www.opengraph.xyz) و[LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/).
-- [ ] [Rich Results Test](https://search.google.com/test/rich-results) على الـ URL الحقيقي.
-- [ ] Lighthouse على الـ URL الحقيقي (Mobile): SEO = 100.
+- [ ] [Rich Results Test](https://search.google.com/test/rich-results) على الـ URL الحقيقي: `Person` و`ProfilePage` بالرئيسية، و`BreadcrumbList` بصفحة مشروع، بدون أخطاء. (من المرحلة 10)
+- [ ] [Schema Markup Validator](https://validator.schema.org) على الرئيسية وصفحة مشروع: بدون أخطاء. (من المرحلة 10)
+- [ ] [PageSpeed Insights](https://pagespeed.web.dev) على الـ URL الحقيقي (Mobile): ≥ 95 بالأربع فئات، والـ SEO = 100. (من المرحلة 10: على localhost الرئيسية كانت 92–96، الوسيط 94. إذا طلعت تحت الـ 95 هون، شوف الـ TBT وحجم الـ JS بالرئيسية)
 - [ ] جرّب على موبايل حقيقي (iOS + Android) بالثيمين.
 
 ## 8. المتابعة (بعد النشر)

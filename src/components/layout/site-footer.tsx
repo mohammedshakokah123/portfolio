@@ -1,3 +1,4 @@
+import { NewTabHint } from "@/components/shared/new-tab-hint";
 import { SectionLink } from "@/components/shared/section-link";
 import { site } from "@/content/site";
 
@@ -35,6 +36,7 @@ export function SiteFooter() {
               <li key={s.url}>
                 <a href={s.url} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   {s.label}
+                  <NewTabHint />
                 </a>
               </li>
             ))}

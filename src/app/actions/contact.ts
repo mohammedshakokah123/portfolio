@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { Resend } from "resend";
-import { z } from "zod";
+import * as z from "zod/mini";
 
 import { site } from "@/content/site";
 import { CONTACT_INVALID_MSG, contactSchema, type ContactResult } from "@/lib/validations/contact";

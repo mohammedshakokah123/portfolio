@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
+import { NewTabHint } from "@/components/shared/new-tab-hint";
 import { SectionLink } from "@/components/shared/section-link";
 import { TechList } from "@/components/shared/tech-badge";
 import { Button } from "@/components/ui/button";
@@ -58,20 +59,20 @@ export function ProjectDetail({ project, prev, next }: ProjectDetailProps) {
       </figure>
 
       <div className="text-muted-foreground mt-12 space-y-10 text-[15px] leading-relaxed">
-        <DetailSection title={projectLabels.overview}>
+        <DetailSection id="overview" title={projectLabels.overview}>
           <p>{overview}</p>
         </DetailSection>
-        <DetailSection title={projectLabels.architecture}>
+        <DetailSection id="architecture" title={projectLabels.architecture}>
           <p>{architecture}</p>
         </DetailSection>
-        <DetailSection title={projectLabels.features}>
+        <DetailSection id="features" title={projectLabels.features}>
           <ul className="marker:text-subtle list-disc space-y-1.5 pl-5">
             {features.map((f) => (
               <li key={f}>{f}</li>
             ))}
           </ul>
         </DetailSection>
-        <DetailSection title={projectLabels.stack}>
+        <DetailSection id="stack" title={projectLabels.stack}>
           <p>{stack.join(", ")}.</p>
         </DetailSection>
       </div>
@@ -96,7 +97,7 @@ export function ProjectDetail({ project, prev, next }: ProjectDetailProps) {
                 <a href={links.demo} target="_blank" rel="noopener noreferrer">
                   <ExternalLink aria-hidden />
                   {projectLabels.liveDemo}
-                  <span className="sr-only">(opens in a new tab)</span>
+                  <NewTabHint />
                 </a>
               </Button>
             )}
@@ -105,7 +106,7 @@ export function ProjectDetail({ project, prev, next }: ProjectDetailProps) {
                 <a href={links.source} target="_blank" rel="noopener noreferrer">
                   <Code aria-hidden />
                   {projectLabels.sourceCode}
-                  <span className="sr-only">(opens in a new tab)</span>
+                  <NewTabHint />
                 </a>
               </Button>
             )}
@@ -123,10 +124,14 @@ export function ProjectDetail({ project, prev, next }: ProjectDetailProps) {
   );
 }
 
-function DetailSection({ title, children }: { title: string; children: React.ReactNode }) {
+type DetailSectionProps = { id: string; title: string; children: React.ReactNode };
+
+function DetailSection({ id, title, children }: DetailSectionProps) {
   return (
-    <section>
-      <h2 className="text-foreground text-sm font-semibold">{title}</h2>
+    <section aria-labelledby={`${id}-title`}>
+      <h2 id={`${id}-title`} className="text-foreground text-sm font-semibold">
+        {title}
+      </h2>
       <div className="mt-2">{children}</div>
     </section>
   );
