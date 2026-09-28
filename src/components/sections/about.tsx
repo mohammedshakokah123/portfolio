@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/motion/reveal";
+import { IconTile } from "@/components/shared/icon-tile";
 import { RichTextParagraph } from "@/components/shared/rich-text-paragraph";
 import { Section } from "@/components/shared/section";
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -19,7 +20,9 @@ export function About() {
         <ul className="grid gap-3 pt-2 sm:grid-cols-3">
           {site.about.principles.map(({ icon: Icon, title, description }, i) => (
             <Reveal as="li" key={title} col={i % 3} className="border-border rounded-lg border p-4">
-              <Icon className="text-brand size-5" aria-hidden />
+              <IconTile>
+                <Icon className="size-4.5" aria-hidden />
+              </IconTile>
               <h3 className="text-emphasis mt-3 text-sm font-medium">{title}</h3>
               <p className="text-subtle mt-1 text-sm">{description}</p>
             </Reveal>

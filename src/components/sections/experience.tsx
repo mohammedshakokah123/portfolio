@@ -19,7 +19,7 @@ export function Experience() {
         <SectionHeading id="experience-title" {...site.sections.experience} />
       </Reveal>
 
-      <ol className="border-border relative border-l">
+      <ol className="relative">
         {experience.map((item, i) => (
           <TimelineItem
             key={`${item.org}-${item.period.start}`}
@@ -37,12 +37,19 @@ function TimelineItem({ item, last }: { item: ExperienceItem; last: boolean }) {
 
   return (
     <Reveal as="li" className={cn("relative pl-8", !last && "pb-12")}>
-      {/* النقطة بنص الخط: الـ brand بس للشغل الحالي (end === null) */}
+      {/* الخط (بمكان الـ border-l القديم) بينرسم لتحت لما العنصر يبين: الحركة بـ globals.css.
+          لازم يجي قبل النقطة بالـ DOM مشان النقطة تنرسم فوقه */}
+      <span
+        aria-hidden
+        data-reveal-line
+        className="bg-border absolute inset-y-0 -left-px w-px origin-top"
+      />
+      {/* النقطة بنص الخط: الـ brand والتوهّج بس للشغل الحالي (end === null) */}
       <span
         aria-hidden
         className={cn(
           "bg-background absolute top-1.5 -left-[7px] size-3 rounded-full border-2",
-          item.period.end === null ? "border-brand" : "border-subtle",
+          item.period.end === null ? "border-brand shadow-glow-sm" : "border-subtle",
         )}
       />
       <article>

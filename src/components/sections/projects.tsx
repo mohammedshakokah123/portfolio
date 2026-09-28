@@ -7,7 +7,7 @@ import { site } from "@/content/site";
 
 export function Projects() {
   return (
-    <Section id="projects" labelledBy="projects-title">
+    <Section id="projects" labelledBy="projects-title" band>
       <Reveal>
         <SectionHeading id="projects-title" className="max-w-xl" {...site.sections.projects} />
       </Reveal>

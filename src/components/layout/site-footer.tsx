@@ -1,3 +1,4 @@
+import { BackToTop } from "@/components/layout/back-to-top";
 import { NewTabHint } from "@/components/shared/new-tab-hint";
 import { SectionLink } from "@/components/shared/section-link";
 import { site } from "@/content/site";
@@ -43,6 +44,8 @@ export function SiteFooter() {
           </ul>
         </nav>
       </div>
+      {/* عائم (fixed)، بس جوّا الـ footer مشان يكون ضمن landmark لقارئ الشاشة */}
+      <BackToTop />
     </footer>
   );
 }

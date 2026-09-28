@@ -25,8 +25,22 @@ export function Hero() {
     <Section
       id="top"
       labelledBy="hero-title"
-      className="grid gap-12 md:py-28 lg:grid-cols-[1fr_20rem] lg:items-center"
+      className="relative isolate grid gap-12 md:py-28 lg:grid-cols-[1fr_20rem] lg:items-center"
+      // النقاط بعرض الشاشة كلها، والضوء (تحت) جوّا الـ container مشان يضل ورا بطاقة الـ glance
+      backdrop={
+        <div
+          aria-hidden
+          className="dot-grid animate-in fade-in animation-duration-1200 fill-mode-backwards pointer-events-none absolute inset-0 -z-10 ease-out"
+        />
+      }
     >
+      {/* الضوء بيشتغل مرة وحدة وبيضل ثابت. absolute، فما بياخد خانة بالـ grid وما بيعمل layout shift.
+          الـ -top-16 بيطلّعه ورا الـ header (خلفيته شفافة شوي، فالضوء بيبين من وراه خفيف) */}
+      <div
+        aria-hidden
+        className="hero-light animate-in fade-in animation-duration-1200 fill-mode-backwards pointer-events-none absolute inset-x-0 -top-16 -z-10 h-[40rem] ease-out"
+      />
+
       {/* الحركة عند التحميل: badge ← h1 ← lead ← quick facts ← CTA (70ms بين كل وحدة) */}
       <div>
         <Badge
@@ -38,7 +52,11 @@ export function Hero() {
           )}
         >
           <p>
-            <span className="bg-success size-1.5 shrink-0 rounded-full" aria-hidden />
+            {/* توهّج ثابت بدون نبض: ما في حركة مستمرة بالموقع */}
+            <span
+              className="bg-success size-1.5 shrink-0 rounded-full shadow-[0_0_8px_var(--success)]"
+              aria-hidden
+            />
             {site.availability}
           </p>
         </Badge>

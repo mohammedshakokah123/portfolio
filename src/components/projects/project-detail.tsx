@@ -146,7 +146,7 @@ function AdjacentLink({ project, direction }: { project: Project; direction: "pr
     <Link
       href={`/projects/${project.slug}`}
       className={cn(
-        "group border-border hover:border-input focus-visible:ring-ring rounded-lg border p-4 transition-colors duration-200 focus-visible:ring-2 focus-visible:outline-none",
+        "group border-border hover:border-brand/40 hover:shadow-glow focus-visible:ring-ring focus-visible:shadow-glow rounded-lg border p-4 transition-[border-color,box-shadow] duration-200 focus-visible:ring-2 focus-visible:outline-none",
         isNext && "text-right sm:col-start-2",
       )}
     >

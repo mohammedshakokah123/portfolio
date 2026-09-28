@@ -18,6 +18,12 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={className}>
+      {/* خط قصير بيعلّم بداية القسم، وبينرسم لليمين لما يبين الـ Reveal (القواعد بـ globals.css) */}
+      <span
+        aria-hidden
+        data-reveal-line
+        className="bg-brand mb-4 block h-0.5 w-8 origin-left rounded-full [--reveal-scale-from:0_1]"
+      />
       <h2 id={id} className="text-foreground text-2xl font-semibold tracking-tight">
         {title}
       </h2>

@@ -80,7 +80,8 @@ export function ContactForm() {
       }}
       noValidate
       aria-describedby="form-note"
-      className="border-border bg-card/30 rounded-lg border p-6 sm:p-8"
+      // لما تكتب، الفورم كله بيضوي خفيف. الحقول بيضل عليها الـ focus ring تبعها
+      className="border-border bg-card/30 has-focus-visible:border-brand/30 has-focus-visible:shadow-glow rounded-lg border p-6 transition-[border-color,box-shadow] duration-300 sm:p-8"
     >
       <div className="grid gap-x-5 gap-y-1 sm:grid-cols-2">
         <Controller
@@ -174,11 +175,34 @@ export function ContactForm() {
       <p
         role="status"
         aria-live="polite"
-        className={cn("mt-4 min-h-5 text-sm", status && toneClass[status.tone])}
+        className={cn(
+          "mt-4 flex min-h-5 items-center gap-2 text-sm",
+          status && toneClass[status.tone],
+        )}
       >
+        {status?.tone === "ok" && <DrawnCheck />}
         {status?.msg}
       </p>
     </form>
+  );
+}
+
+/** ✓ بتنرسم مرة وحدة لما تنبعت الرسالة (.check-draw بـ globals.css). للعين بس، النص هو اللي بينقرأ */
+function DrawnCheck() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4 shrink-0"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="m8 12.5 3 3 5-6" pathLength={1} className="check-draw" />
+    </svg>
   );
 }
 

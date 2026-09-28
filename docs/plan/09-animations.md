@@ -160,6 +160,25 @@ export function HoverLift({ children, className }: { children: React.ReactNode; 
 - **الـ Theme toggle** صار CSS: الأيقونتين فوق بعض، و`dark:` بيختار وحدة مع `rotate`/`opacity` transition. الـ `!` عالـ transition ضروري لأن `disableTransitionOnChange` تبع next-themes بيوقف كل الـ transitions وقت التبديل.
 - انحذفوا `MotionProvider` و`MotionNoScript` و`useMounted`، وانشالت حزمة `motion`. الـ JS بالرئيسية نزل ~32KB (gzip)، والـ Lighthouse Performance طلع من 87–91 لـ 91–93.
 
+## 8. إضاءة خفيفة (بعد المرحلة 10)
+الموقع رح ينعرض على جهات رسمية، فالإضاءة لازم تضل هادية. القواعد:
+- **مصدر ضوء واحد:** `.hero-light` (radial-gradient بـ `globals.css`، مش `filter: blur`) فوق الـ Hero، بيشتغل مرة وحدة (fade 1.2s) وبعدها ثابت. نصف القطر محسوب مشان الضوء يخلص جوّا الـ container.
+- **الـ glow بس عالعناصر التفاعلية:** `shadow-glow-sm` للأزرار المعبّاية (`default` و`inverted`) وقت الـ hover، و`shadow-glow` لكروت المشاريع وروابط Previous/Next (hover وkeyboard focus) وللفورم لما يكون فيه focus. العناصر اللي ما بتنضغط (المبادئ، المهارات، الـ timeline) ما بتضوي، لأنه الـ hover عليها بيوحي إنها clickable.
+- **ما في حركة مستمرة:** نقطة "Available" عليها توهّج ثابت بدون نبض.
+- **خط الـ timeline** (`data-reveal-line`) بينرسم لتحت مع كل عنصر، بنفس آلية الـ Reveal: مرة وحدة، ظاهر بدون JS، ومع reduced motion وبالطباعة ظاهر كامل.
+- الألوان من الـ tokens `--glow` و`--hero-light` (أخف بالـ Light).
+
+## 9. تفاصيل إضافية (نفس الروح: هادية، مرة وحدة، بدون loop)
+- **الـ Header:** ظل بيطلع بأول 120px scroll، وشريط رفيع (`.scroll-progress`) بيبيّن قديش قريت من الصفحة. الاتنين scroll-driven animations بالـ CSS (بدون JS)، وبالمتصفحات اللي ما بتدعمها ما بيطلع ظل والشريط مخفي. بالطباعة الشريط مخفي.
+- **الـ Nav:** خط تحت رابط القسم الحالي بيتزحلق من رابط لرابط (`desktop-nav.tsx`، بالـ style مباشرة بدون state). أول ما يبين بيطلع بـ fade بمكانه، ومع reduced motion بدون transition.
+- **عناوين الأقسام:** خط brand قصير فوق كل `h2` بينرسم لليمين (`data-reveal-line` مع `--reveal-scale-from: 0 1`).
+- **المهارات:** الـ chips بتطلع وحدة ورا التانية (`data-reveal-item` مع `--i`، 45ms بين كل وحدة). بدون JS وبالطباعة ظاهرين.
+- **الأيقونات:** `IconTile` (مربع indigo خفيف) بالمبادئ وبعناوين المهارات.
+- **الخلفية:** نقش نقاط (`.dot-grid`) بعرض الشاشة ورا الـ Hero (بالـ prop `backdrop` تبع `Section`) بيختفي لتحت، وSkills وProjects بخلفية `bg-band` (prop `band`) مشان يصير للصفحة إيقاع.
+- **كروت المشاريع:** الصورة بتكبر 3% جوّا إطارها، وخط ضو عالطرف الفوقاني. hover وkeyboard focus.
+- **Back to top عائم** (`back-to-top.tsx` جوّا الـ Footer): بيبين بعد ما تنزل ~شاشة، و`inert` وهو مخفي.
+- **الفورم:** ✓ بتنرسم مرة وحدة لما تنبعت الرسالة (`.check-draw`)، ومع reduced motion بتبين كاملة.
+
 ## Definition of Done
 - [x] كل الحركات ≤ 0.5 ثانية، ومرة وحدة بس.
 - [x] بـ `prefers-reduced-motion: reduce` (من DevTools ← Rendering) ما في حركة transform.

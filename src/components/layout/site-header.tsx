@@ -9,7 +9,12 @@ import { site } from "@/content/site";
 
 export function SiteHeader() {
   return (
-    <header className="border-border/80 bg-background/90 supports-[backdrop-filter]:bg-background/75 sticky top-0 z-40 border-b backdrop-blur">
+    // scroll-shadow وscroll-progress بـ globals.css: ظل بعد أول scroll وشريط تقدّم القراءة، بدون JS
+    <header className="border-border/80 bg-background/90 supports-[backdrop-filter]:bg-background/75 scroll-shadow sticky top-0 z-40 border-b backdrop-blur">
+      <span
+        aria-hidden
+        className="scroll-progress bg-brand/80 pointer-events-none absolute inset-x-0 -bottom-px h-0.5 origin-left"
+      />
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <SectionLink
           href="/#top"

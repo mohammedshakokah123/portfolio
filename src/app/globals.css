@@ -31,6 +31,13 @@
   --success: #047857;
   --destructive: #dc2626;
   --ring: #4f46e5;
+  /* الإضاءة: أخف من الـ Dark لأن الـ indigo على الأبيض بيبين أقوى */
+  --glow: color-mix(in oklab, #4f46e5 22%, transparent);
+  --hero-light: color-mix(in oklab, #6366f1 14%, transparent);
+  /* خلفية الأقسام المتناوبة (Skills وProjects): درجة وحدة عن الخلفية */
+  --band: #f7f7f8;
+  --dot: color-mix(in oklab, #18181b 18%, transparent);
+  --header-shadow: 0 8px 24px -16px rgb(9 9 11 / 0.25);
   color-scheme: light;
 }
 
@@ -59,6 +66,11 @@
   --success: #6ee7b7;
   --destructive: #f87171;
   --ring: #818cf8;
+  --glow: color-mix(in oklab, #818cf8 35%, transparent);
+  --hero-light: color-mix(in oklab, #6366f1 30%, transparent);
+  --band: #111114;
+  --dot: color-mix(in oklab, #ffffff 16%, transparent);
+  --header-shadow: 0 10px 30px -14px rgb(0 0 0 / 0.9);
   color-scheme: dark;
 }
 
@@ -86,6 +98,7 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-band: var(--band);
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-heading: var(--font-sans);
@@ -96,6 +109,9 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  /* الـ glow بس عالعناصر اللي بتنضغط أو بتنكتب فيها. بيتركّب مع الـ ring تبع الـ focus */
+  --shadow-glow-sm: 0 0 14px -2px var(--glow);
+  --shadow-glow: 0 12px 40px -16px var(--glow);
 }
 
 @layer base {
@@ -133,6 +149,85 @@
       );
     background-size: 24px 24px;
   }
+
+  /* ضوء الـ Hero (مصدر الضوء الوحيد بالصفحة). radial-gradient بدل filter: blur لأنه أرخص.
+     الضوء بيصير شفاف كلياً عند 70% من نصف القطر، فلازم (المركز ± 0.7 × نصف القطر) يضل جوّا 0–100%،
+     وإلا بيطلع حد مقصوص عطرف الـ container بالشاشات العريضة.
+     المركز بـ 12% من فوق: تحت الـ header بشوي، مش وراه (وإلا أقوى نقطة بالضوء بتتخبّى) */
+  .hero-light {
+    background-image: radial-gradient(
+      ellipse 70% 50% at 50% 12%,
+      var(--hero-light),
+      transparent 70%
+    );
+  }
+  @media (width >= 64rem) {
+    .hero-light {
+      /* ورا بطاقة الـ At a glance: 68% ± 0.7 × 40% = 40%–96% */
+      background-image: radial-gradient(
+        ellipse 40% 70% at 68% 12%,
+        var(--hero-light),
+        transparent 70%
+      );
+    }
+  }
+
+  /* نقش نقاط متل ورق الرسم الهندسي ورا الـ Hero، بيختفي لتحت وعالأطراف */
+  .dot-grid {
+    background-image: radial-gradient(circle, var(--dot) 1px, transparent 1.5px);
+    background-size: 22px 22px;
+    background-position: center top;
+    mask-image: radial-gradient(ellipse 80% 90% at 50% 0%, #000 35%, transparent 85%);
+  }
+}
+
+/* الـ Header مع الـ scroll (scroll-driven animations، بدون JS): ظل بيطلع بأول 120px، وشريط رفيع
+   بيبيّن قديش قريت من الصفحة. بالمتصفحات اللي ما بتدعمها الظل ما بيطلع والشريط مخفي، والباقي متل ما هو */
+@keyframes scroll-shadow {
+  to {
+    box-shadow: var(--header-shadow);
+  }
+}
+@keyframes scroll-progress {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+@layer components {
+  .scroll-progress {
+    display: none;
+  }
+  @supports (animation-timeline: scroll()) {
+    .scroll-shadow {
+      animation: scroll-shadow linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 120px;
+    }
+    .scroll-progress {
+      display: block;
+      animation: scroll-progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  /* علامة ✓ بتنرسم مرة وحدة لما تنبعت الرسالة (pathLength="1" عالـ path) */
+  .check-draw {
+    stroke-dasharray: 1;
+    animation: check-draw 0.45s ease-out 0.1s backwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .check-draw {
+      animation: none;
+    }
+  }
+}
+@keyframes check-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
 }
 
 /* Reveal (components/motion/reveal.tsx): fade-up مرة وحدة لما RevealObserver يحط data-revealed.
@@ -156,6 +251,46 @@
       translate: none !important;
     }
   }
+
+  /* خطوط بتنرسم لما يبين الـ Reveal اللي هي جوّاه، بعد ما يبلّش الـ fade بشوي: خط الـ Experience
+     timeline لتحت (الافتراضي "1 0")، وخط عناوين الأقسام لليمين (--reveal-scale-from: 0 1).
+     نفس شروط الـ Reveal: بدون JS أو مع reduced motion الخط ظاهر كامل من الأول */
+  [data-reveal] [data-reveal-line] {
+    /* قيمة صريحة مش none: Chrome بيقلب من "1 0" لـ none دفعة وحدة بدل ما يعمل transition */
+    scale: 1 1;
+    transition: scale 0.8s ease-out;
+    transition-delay: calc(var(--reveal-delay, 0s) + 0.15s);
+  }
+  @media (scripting: enabled) {
+    [data-reveal]:not([data-revealed]) [data-reveal-line] {
+      scale: var(--reveal-scale-from, 1 0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal-line] {
+      scale: none !important;
+    }
+  }
+
+  /* عناصر بتطلع وحدة ورا التانية جوّا الـ Reveal (متل chips المهارات). الترتيب من --i (0، 1، 2...) */
+  [data-reveal] [data-reveal-item] {
+    translate: 0 0;
+    transition:
+      opacity 0.35s ease-out,
+      translate 0.35s ease-out;
+    transition-delay: calc(var(--reveal-delay, 0s) + 0.15s + var(--i, 0) * 45ms);
+  }
+  @media (scripting: enabled) {
+    [data-reveal]:not([data-revealed]) [data-reveal-item] {
+      opacity: 0;
+      translate: 0 6px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal-item] {
+      translate: none !important;
+    }
+  }
 }
 
 /* الطباعة (Ctrl+P / PDF): عناصر الـ Reveal اللي ما وصللها الـ scroll لسا مخفية */
@@ -163,5 +298,15 @@
   [data-reveal] {
     opacity: 1 !important;
     translate: none !important;
+  }
+  [data-reveal-line] {
+    scale: none !important;
+  }
+  [data-reveal-item] {
+    opacity: 1 !important;
+    translate: none !important;
+  }
+  .scroll-progress {
+    display: none !important;
   }
 }
