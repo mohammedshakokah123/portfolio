@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, Code, ExternalLink, Lock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { ProjectGallery } from "@/components/projects/project-gallery";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { NewTabHint } from "@/components/shared/new-tab-hint";
 import { SectionLink } from "@/components/shared/section-link";
@@ -17,6 +18,7 @@ type ProjectDetailProps = { project: Project; prev: Project | null; next: Projec
 export function ProjectDetail({ project, prev, next }: ProjectDetailProps) {
   const { title, subtitle, tech, image, overview, architecture, features, stack, links, nda } =
     project;
+  const { gallery, accessNote } = project;
   const Icon = project.icon;
   const hasLinks = Boolean(links.demo || links.source);
 
@@ -60,10 +62,10 @@ export function ProjectDetail({ project, prev, next }: ProjectDetailProps) {
 
       <div className="text-muted-foreground mt-12 space-y-10 text-[15px] leading-relaxed">
         <DetailSection id="overview" title={projectLabels.overview}>
-          <p>{overview}</p>
+          <Paragraphs text={overview} />
         </DetailSection>
         <DetailSection id="architecture" title={projectLabels.architecture}>
-          <p>{architecture}</p>
+          <Paragraphs text={architecture} />
         </DetailSection>
         <DetailSection id="features" title={projectLabels.features}>
           <ul className="marker:text-subtle list-disc space-y-1.5 pl-5">
@@ -75,6 +77,11 @@ export function ProjectDetail({ project, prev, next }: ProjectDetailProps) {
         <DetailSection id="stack" title={projectLabels.stack}>
           <p>{stack.join(", ")}.</p>
         </DetailSection>
+        {gallery && gallery.length > 0 && (
+          <DetailSection id="gallery" title={projectLabels.gallery}>
+            <ProjectGallery shots={gallery} />
+          </DetailSection>
+        )}
       </div>
 
       {/* 3 حالات: NDA ← شارة NDA + walkthrough. في روابط ← الأزرار.
@@ -84,7 +91,7 @@ export function ProjectDetail({ project, prev, next }: ProjectDetailProps) {
           <>
             <span className="border-border bg-muted text-muted-foreground inline-flex h-10 items-center gap-2 rounded-md border px-4 text-sm">
               <Lock className="size-4" aria-hidden />
-              {nda ? projectLabels.nda : projectLabels.noPublicDemo}
+              {nda ? projectLabels.nda : (accessNote ?? projectLabels.noPublicDemo)}
             </span>
             <Button asChild variant="outline" size="lg" className="h-10 px-4">
               <SectionLink href="/#contact">{projectLabels.requestWalkthrough}</SectionLink>
@@ -121,6 +128,17 @@ export function ProjectDetail({ project, prev, next }: ProjectDetailProps) {
         </nav>
       )}
     </article>
+  );
+}
+
+/** السطر الفاضي (\n\n) بالمحتوى = فقرة جديدة */
+function Paragraphs({ text }: { text: string }) {
+  return (
+    <div className="space-y-3">
+      {text.split("\n\n").map((p) => (
+        <p key={p}>{p}</p>
+      ))}
+    </div>
   );
 }
 

@@ -77,4 +77,6 @@ export type Project = {
   stack: string[];
   links: { demo?: string; source?: string };
   nda: boolean;
+  accessNote?: string; // بيبدّل نص الشارة لما ما في روابط (متل "Client project, admin access only")
+  gallery?: { src: string; alt: string; caption: string }[]; // صور إضافية بصفحة التفاصيل
 };
