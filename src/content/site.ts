@@ -63,7 +63,7 @@ export const site: SiteConfig = {
   ],
   email: null, // TODO: الإيميل الحقيقي
   location: "Latakia, Syria, open to remote and relocation",
-  cvPath: "/cv/Mohammad-Shaquqa-CV.pdf",
+  cvPath: "/cv/Mouhammad-Shakokah-CV.pdf",
   profileImage: null, // TODO: "/profile.jpg" لما تنحط الصورة
   availability,
   socials: {
