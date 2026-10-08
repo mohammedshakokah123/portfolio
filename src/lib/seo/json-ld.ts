@@ -1,4 +1,5 @@
 import { university } from "@/content/experience";
+import { getAllProjects } from "@/content/projects";
 import { contentUpdatedAt, site } from "@/content/site";
 
 const personId = `${site.url}/#person`;
@@ -62,6 +63,15 @@ export function homeJsonLd() {
         alternateName: site.alternateNames,
         publisher: { "@id": personId },
       },
+      ...getAllProjects().map((project) => ({
+        "@type": "CreativeWork",
+        "@id": `${site.url}/#project-${project.slug}`,
+        name: project.title,
+        description: project.summary,
+        image: project.image ? absoluteUrl(project.image.src) : undefined,
+        creator: { "@id": personId },
+        keywords: project.stack.join(", "),
+      })),
     ],
   };
 }

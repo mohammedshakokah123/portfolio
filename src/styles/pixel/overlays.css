@@ -161,6 +161,57 @@ body:has(dialog[open]) {
   background: var(--ink-2);
 }
 
+/* إضافة عن المرجع: مودالات المشاريع جوّا <main> (المرجع حاططها برّاه)، و`main { pointer-events: none }`
+   بيتورّث للـ <dialog> حتى وهو بالـ top layer، فالضغط عالـ backdrop ما بيوصل وما بيتسكّر */
+dialog.modal {
+  pointer-events: auto;
+}
+
+/* إضافة عن المرجع: النظرة العامة والمعمارية فقرتين أو تلاتة (المرجع فقرة وحدة) */
+.modal-body section p + p {
+  margin-top: 12px;
+}
+
+/* إضافة عن المرجع: زر الـ X كان ينضغط جوّا الـ flex لما العنوان يلف (24px عرض عالموبايل بدل 44px).
+   1. الزر ثابت والنص هو اللي بيضيق، والكلمة الأطول من السطر بتنكسر بدل ما تزق الزر لبرّا النافذة.
+   2. العنوان بيصغر مع عرض عموده (عرض الراس ناقص الزر 44px والفراغ 16px) بحيث كلمة من 11 حرف تضل على
+      سطر واحد: الحرف بهالخط عرضه 1em، و11 × 9% = 99%. بيبيّن بس تحت 352px، وفوقها 14px متل المرجع.
+   3. عالموبايل العنوان والزر بسطر والوصف تحتهم على العرض كله. لو ضل بعمود العنوان (اللي ضاق 20px بعد ما
+      الزر رجع لمقاسه) كان يلف لأسطر أكتر والراس ياخد أكتر من ارتفاع المودال */
+.modal-head {
+  container-type: inline-size; /* مشان 100cqi تحت = عرض الراس من جوّا */
+}
+.modal-head > div {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+.modal-head .btn-icon {
+  flex: none;
+}
+.modal-head h2 {
+  font-size: clamp(10px, calc((100cqi - 60px) * 0.09), 14px);
+}
+@media (max-width: 719px) {
+  .modal-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 0;
+  }
+  .modal-head > div {
+    display: contents;
+  }
+  .modal-head h2 {
+    grid-area: 1 / 1;
+  }
+  .modal-head .btn-icon {
+    grid-area: 1 / 2;
+  }
+  .modal-head p {
+    grid-area: 2 / 1 / 3 / -1;
+  }
+}
+
 .pause-win {
   padding: 26px 22px;
 }

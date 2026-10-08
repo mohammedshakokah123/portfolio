@@ -1,1 +1,252 @@
-/* المرحلة 09 */
+/* PROJECTS: الأسطر 1148–1183 من design/pixel art.html */
+.carts {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.cart {
+  --shell: #a3a8c3;
+  --shell-hi: #c9cde2;
+  --shell-lo: #767b99;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 18px 20px;
+  color: var(--ink);
+  background: var(--shell) padding-box;
+  border: var(--b) solid var(--ink);
+  border-image: var(--frame-1) 1 / var(--b) stretch;
+  box-shadow:
+    inset calc(-2 * var(--b)) calc(-2 * var(--b)) 0 var(--shell-lo),
+    inset calc(2 * var(--b)) 0 0 var(--shell-hi);
+  transition:
+    transform 0.14s steps(3),
+    filter 0.14s steps(3);
+}
+.cart:hover {
+  transform: translateY(-4px);
+  filter: drop-shadow(6px 8px 0 rgba(20, 20, 43, 0.35));
+}
+.cart-ridges {
+  height: 22px;
+  margin: 0 -18px;
+  background: repeating-linear-gradient(var(--shell-lo) 0 3px, var(--shell) 3px 7px);
+  border-bottom: var(--b) solid var(--shell-lo);
+}
+.cart-label {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  color: var(--ink);
+  background: var(--paper);
+  border: var(--b) solid var(--ink);
+  box-shadow: 4px 4px 0 var(--shell-lo);
+}
+.cart-shot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 5 / 2;
+  overflow: hidden;
+  color: #fff;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.08) 2px, transparent 2px) 0 0 / 100% 12px,
+    linear-gradient(var(--c1), var(--c2));
+  border: var(--b) solid var(--ink);
+}
+.cart-shot .shot-art {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+.cart-shot .ico.xl {
+  filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.35));
+}
+.shot-note {
+  font: 8px/1 var(--f-pixel);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+.lock-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  font: 8px/1 var(--f-pixel);
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+}
+.lock-badge .ico {
+  width: 9px;
+  height: 9px;
+}
+.cart-title {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.cart-sum {
+  font-size: 17px;
+  line-height: 1.45;
+  color: #34365a;
+}
+.cart-foot {
+  margin-top: auto;
+  display: grid;
+  gap: 16px;
+}
+.cart .tags li {
+  background: var(--ink);
+}
+.cart .btn {
+  justify-self: start;
+}
+
+/* إضافة عن المرجع: صورة حقيقية بالكارتريدج (المرجع فيه placeholder بس) */
+.cart-shot img {
+  object-fit: cover;
+}
+
+/* إضافة عن المرجع: معرض الصور جوّا المودال */
+.shots {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.shot {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  overflow: hidden;
+  cursor: zoom-in;
+  background: var(--ink-2) padding-box;
+  border: calc(2 * var(--b)) solid var(--ink);
+  border-image: var(--frame-slot) 2 / calc(2 * var(--b)) stretch;
+}
+.shot:hover,
+.shot:focus-visible {
+  border-image-source: var(--frame-slot-on);
+}
+.shot img {
+  object-fit: cover;
+}
+.shots figcaption {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+/* الـ lightbox عمود: راس (العدّاد وزر التسكير)، الصورة، تذييل (السهمين والـ caption بينهم).
+   العرض محسوب من الارتفاع المتاح (16:10 + 190px للراس والتذييل والإطار) مشان الصورة تاخد أكبر مساحة.
+   والـ max-height هو الضمان: إذا الـ caption لف لعدة أسطر، مساحة الصورة هي اللي بتقصر (والصورة بتضل كاملة،
+   contain) بدل ما النافذة تطلع برّا الشاشة.
+   dialog.modal.lightbox (مش dialog.lightbox): لازم يغلب dialog.modal اللي بييجي بعده بـ overlays.css */
+dialog.modal.lightbox {
+  width: min(100% - 24px, calc((100svh - 190px) * 1.6));
+  max-height: calc(100svh - 24px);
+}
+/* .win بتاخد padding: 16px عالموبايل (responsive.css). هون بيصغّر الصورة وبيزيد 32px عالارتفاع المحسوب فوق */
+.lightbox .modal-win {
+  padding: 0;
+}
+.lightbox-bar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+}
+/* الأزرار ما بتنضغط (44px): الـ caption هو اللي بيضيق وبيلف */
+.lightbox-bar .btn-icon {
+  flex: none;
+}
+.lightbox-shot {
+  position: relative;
+  min-height: 0;
+  aspect-ratio: 16 / 10;
+  background: var(--ink-2);
+  border-block: var(--b) solid var(--panel-3);
+}
+.lightbox-shot img {
+  object-fit: contain;
+}
+/* .lightbox قدّامهم: الـ lightbox جوّا .modal-body بالـ DOM، و`.modal-body p` بتلوّن كل p رمادي */
+.lightbox .lightbox-count {
+  font: 10px/1 var(--f-pixel);
+  color: var(--gold);
+}
+.lightbox .lightbox-caption {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.35;
+  color: #fff;
+}
+@media (max-width: 719px) {
+  .shots {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* شاشة عريضة وقصيرة (موبايل بالعرض): الراس والتذييل فوق الصورة وتحتها بياكلوا نص الارتفاع، فالصورة بتطلع
+   صغيرة كتير. هون بيصيروا لوحة جنب الصورة، والصورة بتاخد الارتفاع كله.
+   3 / 2: تحت هالنسبة العمود العادي هو اللي بيعطي صورة أكبر */
+@media (max-height: 519px) and (min-aspect-ratio: 3 / 2) {
+  dialog.modal.lightbox {
+    --side: 200px;
+    /* عرض الصورة من الارتفاع المتاح (16:10)، وفوقه اللوحة والإطار (3b من كل جهة) */
+    width: min(
+      100% - 24px,
+      calc((100svh - 24px - 6 * var(--b)) * 1.6 + var(--side) + 6 * var(--b))
+    );
+  }
+  .lightbox .modal-win {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--side);
+    grid-template-rows: auto minmax(0, 1fr);
+    container-type: inline-size; /* مشان 100cqi تحت = عرض النافذة من جوّا */
+  }
+  .lightbox-shot {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    /* أقل ارتفاع = 16:10 من عرض عمود الصورة. إذا اللوحة أطول من هيك، الصورة بتتوسّط جوّا مساحتها */
+    min-height: calc((100cqi - var(--side)) * 0.625);
+    aspect-ratio: auto;
+    border-block: 0;
+    border-inline-end: var(--b) solid var(--panel-3);
+  }
+  .lightbox-bar {
+    grid-column: 2;
+  }
+  /* التذييل: الـ caption فوق والسهمين تحته. إذا الارتفاع ما كفّى، الـ caption هو اللي بيعمل scroll */
+  .lightbox-bar:last-child {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    min-height: 0;
+    border-block-start: var(--b) solid var(--panel-3);
+  }
+  .lightbox .lightbox-caption {
+    grid-area: 1 / 1 / 2 / -1;
+    align-self: stretch;
+    min-height: 0;
+    overflow-y: auto;
+    text-align: start;
+  }
+  .lightbox-bar:last-child .btn-icon {
+    grid-row: 2;
+  }
+  .lightbox-bar:last-child .btn-icon:last-child {
+    justify-self: end;
+  }
+}

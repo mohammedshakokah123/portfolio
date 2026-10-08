@@ -10,12 +10,12 @@ Personal portfolio of a frontend engineer (Latakia, Syria). One Next.js app, sta
 
 ## Status
 
-_Last updated: 2026-10-08. Update this section whenever it stops being true._
+_Last updated: 2026-10-09. Update this section whenever it stops being true._
 
 The site is being rebuilt from **v1** (a formal dark/light design built with shadcn/ui) into **v2** (a pixel-art platformer game), based on `design/pixel art.html`.
 
 - **v1** is on `main` and `feat/chloellia-project`. It was implemented through phase 10 of its plan; deployment (phase 11) was never run. Its plan is archived in `docs/plan-v1/`.
-- **v2** is planned in `docs/plan/` and is being built on branch `feat/pixel-art`. Phases 01 to 08 are done: foundation, sprites, UI kit (previewed on the temporary `/kit` route), content, the fixed shell (world scene, HUD, ground bar, day/night toggle), the stage engine (router, hero, wipe, sound, pause menu), and four stages (title screen, About, Skills, Experience). Everything built so far matches the reference pixel for pixel when both use the same font files and the same text. Projects and Contact are still placeholders with a real heading. The next step is phase 09.
+- **v2** is planned in `docs/plan/` and is being built on branch `feat/pixel-art`. Phases 01 to 09 are done: foundation, sprites, UI kit (previewed on the temporary `/kit` route), content, the fixed shell (world scene, HUD, ground bar, day/night toggle), the stage engine (router, hero, wipe, sound, pause menu), and five stages (title screen, About, Skills, Experience, and Projects with its project dialogs and screenshot lightbox). Everything built so far matches the reference pixel for pixel when both use the same font files and the same text. For Projects, whose content in the reference is placeholder, that comparison renders the port's cartridge and dialog markup inside the reference, together with the few rules the port adds on purpose (each under an `إضافة عن المرجع` comment; the visible ones are in the table of intentional differences in `docs/plan/00-overview.md`). Contact is still a placeholder with a real heading. The next step is phase 10.
 - Progress lives in the checklist in `docs/plan/README.md`. That checklist, not this file, says which phase is next.
 - `feat/pixel-art` was created from `feat/chloellia-project`, which holds the plan and the design file and is ahead of `main`. Neither branch is pushed. Do not branch from `main` until that work is merged.
 
@@ -25,7 +25,7 @@ The site is being rebuilt from **v1** (a formal dark/light design built with sha
 2. `docs/plan/00-overview.md`: the decisions, a map from every block of the reference to the file and phase that ports it, the target folder tree, the conventions, the intentional differences from the reference, and the risks.
 3. The file of the phase being worked on. It contains the code to write and the exact line ranges to port, so there is no need to read the reference (about 2,600 lines) in full.
 
-The TypeScript in the phase files was extracted and passes `tsc` and `eslint` with this repo's config. The sprite generator in phase 02 reproduces the reference output byte for byte. Nothing in the plan has been run in a browser yet.
+The TypeScript in the phase files was extracted and passes `tsc` and `eslint` with this repo's config. The sprite generator in phase 02 reproduces the reference output byte for byte. Phases 10 to 13 have not been run in a browser yet.
 
 ## Decisions already made
 
@@ -116,6 +116,10 @@ Kept unchanged in v2: `src/app/actions/contact.ts`, `src/lib/validations/contact
 - JSX text mixed with an expression (`0/{total}`, `Stage {n}`) renders as several text nodes, and kerning stops at each boundary. In Pixelify Sans that changes the width by a fraction of a pixel and can move a glyph. Write such text as one template string: `` {`0/${total}`} ``. Press Start 2P has no kerning, so it is not affected.
 - React hydrates `<title>` after the engine's first `render()`, which resets `document.title`. `initRouter` keeps a `MutationObserver` on `<head>` for that. Do not remove it.
 - `next/font/google` downloads both fonts on every build. When that download fails, Turbopack reports `Can't resolve '@vercel/turbopack-next/internal/font/google/font'`. Run the build again before looking for a code error.
+- `next start` can leave one optimized image hanging. When the first request for a `/_next/image` variant that is not cached yet is cut off in its first few milliseconds (a reload or a navigation right after `load`, which is what scripted comparisons do), that variant stays pending inside the server process, and every later request for the same URL waits forever until the server is restarted. It shows up as one cover or thumbnail that never loads while the others do. Restart the server before looking for a bug in the page, and in scripted runs request every variant once, without aborting, before the first reload. The cause is in Next 16.3.6 (`fetchInternalImage` in `node_modules/next/dist/server/image-optimizer.js` hands the client's socket to the internal request), not in this repo. `next dev` was not tested. Details are in the notes at the end of `docs/plan/09-projects.md`.
+- In Chrome, `getComputedStyle` returns an `auto` margin either as the used value or as `0px`, depending on the last layout. When a comparison with the reference reports only a `margin` difference on a centred element such as `.stage-inner`, and the rectangles are equal, the two pages are the same.
+- Screenshots of the same page can differ by a few low-contrast pixels inside an image. In one browser session Chrome draws a scaled image differently depending on the size the same image was shown at before, and a comparison script visits many viewport sizes in one session. A difference that stays inside one `<img>`, with identical computed styles around it, is this and not CSS. A screenshot taken in a fresh session settles it.
+- `.btn-icon` is 44px wide in the reference but has no `flex: none`, so it shrinks in a flex row as soon as its neighbour wraps (the dialog close button was 24px wide on phones). Wherever an icon button sits next to text that can wrap, give the button `flex: none` and the text `min-width: 0`, under an `إضافة عن المرجع` comment.
 
 ## Open items for the owner
 

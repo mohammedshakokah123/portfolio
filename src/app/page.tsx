@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 
+import { ProjectDialogs } from "@/components/projects/project-dialog";
 import { JsonLd } from "@/components/shared/json-ld";
 import { AboutStage } from "@/components/stages/about";
 import { ExperienceStage } from "@/components/stages/experience";
+import { ProjectsStage } from "@/components/stages/projects";
 import { SkillsStage } from "@/components/stages/skills";
 import { Stage } from "@/components/stages/stage";
 import { TitleScreen } from "@/components/stages/title-screen";
 import { site } from "@/content/site";
-import { STAGE_NAMES } from "@/game/stages";
 import { homeJsonLd } from "@/lib/seo/json-ld";
 import { defaultTitle, sharedOpenGraph } from "@/lib/seo/metadata";
 
@@ -34,15 +35,16 @@ export default function HomePage() {
       <AboutStage />
       <SkillsStage />
       <ExperienceStage />
+      <ProjectsStage />
 
-      {/* مؤقت: بيتبدّلوا بالمرحلتين 09 و10 */}
-      {(["projects", "contact"] as const).map((id) => (
-        <Stage key={id} id={id}>
-          <div className="win">
-            <p>{STAGE_NAMES[id]} content comes in a later phase.</p>
-          </div>
-        </Stage>
-      ))}
+      {/* مؤقت: بيتبدّل بالمرحلة 10 */}
+      <Stage id="contact">
+        <div className="win">
+          <p>Contact content comes in the next phase.</p>
+        </div>
+      </Stage>
+
+      <ProjectDialogs />
     </>
   );
 }
