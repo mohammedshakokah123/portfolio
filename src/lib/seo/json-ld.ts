@@ -1,6 +1,5 @@
 import { university } from "@/content/experience";
 import { contentUpdatedAt, site } from "@/content/site";
-import type { Project } from "@/types/content";
 
 const personId = `${site.url}/#person`;
 
@@ -62,33 +61,6 @@ export function homeJsonLd() {
         name: site.name,
         alternateName: site.alternateNames,
         publisher: { "@id": personId },
-      },
-    ],
-  };
-}
-
-export function projectJsonLd(project: Project) {
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      // الـ Person كامل هون كمان: Google ما بيربط @id بين صفحات مختلفة، فبدونه الـ creator بيطلع فاضي
-      personJsonLd(),
-      {
-        "@type": "CreativeWork",
-        name: project.title,
-        description: project.summary,
-        url: `${site.url}/projects/${project.slug}`,
-        image: project.image ? absoluteUrl(project.image.src) : undefined,
-        creator: { "@id": personId },
-        keywords: project.stack.join(", "),
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: site.url },
-          { "@type": "ListItem", position: 2, name: "Projects", item: `${site.url}/#projects` },
-          { "@type": "ListItem", position: 3, name: project.title },
-        ],
       },
     ],
   };

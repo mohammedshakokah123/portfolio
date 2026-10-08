@@ -1,5 +1,3 @@
-import { Accessibility, Briefcase, CircleCheck, Gauge, GraduationCap, Layers } from "lucide-react";
-
 import { davinda, productionYears, university } from "@/content/experience";
 import { formatPeriod, formatYearCount, formatYears } from "@/lib/dates";
 import type { SiteConfig } from "@/types/content";
@@ -44,6 +42,7 @@ export const contentUpdatedAt = "2026-09-26";
 
 export const site: SiteConfig = {
   name,
+  shortName: "M. Shaquqa",
   // TODO(SEO): أكّد كل طرق كتابة الاسم اللي ممكن حدا يبحث فيها
   alternateNames: ["محمد شقوقة" /* , "Mohammad Shakokah", "Mohammed Shaquqa" ... */],
   role,
@@ -71,61 +70,41 @@ export const site: SiteConfig = {
     github: null, // TODO: رابط GitHub الحقيقي
     others: [], // TODO: أي حسابات تانية (X، Stack Overflow...)
   },
-  nav: [
-    { label: "About", href: "/#about" },
-    { label: "Skills", href: "/#skills" },
-    { label: "Experience", href: "/#experience" },
-    { label: "Projects", href: "/#projects" },
-    { label: "Contact", href: "/#contact" },
-  ],
-  sections: {
-    about: { title: "About" },
-    skills: {
-      title: "Technical skills",
-      description: "Tools I use in production, grouped by where they sit in the stack.",
-    },
-    experience: { title: "Experience & education", description: "Most recent first." },
-    projects: {
-      title: "Featured projects",
-      description:
-        "Business systems built for real operational needs. Select a project for architecture details.",
-    },
-    contact: {
-      title: "Contact",
-      description:
-        "Hiring for a frontend or full-time software engineering role? Send a message and I'll reply within one business day.",
-    },
+  stageSubs: {
+    about: "Player profile: who I am and how I work.",
+    skills: "Inventory: the tools I use in production, grouped by where they sit in the stack.",
+    experience: "Quest log: work and education, most recent first.",
+    projects:
+      "Business systems built for real operational needs. Pick a cartridge for the architecture details.",
+    contact:
+      "Save point. Hiring for a frontend or full-time software engineering role? Send a message and I'll reply within one business day.",
   },
-  hero: {
-    title: `${role} specializing in React, Next.js, and modern web applications.`,
-    lead: `${engineeringYears} years of engineering experience delivering responsive user interfaces, integrating state management architectures, and building production-grade web systems.`,
-    ctas: {
-      primary: { label: "View projects", href: "/#projects" },
-      secondary: { label: "Get in touch", href: "/#contact" },
-    },
-    quickFacts: [
+  home: {
+    lead: `${role} specializing in React, Next.js, and modern web applications.`,
+    sub: `${engineeringYears} years of engineering experience delivering responsive user interfaces, integrating state management architectures, and building production-grade web systems.`,
+    facts: [
       {
-        icon: GraduationCap,
+        icon: "cap",
         text: `Software Engineering Graduate (${university.org}, ${formatPeriod(university.period)})`,
       },
       {
-        icon: Briefcase,
+        icon: "briefcase",
         text: `${formatYears(productionYears)} production experience at ${davinda.org}`,
       },
-      { icon: CircleCheck, text: availability },
-    ],
-    glance: [
-      { label: "Role", value: role },
-      { label: "Core stack", value: "React, Next.js, TypeScript" },
-      { label: "State & data", value: "Zustand, Redux, TanStack Query" },
-      {
-        label: "Experience",
-        value: `${engineeringYears} yrs total, ${formatYearCount(productionYears)} in production`,
-      },
-      { label: "Open to", value: "Full-time, on-site or remote" },
+      { icon: "check", text: availability, tone: "green" },
     ],
   },
   about: {
+    stats: [
+      { label: "Main stack", value: "React, Next.js, TypeScript" },
+      { label: "State & data", value: "Zustand, Redux, TanStack Query" },
+      {
+        label: "XP",
+        value: `${engineeringYears} years total, ${formatYearCount(productionYears)} in production`,
+      },
+      { label: "Base", value: "Latakia, Syria" },
+      { label: "Open to", value: "Full-time, on-site or remote" },
+    ],
     paragraphs: [
       [
         // الاسم الكامل والدور والمدينة بجملة طبيعية ← SEO
@@ -139,19 +118,19 @@ export const site: SiteConfig = {
         ", I shipped production features end to end, from translating Figma designs into reusable components to wiring them into REST and WebSocket APIs with caching, loading, and error states handled properly. My Software Engineering degree gives me a solid grounding in algorithms, databases, and software architecture, which shapes how I structure frontend codebases that teams can maintain.",
       ],
     ],
-    principles: [
+    abilities: [
       {
-        icon: Layers,
+        icon: "layers",
         title: "Maintainable architecture",
         description: "Typed components, clear state boundaries, and folder structures that scale.",
       },
       {
-        icon: Gauge,
+        icon: "bolt",
         title: "Performance by default",
         description: "Code splitting, request caching, and avoiding needless re-renders.",
       },
       {
-        icon: Accessibility,
+        icon: "access",
         title: "Accessible interfaces",
         description: "Semantic HTML, keyboard support, and accessible component primitives.",
       },

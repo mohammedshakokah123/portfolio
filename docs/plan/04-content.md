@@ -378,9 +378,15 @@ npm uninstall lucide-react
 `src/types/content.ts`، `src/content/labels.ts` (جديد)، `src/content/{site,skills,experience,projects}.ts`، `src/lib/seo/json-ld.ts`، `package.json`
 
 ## Definition of Done
-- [ ] `npm run lint && npm run build` ناجحين (الأنواع بتلقط أي اسم أيقونة غلط: جرّب `icon: "rocket"` وشوف الخطأ، ورجّعها).
-- [ ] `git grep "lucide-react"` بيرجّع فاضي بكل المشروع (ما عدا `package-lock.json` قبل الـ uninstall).
-- [ ] الـ 3 مشاريع فيهم `cover` بـ alt وصفي، وملفات الصور موجودة بـ `public/projects/*/00-cover.webp`.
-- [ ] `careerMap` بيطلّع: `2020` ← `1.5 years` ← `2026` ← `Next stage`.
-- [ ] `src/content/labels.ts` ما فيه ولا `import`.
-- [ ] الصفحة المؤقتة و`/kit` لسا بيشتغلوا.
+- [x] `npm run lint && npm run build` ناجحين (الأنواع بتلقط أي اسم أيقونة غلط: جرّب `icon: "rocket"` وشوف الخطأ، ورجّعها).
+- [x] `git grep "lucide-react"` بيرجّع فاضي بكل المشروع (ما عدا `package-lock.json` قبل الـ uninstall).
+- [x] الـ 3 مشاريع فيهم `cover` بـ alt وصفي، وملفات الصور موجودة بـ `public/projects/*/00-cover.webp`.
+- [x] `careerMap` بيطلّع: `2020` ← `1.5 years` ← `2026` ← `Next stage`.
+- [x] `src/content/labels.ts` ما فيه ولا `import`.
+- [x] الصفحة المؤقتة و`/kit` لسا بيشتغلوا.
+
+## ملاحظات التنفيذ
+- **ما في شي تغيّر عن الخطة.** التعديلات انعملت بسكربت بياخد النصوص من هالملف (الـ code blocks وجدول الـ covers)، وكل استبدال لازم يطابق مرة وحدة بالضبط، وإلا بيوقف قبل ما يكتب شي.
+- **`overviewShot`** انحط بـ `projectLabels` بعد `gallery`.
+- **فحص الـ DoD:** `icon: "rocket"` طلّع `TS2322` من `tsc` ورجع نضيف بعد ما انشالت. `careerMap` والـ covers انفحصوا بتحميل ملفات `src/content/` بـ Node مباشرة.
+- **Davinda** لسا `end: "2026-09"` (مستني قرار صاحب الموقع، شوف الـ README).

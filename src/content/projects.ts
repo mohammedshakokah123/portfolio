@@ -1,5 +1,3 @@
-import { FlaskConical, Gem, Megaphone } from "lucide-react";
-
 import type { Project } from "@/types/content";
 
 const sooqSuria = "/projects/SooqSuria";
@@ -13,7 +11,11 @@ export const projects: readonly Project[] = [
     subtitle: "C2C marketplace, back-office moderation and operations system",
     summary:
       "Back-office dashboard for a C2C classifieds marketplace: ad moderation, bulk listing import, seller verification, and wallet transactions, in English and Arabic.",
-    icon: Megaphone,
+    icon: "chart",
+    cover: {
+      src: `${sooqSuria}/00-cover.webp`,
+      alt: "Three overlapping browser windows of the SooqSuria admin dashboard: the KPI dashboard in dark mode, the Arabic right-to-left view, and the ads management table",
+    },
     image: {
       src: `${sooqSuria}/00-hero.webp`,
       alt: "Admin KPI dashboard shown in light and dark themes, with activity, revenue, and registration figures and a comparison chart",
@@ -109,7 +111,11 @@ export const projects: readonly Project[] = [
     subtitle: "Multi-tenant B2B platform for dental laboratories and the dentists they work with",
     summary:
       "Multi-tenant SaaS for dental laboratories, covering quotes, case production, quality review, invoicing, and payroll across five user roles in three languages.",
-    icon: FlaskConical,
+    icon: "grid",
+    cover: {
+      src: `${klardent}/00-cover.webp`,
+      alt: "Three overlapping browser windows of the Klardent dental lab platform: case details in dark mode, the Arabic dashboard, and the create new case form",
+    },
     image: {
       src: `${klardent}/00-hero.webp`,
       alt: "Lab admin case details page shown in light and dark themes, with case information, team assignment, attachments, and quote pricing",
@@ -228,7 +234,11 @@ export const projects: readonly Project[] = [
     subtitle: "B2C luxury retail, multilingual storefront with checkout and customer self-service",
     summary:
       "Multilingual storefront for a fine-jewellery house: product catalogue with filters, guest cart, four-step checkout with card payment, and a customer account with orders and returns, in four languages including Arabic.",
-    icon: Gem,
+    icon: "cart",
+    cover: {
+      src: `${chloellia}/00-cover.webp`,
+      alt: "Three overlapping browser windows of the Chloéllia storefront: the about page, the Arabic home page, and the English home page with a sapphire ring",
+    },
     image: {
       src: `${chloellia}/00-hero.webp`,
       alt: "Storefront home page shown in English and in Arabic with a right-to-left layout, each with a full-width jewellery video hero above the collections section",
@@ -350,6 +360,7 @@ export const projectLabels = {
   features: "Key technical features",
   stack: "Stack",
   gallery: "Screenshots",
+  overviewShot: "Overview",
   nda: "Internal system, under NDA",
   noPublicDemo: "No public demo available", // مشروع مش NDA بس ما إلو رابط (أو داشبورد خاص)
   requestWalkthrough: "Request a walkthrough",
@@ -363,13 +374,4 @@ export function getAllProjects() {
 
 export function getProjectBySlug(slug: string) {
   return projects.find((p) => p.slug === slug);
-}
-
-export function getAdjacentProjects(slug: string) {
-  const i = projects.findIndex((p) => p.slug === slug);
-  if (i === -1) return { prev: null, next: null };
-  return {
-    prev: i > 0 ? projects[i - 1] : null,
-    next: i < projects.length - 1 ? projects[i + 1] : null,
-  };
 }
