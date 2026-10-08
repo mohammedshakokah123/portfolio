@@ -38,8 +38,9 @@ git switch feat/pixel-art
 npm run lint && npm run build && npm run sprites:check   # آخر فحص
 
 git push -u origin feat/pixel-art
-gh pr create --base main --title "feat: pixel art redesign" --body "Replaces the v1 design. Plan: docs/plan/"
 ```
+افتح Pull Request على `main` من صفحة الـ repo على GitHub (رابط الإنشاء بيطلع بـ output الـ `push`). الـ `gh` CLI مش مثبّت على هالجهاز؛ إذا تثبّت: `gh pr create --base main --title "feat: pixel art redesign"`.
+
 راجع الـ **Preview URL** اللي Vercel بيحطه عالـ PR (بعد القسم 3)، وبعدين ادمج.
 
 > الـ repo **Public** أحسن للبورتفوليو: الكود نفسه بيصير مشروع بيقدر يشوفه أي حدا بدو يوظّفك.
