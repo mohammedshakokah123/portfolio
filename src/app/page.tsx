@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import { JsonLd } from "@/components/shared/json-ld";
 import { AboutStage } from "@/components/stages/about";
+import { ExperienceStage } from "@/components/stages/experience";
+import { SkillsStage } from "@/components/stages/skills";
 import { Stage } from "@/components/stages/stage";
 import { TitleScreen } from "@/components/stages/title-screen";
 import { site } from "@/content/site";
@@ -30,9 +32,11 @@ export default function HomePage() {
 
       <TitleScreen />
       <AboutStage />
+      <SkillsStage />
+      <ExperienceStage />
 
-      {/* مؤقت: بيتبدّلوا بالمراحل 08 لـ 10 */}
-      {(["skills", "experience", "projects", "contact"] as const).map((id) => (
+      {/* مؤقت: بيتبدّلوا بالمرحلتين 09 و10 */}
+      {(["projects", "contact"] as const).map((id) => (
         <Stage key={id} id={id}>
           <div className="win">
             <p>{STAGE_NAMES[id]} content comes in a later phase.</p>
