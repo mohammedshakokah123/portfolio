@@ -1,1 +1,95 @@
-/* المرحلة 07 */
+/* TITLE SCREEN: الأسطر 1026–1049 من design/pixel art.html */
+.home-inner {
+  max-width: 820px;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 22px;
+}
+.title-logo {
+  display: grid;
+  gap: 0.22em;
+  font-size: clamp(27px, 8.4vw, 76px);
+  line-height: 1;
+  color: #fff;
+  text-shadow:
+    var(--o3),
+    6px 6px 0 var(--indigo-lo),
+    9px 9px 0 var(--ink);
+}
+.title-logo .row {
+  display: block;
+  white-space: nowrap;
+}
+.title-logo .row-gold {
+  color: var(--gold);
+}
+.title-logo .row > span {
+  display: inline-block;
+}
+html[data-intro] .title-logo .row > span {
+  animation: letter-drop 0.7s steps(7) both;
+  animation-delay: calc(var(--i) * 70ms + 150ms);
+}
+.title-class {
+  font: clamp(11px, 2vw, 16px)/1.4 var(--f-pixel);
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: var(--o2);
+  letter-spacing: 0.08em;
+}
+.home-win {
+  max-width: 640px;
+  text-align: left;
+}
+.lead {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #fff;
+}
+.muted {
+  color: var(--muted);
+}
+.home-win .muted {
+  margin-top: 10px;
+}
+.title-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.btn-start {
+  min-height: 54px;
+  padding: 14px 24px;
+  font-size: 14px;
+}
+.btn-start .ico {
+  animation: blink 1s steps(1) infinite;
+}
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.facts .chip-green .ico {
+  color: var(--green);
+}
+.hint {
+  font: 8px/1.6 var(--f-pixel);
+  color: var(--on-sky);
+  text-transform: uppercase;
+}
+@media (hover: none), (max-width: 719px) {
+  .hint {
+    display: none;
+  }
+}
+
+/* إضافة عن المرجع: الحروف بالـ DOM بحالتها الطبيعية ("Mohammad") والـ CSS بيكبّرها، فالاسم بيضل
+   مقروء صح لمحركات البحث وللنسخ. المرجع كاتبها capitals بالـ HTML، والشكل نفسه */
+.title-logo {
+  text-transform: uppercase;
+}
