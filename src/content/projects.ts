@@ -1,9 +1,10 @@
-import { FlaskConical, Megaphone } from "lucide-react";
+import { FlaskConical, Gem, Megaphone } from "lucide-react";
 
 import type { Project } from "@/types/content";
 
 const sooqSuria = "/projects/SooqSuria";
 const klardent = "/projects/Klardent";
+const chloellia = "/projects/Chloellia";
 
 export const projects: readonly Project[] = [
   {
@@ -218,6 +219,123 @@ export const projects: readonly Project[] = [
         src: `${klardent}/01-login.webp`,
         alt: "Login screen",
         caption: "Login",
+      },
+    ],
+  },
+  {
+    slug: "chloellia-jewellery-storefront",
+    title: "Chloéllia: Fine Jewellery E-commerce Storefront",
+    subtitle: "B2C luxury retail, multilingual storefront with checkout and customer self-service",
+    summary:
+      "Multilingual storefront for a fine-jewellery house: product catalogue with filters, guest cart, four-step checkout with card payment, and a customer account with orders and returns, in four languages including Arabic.",
+    icon: Gem,
+    image: {
+      src: `${chloellia}/00-hero.webp`,
+      alt: "Storefront home page shown in English and in Arabic with a right-to-left layout, each with a full-width jewellery video hero above the collections section",
+    },
+    placeholderLabel: "Screenshot placeholder for the Chloéllia jewellery storefront",
+    tech: ["Next.js", "TypeScript", "TanStack Query", "Tailwind CSS", "i18next"],
+    overview:
+      "Chloéllia is a fine-jewellery house selling gemstone pieces, precious metals, and Goldbacks to customers across Europe and the Middle East. The brand needed a storefront that feels like a luxury boutique and still does the work of a full shop: browsing a catalogue of high-value pieces, buying without being forced to register, paying by card, and handling orders, addresses, and returns without contacting support.\n\nIt also had to serve four languages, including right-to-left Arabic, and show prices in the customer's currency. The storefront covers that whole journey, from the first visit to the return request, on top of the client's existing REST API.",
+    architecture:
+      "Next.js App Router application where every route lives under a [lang] segment. Middleware redirects un-prefixed URLs to the default locale and passes the locale to server code, so pages, metadata, and API requests are all rendered in the right language.\n\nData flows in one direction: components call thin TanStack Query hooks, hooks call a service layer, and services call a single Axios instance. The service layer maps raw API responses into view-model types, which keeps translation fallbacks, stock status, and price formatting out of the components. Shipping and payment options are prefetched on the server and hydrated on the client.\n\nServer state lives in TanStack Query with per-locale cache keys; Zustand holds only the session state for the cart and preferred currency. The Axios instance injects the locale headers and the auth token and clears the token on a 401.",
+    features: [
+      "Locale-prefixed routing for English, Arabic, French, and Swedish, with automatic RTL layout for Arabic.",
+      "Guest cart and wishlist tied to one session ID that the API merges into the customer's account on login.",
+      "Four-step checkout (shipping, billing, review, confirmation) with shipping-method pricing, discount codes, and Nexi card payment verification.",
+      "Draft-based returns wizard: eligible orders, item selection, eligibility check, return shipping, refund method, and review.",
+      "Catalogue with category tabs, a filters drawer, sorting, grid and list views, quick view, and stock badges.",
+      "Currency switcher across five currencies and a live metal-prices panel fed by the API.",
+      "Customer account: profile, saved addresses, order history and order details, notification preferences, password change, and account deletion.",
+      "Bespoke consultation and client-services forms with schema validation and image upload.",
+      "Service layer with a translation fallback chain (requested locale, then English, then raw name), so a missing translation never shows an empty field.",
+    ],
+    stack: [
+      "Next.js (App Router)",
+      "React",
+      "TypeScript",
+      "TanStack Query",
+      "Zustand",
+      "React Hook Form",
+      "Zod",
+      "Axios",
+      "Tailwind CSS",
+      "Framer Motion",
+      "i18next",
+    ],
+    links: {},
+    nda: false,
+    accessNote: "Client project, live storefront",
+    gallery: [
+      {
+        src: `${chloellia}/01-home-hero.webp`,
+        alt: "Home page with a full-width video hero of a sapphire ring, language and currency switchers, and the main navigation",
+        caption: "Home page with video hero",
+      },
+      {
+        src: `${chloellia}/03-explore-collections.webp`,
+        alt: "Explore the collections section with a carousel of category videos for earrings and rings",
+        caption: "Collections carousel on the home page",
+      },
+      {
+        src: `${chloellia}/05-featured-collections.webp`,
+        alt: "Featured collections section with Coins and Bars and Bridal and Engagement cards",
+        caption: "Featured collections",
+      },
+      {
+        src: `${chloellia}/11-checkout.webp`,
+        alt: "Checkout shipping step with contact fields, five delivery methods with prices, a discount code field, and an order summary",
+        caption: "Checkout, shipping step with delivery methods",
+      },
+      {
+        src: `${chloellia}/12-account-notifications.webp`,
+        alt: "Customer account page with a sidebar for details, addresses, orders, and returns, and toggles for order, shipping, and promotion notifications",
+        caption: "Customer account, notification settings",
+      },
+      {
+        src: `${chloellia}/10-bespoke-consultation.webp`,
+        alt: "Bespoke consultation form with contact fields and selects for piece type, gemstone, metal, budget, and occasion",
+        caption: "Bespoke consultation form",
+      },
+      {
+        src: `${chloellia}/04-our-brand.webp`,
+        alt: "Our brand section with the brand story text next to two portrait images of jewellery being worn",
+        caption: "Brand story section",
+      },
+      {
+        src: `${chloellia}/07-about.webp`,
+        alt: "About page with a video of the boutique display and the brand tagline below it",
+        caption: "About page",
+      },
+      {
+        src: `${chloellia}/08-craftsmanship.webp`,
+        alt: "Craftsmanship section with a boutique photo beside a text panel and four cards on sourcing, setting, and quality standards",
+        caption: "About page, craftsmanship section",
+      },
+      {
+        src: `${chloellia}/09-craft-process.webp`,
+        alt: "Craft process slider on the stone selection step, above the brand values list",
+        caption: "Craft process slider and brand values",
+      },
+      {
+        src: `${chloellia}/06-instagram-and-services.webp`,
+        alt: "Instagram section with a video and a follow link, above four service badges for authenticity, secure checkout, shipping, and returns",
+        caption: "Instagram section and service badges",
+      },
+      {
+        src: `${chloellia}/13-contact.webp`,
+        alt: "Contact page with a message form next to a panel listing address, telephone, email, opening hours, and WhatsApp",
+        caption: "Contact page",
+      },
+      {
+        src: `${chloellia}/02-home-arabic-rtl.webp`,
+        alt: "Home page in Arabic with a right-to-left layout",
+        caption: "Arabic (RTL) interface",
+      },
+      {
+        src: `${chloellia}/14-responsive-tablet.webp`,
+        alt: "Home page in English and Arabic and the about page shown side by side at tablet width",
+        caption: "Tablet layout in English and Arabic",
       },
     ],
   },
