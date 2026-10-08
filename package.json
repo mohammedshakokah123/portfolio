@@ -3,11 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "npm run sprites",
     "dev": "next dev",
+    "prebuild": "npm run sprites",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "sprites": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-sprites.mjs",
+    "sprites:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-sprites.mjs --check"
+  },
+  "engines": {
+    "node": ">=22.18"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

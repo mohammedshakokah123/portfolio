@@ -589,9 +589,16 @@ npm run sprites
 `src/pixel/svg.ts`، `src/pixel/scene.ts`، `src/pixel/sheet.ts`، `src/pixel/sprites/{hero,art,ground,icons,frames}.ts`، `scripts/build-sprites.mjs`، `src/styles/pixel/sprites.generated.css` (مولّد)، `.prettierignore`، `package.json`، `tsconfig.json`، `src/app/globals.css` (سطر واحد)
 
 ## Definition of Done
-- [ ] `npm run sprites:check` ← `✓ sprites OK (94.4KB)`. يعني الناتج مطابق للمرجع byte-by-byte، والملف المولّد محدّث.
-- [ ] جرّب إنو الفحص بيلقط الغلط: غيّر حرف واحد بـ `hero.ts` ← `sprites:check` بيفشل. رجّعه.
-- [ ] `npm run lint && npm run build` ناجحين (والـ `prebuild` بيطبع `✓ wrote …`).
-- [ ] الصفحة المؤقتة: الشخصية (frame الـ idle)، الشجرة، الجوهرة، والـ skyline ظاهرين بحواف حادة (مش مغبّشين).
-- [ ] `PixelIconName` بيطلع بالـ autocomplete بـ 31 اسم.
-- [ ] `git status`: `sprites.generated.css` موجود وداخل بالـ commit.
+- [x] `npm run sprites:check` ← `✓ sprites OK (94.4KB)`. يعني الناتج مطابق للمرجع byte-by-byte، والملف المولّد محدّث.
+- [x] جرّب إنو الفحص بيلقط الغلط: غيّر حرف واحد بـ `hero.ts` ← `sprites:check` بيفشل. رجّعه.
+- [x] `npm run lint && npm run build` ناجحين (والـ `prebuild` بيطبع `✓ wrote …`).
+- [x] الصفحة المؤقتة: الشخصية (frame الـ idle)، الشجرة، الجوهرة، والـ skyline ظاهرين بحواف حادة (مش مغبّشين).
+- [x] `PixelIconName` بيطلع بالـ autocomplete بـ 31 اسم.
+- [x] `git status`: `sprites.generated.css` موجود وداخل بالـ commit.
+
+## ملاحظات التنفيذ
+- **الملفات انكتبت بسكربت، مش بالإيد:** الكود من الـ code blocks تبع هالملف، والخرائط من `git show 04412b1:"design/pixel art.html"` بأرقام الأسطر المكتوبة فوق. بعدها Prettier رتّب الـ palettes (`"K": '#14142B'` صارت `K: "#14142B"`) وخلّى صفوف الخرائط متل ما هي.
+- **بالـ production الـ minifier بيحوّل `url("data:…")` لـ `url(data:…)`** (بدون تنصيص). `sprites:check` بيفحص الملف المصدر، فما بيتأثر. انفحص بالمتصفح: نص الـ SVG بعد فك الترميز مطابق للمرجع بالـ 60 متغير، وبالـ dev القيم مطابقة حرف بحرف. الـ data URIs ما فيها أقواس ولا تنصيص ولا مسافات، فالصيغة بدون تنصيص سليمة.
+- **ترتيب الخطوة 9 مهم إذا سيرفر الـ dev شغّال:** ولّد الملف أول وبعدين ضيف الـ import. انعملت بالعكس، فالسيرفر حفظ خطأ `Can't resolve '../styles/pixel/sprites.generated.css'` وضل يرجّع 500 لحد ما تغيّر محتوى `globals.css` (الـ `touch` لحاله ما كفّى).
+- **الـ format:** `npx prettier --write src scripts package.json tsconfig.json`، لنفس سبب المرحلة 01.
+- **عدد أسماء `PixelIconName`** انفحص بالـ type checker (31 اسم)، مش بالـ autocomplete.

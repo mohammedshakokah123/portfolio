@@ -4,6 +4,7 @@
    بالآخر (متل `.win` بالـ responsive فوق `.modal-win`)، فلا تغيّر الترتيب.
    tokens وkeyframes بدون layer. الباقي بـ base أو components، يعني تحت الـ utilities تبع Tailwind. */
 @import "../styles/pixel/tokens.css";
+@import "../styles/pixel/sprites.generated.css";
 @import "../styles/pixel/base.css" layer(base);
 @import "../styles/pixel/kit.css" layer(components);
 @import "../styles/pixel/hud.css" layer(components);
