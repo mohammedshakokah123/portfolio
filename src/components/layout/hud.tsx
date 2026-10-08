@@ -1,4 +1,5 @@
 import { HudNav } from "@/components/game/hud-nav";
+import { SoundToggle } from "@/components/game/sound-toggle";
 import { TimeToggle } from "@/components/game/time-toggle";
 import { btn } from "@/components/pixel/btn";
 import { PixelIcon } from "@/components/pixel/pixel-icon";
@@ -29,7 +30,7 @@ export function Hud() {
           {/* ثابت لهلق. المرحلة 11 بتبدّله بـ <GemCounter /> */}
           <span>0/{GEM_IDS.length}</span>
         </p>
-        {/* المرحلة 06 بتضيف <SoundToggle /> هون، قبل زر الليل (متل ترتيب المرجع) */}
+        <SoundToggle className={btn({ variant: "ghost", size: "icon" }, "sound-btn")} />
         <TimeToggle className={btn({ variant: "ghost", size: "icon" })} />
         <a className={btn({}, "btn-cv")} href={site.cvPath} download>
           <PixelIcon name="download" />

@@ -3,7 +3,9 @@ import { Pixelify_Sans, Press_Start_2P } from "next/font/google";
 
 import { GameRoot } from "@/components/game/game-root";
 import { GroundBar } from "@/components/game/ground-bar";
+import { PauseMenu } from "@/components/game/pause-menu";
 import { Hud } from "@/components/layout/hud";
+import { Overlays } from "@/components/layout/overlays";
 import { SkipLink } from "@/components/layout/skip-link";
 import { Floor, HeroLayer, World } from "@/components/layout/world";
 import { site } from "@/content/site";
@@ -83,7 +85,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <HeroLayer />
         <Floor />
         <GroundBar name={site.name} year={new Date().getFullYear()} />
-        <GameRoot />
+        <Overlays />
+        <PauseMenu />
+        <GameRoot siteName={site.name} homeTitle={defaultTitle} />
       </body>
     </html>
   );

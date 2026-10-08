@@ -15,7 +15,7 @@ _Last updated: 2026-10-08. Update this section whenever it stops being true._
 The site is being rebuilt from **v1** (a formal dark/light design built with shadcn/ui) into **v2** (a pixel-art platformer game), based on `design/pixel art.html`.
 
 - **v1** is on `main` and `feat/chloellia-project`. It was implemented through phase 10 of its plan; deployment (phase 11) was never run. Its plan is archived in `docs/plan-v1/`.
-- **v2** is planned in `docs/plan/` and is being built on branch `feat/pixel-art`. Phases 01 to 05 are done: foundation, sprites, UI kit (previewed on the temporary `/kit` route), content, and the fixed shell (world scene, HUD, ground bar, day/night toggle). The shell matches the reference pixel for pixel when both use the same font files. `/` shows the shell with no stage content, the hero is still off screen, and nothing navigates yet. The next step is phase 06.
+- **v2** is planned in `docs/plan/` and is being built on branch `feat/pixel-art`. Phases 01 to 06 are done: foundation, sprites, UI kit (previewed on the temporary `/kit` route), content, the fixed shell (world scene, HUD, ground bar, day/night toggle) and the stage engine (router, hero, wipe, sound, pause menu). The shell and the transitions match the reference when both use the same font files. `/` shows six placeholder stages: each has its real heading and no content yet. The next step is phase 07.
 - Progress lives in the checklist in `docs/plan/README.md`. That checklist, not this file, says which phase is next.
 - `feat/pixel-art` was created from `feat/chloellia-project`, which holds the plan and the design file and is ahead of `main`. Neither branch is pushed. Do not branch from `main` until that work is merged.
 
@@ -113,6 +113,8 @@ Kept unchanged in v2: `src/app/actions/contact.ts`, `src/lib/validations/contact
 - In development, React Strict Mode strips the attributes the boot script sets on `<html>`. The plan's `reapplyBoot()` restores them. Background: `node_modules/next/dist/docs/01-app/02-guides/preventing-flash-before-hydration.md`.
 - Git prints CRLF warnings on this Windows machine. They are harmless.
 - `npm run format` is `prettier --write .`, and nothing ignores `design/` or `docs/`. Run as written it reformats `design/pixel art.html` (2,614 lines become 5,269, so the plan's line numbers stop matching), `design/reference.html`, every plan file and this file. Until `.prettierignore` covers them, format with `npx prettier --write src scripts package.json` and check that `git status -- design docs` is empty.
+- JSX text mixed with an expression (`0/{total}`, `Stage {n}`) renders as several text nodes, and kerning stops at each boundary. In Pixelify Sans that changes the width by a fraction of a pixel and can move a glyph. Write such text as one template string: `` {`0/${total}`} ``. Press Start 2P has no kerning, so it is not affected.
+- React hydrates `<title>` after the engine's first `render()`, which resets `document.title`. `initRouter` keeps a `MutationObserver` on `<head>` for that. Do not remove it.
 - `next/font/google` downloads both fonts on every build. When that download fails, Turbopack reports `Can't resolve '@vercel/turbopack-next/internal/font/google/font'`. Run the build again before looking for a code error.
 
 ## Open items for the owner

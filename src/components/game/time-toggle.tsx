@@ -1,5 +1,6 @@
 "use client";
 
+import { play } from "@/game/sound";
 import { useStore } from "@/game/store";
 import { timeStore, toggleTime } from "@/game/time";
 
@@ -19,7 +20,10 @@ export function TimeToggle({ className, children }: TimeToggleProps) {
       className={className}
       aria-pressed={night}
       aria-label={children ? undefined : "Night mode"}
-      onClick={toggleTime}
+      onClick={() => {
+        toggleTime();
+        play("toggle");
+      }}
     >
       <span className="ico time-ico" aria-hidden="true" />
       {children}

@@ -1,1 +1,95 @@
-/* المرحلة 06 */
+/* STAGES: الأسطر 995–1023 من design/pixel art.html */
+main {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+.stage {
+  display: block;
+  min-height: 100svh;
+  padding: calc(var(--hud-h) + 40px) 20px calc(var(--ground-h) + var(--hero-h) + 48px);
+}
+html[data-js] .stage {
+  display: none;
+}
+html[data-js][data-stage="home"] #home,
+html[data-js][data-stage="about"] #about,
+html[data-js][data-stage="skills"] #skills,
+html[data-js][data-stage="experience"] #experience,
+html[data-js][data-stage="projects"] #projects,
+html[data-js][data-stage="contact"] #contact {
+  display: block;
+}
+.stage-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* Only real UI catches the pointer; empty sky lets clicks reach the hero and blocks behind */
+.win,
+.btn,
+.chip,
+.gem,
+.cart,
+.stage-head > *,
+.title-logo,
+.title-class,
+.hint,
+.facts li {
+  pointer-events: auto;
+}
+
+.stage-head {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  margin-bottom: 30px;
+  padding-right: 64px;
+}
+.stage-no {
+  font: 12px/1 var(--f-pixel);
+  color: var(--gold);
+  text-transform: uppercase;
+  text-shadow: var(--o2);
+}
+.stage-title {
+  font-size: clamp(26px, 4.4vw, 42px);
+  line-height: 1.2;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow:
+    var(--o3),
+    7px 7px 0 var(--ink);
+}
+.stage-sub {
+  max-width: 62ch;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--on-sky);
+}
+
+.gem {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  width: calc(10 * var(--u));
+  height: calc(9 * var(--u));
+  background: var(--spr-gem) 0 0 / calc(40 * var(--u)) 100% no-repeat;
+  animation:
+    gem-spin 0.9s steps(1) infinite,
+    gem-bob 1.8s ease-in-out infinite;
+}
+.gem.is-collected {
+  animation: gem-get 0.5s steps(6) forwards;
+  pointer-events: none;
+}
+
+/* إضافة عن المرجع: مرحلة لحالها (صفحة الـ 404) بتضل ظاهرة مهما كان data-stage */
+html[data-js] .stage.stage-solo {
+  display: block;
+}
