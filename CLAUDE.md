@@ -15,7 +15,7 @@ _Last updated: 2026-10-08. Update this section whenever it stops being true._
 The site is being rebuilt from **v1** (a formal dark/light design built with shadcn/ui) into **v2** (a pixel-art platformer game), based on `design/pixel art.html`.
 
 - **v1** is on `main` and `feat/chloellia-project`. It was implemented through phase 10 of its plan; deployment (phase 11) was never run. Its plan is archived in `docs/plan-v1/`.
-- **v2** is planned in `docs/plan/` and is being built on branch `feat/pixel-art`. Phases 01 (foundation) and 02 (sprites) are done: the v1 UI is gone from `src/`, both fonts load, the boot script sets the page state on `<html>`, and `sprites.generated.css` matches the reference. The page shows placeholder text and four test sprites only. The next step is phase 03.
+- **v2** is planned in `docs/plan/` and is being built on branch `feat/pixel-art`. Phases 01 (foundation), 02 (sprites) and 03 (UI kit) are done: the v1 UI is gone from `src/`, both fonts load, the boot script sets the page state on `<html>`, `sprites.generated.css` matches the reference, and the kit (`.win`, `.btn`, `.chip`, `.tags`, `.ico`) is previewed on the temporary `/kit` route. `/` shows placeholder text only. The next step is phase 04.
 - Progress lives in the checklist in `docs/plan/README.md`. That checklist, not this file, says which phase is next.
 - `feat/pixel-art` was created from `feat/chloellia-project`, which holds the plan and the design file and is ahead of `main`. Neither branch is pushed. Do not branch from `main` until that work is merged.
 

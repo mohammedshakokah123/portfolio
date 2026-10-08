@@ -28,36 +28,6 @@ export default function HomePage() {
         <h1 style={{ fontSize: 28, color: "#fff", textShadow: "var(--o3)" }}>Pixel foundation</h1>
         <p style={{ color: "var(--ink)" }}>Body text in Pixelify Sans 400.</p>
         <p style={{ color: "var(--ink)", fontWeight: 600 }}>Body text in Pixelify Sans 600.</p>
-        <div style={{ display: "flex", gap: 24, alignItems: "end" }}>
-          <div
-            style={{
-              width: 64,
-              height: 88,
-              background: "var(--spr-hero) 0 0 / 448px 100% no-repeat",
-            }}
-          />
-          <div
-            style={{
-              width: 64,
-              height: 80,
-              background: "var(--spr-tree) center / contain no-repeat",
-            }}
-          />
-          <div
-            style={{
-              width: 40,
-              height: 36,
-              background: "var(--spr-gem0) center / contain no-repeat",
-            }}
-          />
-          <div
-            style={{
-              width: 640,
-              height: 256,
-              background: "var(--spr-skyline) 0 100% / 640px 100% repeat-x",
-            }}
-          />
-        </div>
       </div>
     </>
   );

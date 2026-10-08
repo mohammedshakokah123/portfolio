@@ -218,9 +218,17 @@ export default function KitPage() {
 `src/styles/pixel/kit.css`، `src/components/pixel/{pixel-icon.tsx,btn.ts,tags.tsx}`، `src/app/kit/page.tsx` (مؤقت)، `src/app/page.tsx` (تنضيف)
 
 ## Definition of Done
-- [ ] `/kit` بتعرض كل القطع، والـ 31 أيقونة كلهم ظاهرين (ولا مربع فاضي ولا مربع ملوّن كامل).
-- [ ] جدول المقارنة فوق: كل الصفوف مطابقة على 1280px.
-- [ ] على 375px: `.win` بتصير `padding: 16px` (من `responsive.css`)، والأزرار ما بتكسر الـ layout.
-- [ ] الـ 8 إطارات ظاهرين بألوانهم: أبيض، دهبي، أسود رفيع، أبيض/دهبي/أحمر للحقول، أزرق/دهبي للـ slots.
-- [ ] Tab عالأزرار ← outline زهري 3px (`--focus`).
-- [ ] `npm run lint && npm run build && npm run sprites:check` ناجحين.
+- [x] `/kit` بتعرض كل القطع، والـ 31 أيقونة كلهم ظاهرين (ولا مربع فاضي ولا مربع ملوّن كامل).
+- [x] جدول المقارنة فوق: كل الصفوف مطابقة على 1280px.
+- [x] على 375px: `.win` بتصير `padding: 16px` (من `responsive.css`)، والأزرار ما بتكسر الـ layout.
+- [x] الـ 8 إطارات ظاهرين بألوانهم: أبيض، دهبي، أسود رفيع، أبيض/دهبي/أحمر للحقول، أزرق/دهبي للـ slots.
+- [x] Tab عالأزرار ← outline زهري 3px (`--focus`).
+- [x] `npm run lint && npm run build && npm run sprites:check` ناجحين.
+
+## ملاحظات التنفيذ
+- **الملفات انكتبت بسكربت:** الكود من الـ code blocks تبع هالملف، و`kit.css` من أسطر المرجع. بعد Prettier، `kit.css` = الأسطر 750–757 و762–810 بنفس التنسيق، حرف بحرف (انفحص آلياً).
+- **طريقة المقارنة:** نفس الـ markup (كل classes الـ kit) انحقن بصفحة المرجع وبـ `/kit`، وانقارنت كل الـ computed properties (571 خاصية لـ 25 عنصر) مع المقاسات، على 1280px و375px. الـ hover والـ active والـ focus-visible انقارنوا كمان، وطلعوا مطابقين.
+- **الفرق الوحيد: `appearance: button` على `<button>`.** من الـ preflight تبع Tailwind (المرجع `auto`). بدون أثر بصري: الزر إله background وborder، ومقاساته مطابقة للمرجع.
+- **فروقات من الـ preflight بدون أثر:** `tab-size: 4`، و`-webkit-tap-highlight-color: transparent` على كل العناصر (مكتوبة بجدول المرحلة 01)، و`border-style: solid` بعرض 0.
+- **لقياس الـ hover بالـ headless** لازم قراءتين بينهم 300ms: الـ transition (`steps(2)`) بيبلّش عند أول قراءة للـ style.
+- **`npm run build` وسيرفر الـ dev شغّال:** `/kit` رجّعت 500 مرة وحدة بالـ dev وقت الـ build، وما تكررت بعدها (9 محاولات، ومنها بعد `npm run sprites`).

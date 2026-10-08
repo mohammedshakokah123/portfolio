@@ -34,7 +34,8 @@
   - الباقي بـ "ملاحظات التنفيذ" بآخر [01-foundation.md](01-foundation.md).
 - [x] 02: `npm run sprites:check` مطابق للمرجع byte-by-byte
   - بالـ production الـ minifier بيشيل علامات التنصيص من `url("…")`. نص الـ SVG بالـ 60 متغير مطابق للمرجع (انفحص بالمتصفح)، والتفاصيل بآخر [02-sprites.md](02-sprites.md).
-- [ ] 03: الـ kit مطابق للمرجع على `/kit`
+- [x] 03: الـ kit مطابق للمرجع على `/kit`
+  - الفرق الوحيد بالـ computed styles: `appearance: button` على `<button>` (من الـ preflight، والمرجع `auto`). بدون أثر بصري، والتفاصيل بآخر [03-ui-kit.md](03-ui-kit.md).
 - [ ] 04: المحتوى كله بأيقونات الـ pixel، و`lucide-react` انشالت
 - [ ] 05: العالم والـ HUD مطابقين بالنهار والليل
 - [ ] 06: التنقل بين المراحل بكل الطرق (HUD، أسهم، Back/Forward، رابط مباشر)
