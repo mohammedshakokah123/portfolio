@@ -28,7 +28,10 @@
 
 ## متابعة التقدّم
 
-- [ ] 01: الواجهة القديمة انشالت، الخطين ظاهرين، والـ boot script بيحط حالة الصفحة قبل أول paint
+- [x] 01: الواجهة القديمة انشالت، الخطين ظاهرين، والـ boot script بيحط حالة الصفحة قبل أول paint
+  - `npm run format` ما اشتغل متل ما هو: بيعيد تنسيق `design/pixel art.html` (من 2614 لـ 5269 سطر) و`design/reference.html` وكل `docs/` و`CLAUDE.md`. اشتغل `npx prettier --write src package.json` بداله.
+  - ⏳ مستني منك: نضيف `design/` و`docs/` و`public/` و`CLAUDE.md` لـ `.prettierignore` (اللي بتخلقه المرحلة 02)؟ لحد ما تقرر، الـ format بيضل على `src` بس.
+  - الباقي بـ "ملاحظات التنفيذ" بآخر [01-foundation.md](01-foundation.md).
 - [ ] 02: `npm run sprites:check` مطابق للمرجع byte-by-byte
 - [ ] 03: الـ kit مطابق للمرجع على `/kit`
 - [ ] 04: المحتوى كله بأيقونات الـ pixel، و`lucide-react` انشالت

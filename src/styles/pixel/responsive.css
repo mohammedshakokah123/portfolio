@@ -1,0 +1,125 @@
+/* RESPONSIVE: الأسطر 1308–1343 من design/pixel art.html */
+@media (max-width: 1023px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .player-card {
+    grid-template-columns: minmax(0, 220px) 1fr;
+    align-items: start;
+    gap: 18px 22px;
+  }
+  .player-card .portrait {
+    grid-row: span 3;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 859px) {
+  .skills-grid,
+  .carts {
+    grid-template-columns: 1fr;
+  }
+  .abilities {
+    grid-template-columns: 1fr;
+  }
+  .abilities li {
+    grid-template-columns: 48px 1fr;
+    column-gap: 16px;
+  }
+  .abilities li > div {
+    display: grid;
+    gap: 6px;
+  }
+  .map-path {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .map-path::before {
+    left: 34px;
+    right: auto;
+    top: 30px;
+    bottom: 30px;
+    width: 6px;
+    height: auto;
+    background: repeating-linear-gradient(var(--gold) 0 12px, transparent 12px 20px);
+  }
+  .map-node {
+    grid-template-columns: 74px 1fr;
+    justify-items: start;
+    align-items: center;
+    text-align: left;
+    column-gap: 16px;
+    row-gap: 4px;
+  }
+  .map-node .map-icon {
+    grid-row: span 2;
+  }
+  .map-node .map-label {
+    max-width: none;
+  }
+  .map-hero {
+    left: auto;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+@media (max-width: 719px) {
+  body {
+    font-size: 18px;
+  }
+  .stage {
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: calc(var(--hud-h) + 28px);
+  }
+  .win {
+    padding: 16px;
+  }
+  .stage-head {
+    padding-right: 52px;
+    margin-bottom: 22px;
+  }
+  .stage-sub {
+    font-size: 18px;
+  }
+  .player-card {
+    grid-template-columns: 1fr;
+  }
+  .player-card .portrait {
+    grid-row: auto;
+    max-width: 260px;
+    justify-self: center;
+    width: 100%;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .lead {
+    font-size: 20px;
+  }
+  .btn-start {
+    width: 100%;
+  }
+  .title-menu .btn {
+    flex: 1 1 auto;
+  }
+  .ground-bar {
+    padding: 0 10px;
+  }
+  .ground-bar .btn {
+    font-size: 8px;
+    padding: 8px 10px;
+    min-height: 38px;
+  }
+  .credits-mini {
+    display: none;
+  }
+  .cart {
+    padding: 0 14px 16px;
+  }
+  .cart-ridges {
+    margin: 0 -14px;
+  }
+}

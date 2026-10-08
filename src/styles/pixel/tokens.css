@@ -1,0 +1,55 @@
+/* TOKENS: الأسطر 679–715 من design/pixel art.html */
+:root {
+  --u: 4px; /* one world pixel */
+  --b: 3px; /* one UI frame pixel */
+  --hud-h: 64px;
+  --ground-h: calc(24 * var(--u));
+  --hero-h: calc(22 * var(--u));
+
+  --ink: #14142b;
+  --ink-2: #0c0d22;
+  --panel: #1e2150;
+  --panel-2: #2a2e68;
+  --panel-3: #3a4088;
+  --text: #f5f6ff;
+  --muted: #c2c6ee;
+  --gold: #ffc83d;
+  --gold-hi: #ffe27a;
+  --gold-lo: #c98a1a;
+  --indigo: #5462e8;
+  --indigo-hi: #8792ff;
+  --indigo-lo: #3a45b5;
+  --teal: #3fe0c5;
+  --green: #5cd66a;
+  --red: #ff8a8f;
+  --focus: #ff5ad9;
+  --paper: #f6f1e1;
+
+  --sky-1: #5eb6f2;
+  --sky-2: #7ec7f7;
+  --sky-3: #9dd6fa;
+  --sky-4: #bde5fc;
+  --on-sky: var(--ink);
+
+  --f-pixel: var(--font-press-start), ui-monospace, Menlo, Consolas, monospace;
+  --f-body: var(--font-pixelify), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --o2:
+    -2px -2px 0 var(--ink), 0 -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 0 0 var(--ink),
+    2px 0 0 var(--ink), -2px 2px 0 var(--ink), 0 2px 0 var(--ink), 2px 2px 0 var(--ink);
+  --o3:
+    -3px -3px 0 var(--ink), 0 -3px 0 var(--ink), 3px -3px 0 var(--ink), -3px 0 0 var(--ink),
+    3px 0 0 var(--ink), -3px 3px 0 var(--ink), 0 3px 0 var(--ink), 3px 3px 0 var(--ink);
+  color-scheme: light;
+}
+[data-time="night"] {
+  --on-sky: #f5f6ff;
+  color-scheme: dark;
+}
+
+@media (max-width: 719px) {
+  :root {
+    --u: 3px;
+    --hud-h: 58px;
+  }
+}

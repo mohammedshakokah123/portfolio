@@ -443,12 +443,23 @@ export default function NotFound() {
 `src/app/{layout,page,not-found}.tsx` و`src/app/globals.css` و`src/app/sitemap.ts` (تعديل)، `src/styles/pixel/*.css` (16 ملف، 4 منهم معبّايين)، `src/game/{stages,persist,boot}.ts`، `src/components/game/game-root.tsx`، `src/components/layout/skip-link.tsx`، `package.json`
 
 ## Definition of Done
-- [ ] `npm run lint && npm run build` ناجحين، وما في ولا import لـ `@/components/ui` أو `next-themes` أو `radix-ui` أو `sonner` (`git grep` بيرجّع فاضي).
-- [ ] الخلفية سماوية (`--sky-3`)، العنوان بخط Press Start 2P، والنص بخط Pixelify Sans بالوزنين.
-- [ ] تاب الـ Network: الخطين من نفس الـ domain (`/_next/static/media/`)، وما في request لـ `fonts.googleapis.com`.
-- [ ] `<html>` بالـ Elements فيه `data-js` و`data-stage` و`data-time` و`data-gems`.
-- [ ] على `npm run build && npm run start`: افتح `/#skills` ← `data-stage="skills"`. افتح `/#xyz` ← `home`.
-- [ ] بالـ console: `localStorage.setItem("ms-time", "night")` وrefresh ← `data-time="night"` من أول paint (بدون ما تمرق عالـ `day`).
-- [ ] `localStorage.setItem("ms-gems", '["about","nope"]')` وrefresh ← `data-gems="about"`.
-- [ ] بالـ dev (`npm run dev`): الـ attributes موجودة بعد الـ hydration (يعني `reapplyBoot` شغّال)، وما في hydration warnings بالـ console.
-- [ ] Tab من أول الصفحة ← بيطلع زر "Skip to content" بالأصفر.
+- [x] `npm run lint && npm run build` ناجحين، وما في ولا import لـ `@/components/ui` أو `next-themes` أو `radix-ui` أو `sonner` (`git grep` بيرجّع فاضي).
+- [x] الخلفية سماوية (`--sky-3`)، العنوان بخط Press Start 2P، والنص بخط Pixelify Sans بالوزنين.
+- [x] تاب الـ Network: الخطين من نفس الـ domain (`/_next/static/media/`)، وما في request لـ `fonts.googleapis.com`.
+- [x] `<html>` بالـ Elements فيه `data-js` و`data-stage` و`data-time` و`data-gems`.
+- [x] على `npm run build && npm run start`: افتح `/#skills` ← `data-stage="skills"`. افتح `/#xyz` ← `home`.
+- [x] بالـ console: `localStorage.setItem("ms-time", "night")` وrefresh ← `data-time="night"` من أول paint (بدون ما تمرق عالـ `day`).
+- [x] `localStorage.setItem("ms-gems", '["about","nope"]')` وrefresh ← `data-gems="about"`.
+- [x] بالـ dev (`npm run dev`): الـ attributes موجودة بعد الـ hydration (يعني `reapplyBoot` شغّال)، وما في hydration warnings بالـ console.
+- [x] Tab من أول الصفحة ← بيطلع زر "Skip to content" بالأصفر.
+
+## ملاحظات التنفيذ
+- **`npm run format` ما اشتغل متل ما هو.** السكربت `prettier --write .`، وما في شي بيستثني `design/` ولا `docs/`. جرّبناه بـ `--check`: بيعيد تنسيق `design/pixel art.html` (من 2614 لـ 5269 سطر، يعني أرقام الأسطر بهالخطة بتروح)، و`design/reference.html`، وكل ملفات `docs/`، و`CLAUDE.md`، وملفات الـ `.md` بـ `public/projects/`. اشتغل بداله `npx prettier --write src package.json`. الـ `.prettierignore` تبع المرحلة 02 فيه الملف المولّد بس، فالمشكلة بتضل بعدها. **القرار عند صاحب الموقع** (شوف الـ README).
+- **ملفات الـ CSS الأربعة** طلعت من المرجع بـ `git show 04412b1:"design/pixel art.html"` (مش نسخ بالإيد)، وبعدها Prettier عاد تنسيقها: declaration بكل سطر، ألوان الـ hex بحروف صغيرة، و`.25` صارت `0.25`. المعنى نفسه. انفحص آلياً: أسطر المرجع + التعديلات المكتوبة فوق، بعد نفس التنسيق، = الملف حرف بحرف.
+- **أول سطر بكل ملف من الأربعة تعليق** بيقول من أي أسطر بالمرجع إجا (`/* TOKENS: الأسطر 679–715 من design/pixel art.html */`). مش مكتوب بالخطة.
+- **`src/lib/utils.ts`:** Prettier ضاف `;` بآخر السطر. الملف من v1 وما كان مفرمت.
+- **الـ build فشل أول مرة** بـ `Can't resolve '@vercel/turbopack-next/internal/font/google/font'` على الخطين، ونجح بالمحاولة التانية بدون أي تعديل. هي رسالة Turbopack لما يفشل تنزيل ملفات الخط من `fonts.gstatic.com`: `next/font/google` بينزّلهم مع كل build. إذا رجعت، عيد الـ build قبل ما تدوّر على غلط بالكود.
+- **فحص الـ `git grep`:** على `src/` و`package.json` بيرجّع فاضي. على المشروع كله بيطلّع `docs/` و`CLAUDE.md` (نصوص، مش imports).
+- **"من أول paint" انقاس** على `next start`: الـ attributes انحطت عند 15ms، الـ `<body>` بلّش بعدها، وأول paint عند 48ms. وانفحص كمان اللي مش مكتوب فوق: hash بـ encoding خربان ← `home`، `ms-time` بقيمة غلط ← من `prefers-color-scheme`، و`ms-gems` بـ JSON خربان أو مش مصفوفة ← فاضي.
+- **المقارنة مع المرجع** (6 عروض × نهار وليل): قيم الـ tokens والـ `body` والـ `html` المحسوبة بالمتصفح مطابقة للمرجع بكل الحالات.
+- سيرفر الـ dev كان شغّال على 3000 طول التنفيذ، ففحص الـ production انعمل على `next start -p 3100`.

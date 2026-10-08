@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
 
-import { About } from "@/components/sections/about";
-import { Contact } from "@/components/sections/contact";
-import { Experience } from "@/components/sections/experience";
-import { Hero } from "@/components/sections/hero";
-import { Projects } from "@/components/sections/projects";
-import { Skills } from "@/components/sections/skills";
-import { HashFocus } from "@/components/shared/hash-focus";
 import { JsonLd } from "@/components/shared/json-ld";
 import { site } from "@/content/site";
 import { homeJsonLd } from "@/lib/seo/json-ld";
@@ -30,13 +23,12 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={homeJsonLd()} />
-      <HashFocus />
-      <Hero />
-      <About />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Contact />
+      {/* مؤقت: بينشال بالمرحلة 06 */}
+      <div style={{ padding: "120px 20px", display: "grid", gap: 16 }}>
+        <h1 style={{ fontSize: 28, color: "#fff", textShadow: "var(--o3)" }}>Pixel foundation</h1>
+        <p style={{ color: "var(--ink)" }}>Body text in Pixelify Sans 400.</p>
+        <p style={{ color: "var(--ink)", fontWeight: 600 }}>Body text in Pixelify Sans 600.</p>
+      </div>
     </>
   );
 }

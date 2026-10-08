@@ -14,10 +14,10 @@ _Last updated: 2026-10-08. Update this section whenever it stops being true._
 
 The site is being rebuilt from **v1** (a formal dark/light design built with shadcn/ui) into **v2** (a pixel-art platformer game), based on `design/pixel art.html`.
 
-- **v1** is what `src/` contains today. It was implemented through phase 10 of its plan; deployment (phase 11) was never run. Its plan is archived in `docs/plan-v1/`.
-- **v2** is fully planned in `docs/plan/` and **no v2 code exists yet**. The next step is phase 01.
+- **v1** is on `main` and `feat/chloellia-project`. It was implemented through phase 10 of its plan; deployment (phase 11) was never run. Its plan is archived in `docs/plan-v1/`.
+- **v2** is planned in `docs/plan/` and is being built on branch `feat/pixel-art`. Phase 01 (foundation) is done: the v1 UI is gone from `src/`, both fonts load, and the boot script sets the page state on `<html>`. The page shows placeholder text only. The next step is phase 02.
 - Progress lives in the checklist in `docs/plan/README.md`. That checklist, not this file, says which phase is next.
-- The plan and the design file are on branch `feat/chloellia-project`, which is ahead of `main` and not pushed. Phase 01 creates `feat/pixel-art` from the branch that contains `docs/plan/`. Do not branch from `main` until that work is merged.
+- `feat/pixel-art` was created from `feat/chloellia-project`, which holds the plan and the design file and is ahead of `main`. Neither branch is pushed. Do not branch from `main` until that work is merged.
 
 ## Read this before working
 
@@ -55,7 +55,7 @@ npm run sprites:check  # from phase 02 on: compare the output with the reference
 
 ## Codebase map
 
-**Today (v1). Phase 01 deletes most of it.**
+**v1 (on `main`). Phase 01 removed most of it from `feat/pixel-art`.**
 
 | Path | Contents |
 |------|----------|
@@ -112,6 +112,8 @@ Kept unchanged in v2: `src/app/actions/contact.ts`, `src/lib/validations/contact
 - In v2 `<main>` has `pointer-events: none`, and a `<dialog>` inside it inherits that even in the top layer. A `<dialog>` opened inside a `display: none` ancestor leaves the page inert with nothing visible.
 - In development, React Strict Mode strips the attributes the boot script sets on `<html>`. The plan's `reapplyBoot()` restores them. Background: `node_modules/next/dist/docs/01-app/02-guides/preventing-flash-before-hydration.md`.
 - Git prints CRLF warnings on this Windows machine. They are harmless.
+- `npm run format` is `prettier --write .`, and nothing ignores `design/` or `docs/`. Run as written it reformats `design/pixel art.html` (2,614 lines become 5,269, so the plan's line numbers stop matching), `design/reference.html`, every plan file and this file. Until `.prettierignore` covers them, format with `npx prettier --write src scripts package.json` and check that `git status -- design docs` is empty.
+- `next/font/google` downloads both fonts on every build. When that download fails, Turbopack reports `Can't resolve '@vercel/turbopack-next/internal/font/google/font'`. Run the build again before looking for a code error.
 
 ## Open items for the owner
 

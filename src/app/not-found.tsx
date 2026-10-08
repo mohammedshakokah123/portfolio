@@ -1,24 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
-
 // الـ robots صريح: غير هيك بيورث "index, follow" من الـ layout جنب الـ noindex اللي Next بيحطه لحاله
 export const metadata: Metadata = { title: "Page not found", robots: { index: false } };
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex max-w-6xl flex-col items-start px-4 py-28 sm:px-6">
-      <p className="text-brand text-sm font-medium">404</p>
-      <h1 className="text-foreground mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-        Page not found
-      </h1>
-      <p className="text-muted-foreground mt-4 max-w-xl leading-relaxed">
-        The page you&apos;re looking for doesn&apos;t exist or has been moved.
-      </p>
-      <Button asChild variant="outline" size="lg" className="mt-8 h-10 px-4">
+    <div style={{ padding: "120px 20px" }}>
+      <h1 style={{ fontSize: 28, color: "#fff", textShadow: "var(--o3)" }}>Page not found</h1>
+      <p style={{ color: "var(--ink)", marginTop: 16 }}>
         <Link href="/">Back home</Link>
-      </Button>
+      </p>
     </div>
   );
 }

@@ -1,0 +1,138 @@
+/* KEYFRAMES: الأسطر 1348–1388 من design/pixel art.html */
+@keyframes drift {
+  to {
+    transform: translateX(calc(-192 * var(--u)));
+  }
+}
+@keyframes drift-far {
+  to {
+    transform: translateX(calc(-192 * var(--cu)));
+  }
+}
+@keyframes twinkle {
+  50% {
+    opacity: 0.25;
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes hero-idle {
+  0% {
+    background-position-x: 0;
+  }
+  50% {
+    background-position-x: calc(-16 * var(--u));
+  }
+}
+@keyframes hero-idle-sm {
+  0% {
+    background-position-x: 0;
+  }
+  50% {
+    background-position-x: calc(-16 * var(--b));
+  }
+}
+@keyframes hero-run {
+  0% {
+    background-position-x: calc(-32 * var(--u));
+  }
+  25% {
+    background-position-x: calc(-48 * var(--u));
+  }
+  50% {
+    background-position-x: calc(-64 * var(--u));
+  }
+  75% {
+    background-position-x: calc(-80 * var(--u));
+  }
+}
+@keyframes hero-jump {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.15, 0.65, 0.4, 1);
+  }
+  50% {
+    transform: translateY(calc(-18 * var(--u)));
+    animation-timing-function: cubic-bezier(0.6, 0, 0.85, 0.35);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes gem-spin {
+  0% {
+    background-position-x: 0;
+  }
+  25% {
+    background-position-x: calc(-10 * var(--u));
+  }
+  50% {
+    background-position-x: calc(-20 * var(--u));
+  }
+  75% {
+    background-position-x: calc(-30 * var(--u));
+  }
+}
+@keyframes gem-bob {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes gem-get {
+  to {
+    transform: translateY(-48px);
+    opacity: 0;
+  }
+}
+@keyframes bump {
+  50% {
+    transform: translateY(calc(-4 * var(--u)));
+  }
+}
+@keyframes pop-up {
+  to {
+    transform: translateY(-56px);
+    opacity: 0;
+  }
+}
+@keyframes letter-drop {
+  0% {
+    transform: translateY(-140%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(10%);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-6%);
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes pop {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
