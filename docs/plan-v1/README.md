@@ -1,5 +1,8 @@
 # خطة بناء الـ Portfolio: Next.js + TypeScript + shadcn/ui + Tailwind + Motion
 
+> 📦 **أرشيف: خطة التصميم الأول (v1).** هالتصميم انستبدل بتصميم الـ pixel art، والخطة الحالية بـ [`docs/plan/`](../plan/README.md).
+> الملفات هون بتضل كمرجع لقرارات الـ SEO والـ Accessibility والفورم، ولمرحلة النشر اللي انتقلت لـ [`docs/plan/13-deploy.md`](../plan/13-deploy.md).
+
 هاد المجلد فيه خطة تحويل التصميم الموجود (كان `Index (1).html`، وهلق صار بـ `design/reference.html`) لموقع Next.js كامل.
 كل ملف بيمثّل **مرحلة وحدة**. نفّذها بالترتيب، وما تنتقل على المرحلة اللي بعدها قبل ما يتحقق الـ **Definition of Done** تبع المرحلة الحالية.
 
