@@ -2,7 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { Pixelify_Sans, Press_Start_2P } from "next/font/google";
 
 import { GameRoot } from "@/components/game/game-root";
+import { GroundBar } from "@/components/game/ground-bar";
+import { Hud } from "@/components/layout/hud";
 import { SkipLink } from "@/components/layout/skip-link";
+import { Floor, HeroLayer, World } from "@/components/layout/world";
 import { site } from "@/content/site";
 import { bootScript } from "@/game/boot";
 import { defaultTitle, sharedOpenGraph, sharedTwitter } from "@/lib/seo/metadata";
@@ -72,9 +75,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         <SkipLink />
+        <Hud />
+        <World />
         <main id="main" tabIndex={-1}>
           {children}
         </main>
+        <HeroLayer />
+        <Floor />
+        <GroundBar name={site.name} year={new Date().getFullYear()} />
         <GameRoot />
       </body>
     </html>

@@ -15,7 +15,7 @@ _Last updated: 2026-10-08. Update this section whenever it stops being true._
 The site is being rebuilt from **v1** (a formal dark/light design built with shadcn/ui) into **v2** (a pixel-art platformer game), based on `design/pixel art.html`.
 
 - **v1** is on `main` and `feat/chloellia-project`. It was implemented through phase 10 of its plan; deployment (phase 11) was never run. Its plan is archived in `docs/plan-v1/`.
-- **v2** is planned in `docs/plan/` and is being built on branch `feat/pixel-art`. Phases 01 (foundation), 02 (sprites), 03 (UI kit) and 04 (content) are done: the v1 UI is gone from `src/`, both fonts load, the boot script sets the page state on `<html>`, `sprites.generated.css` matches the reference, the kit (`.win`, `.btn`, `.chip`, `.tags`, `.ico`) is previewed on the temporary `/kit` route, and `src/content/` uses pixel icon names (`lucide-react` is removed). `/` shows placeholder text only. The next step is phase 05.
+- **v2** is planned in `docs/plan/` and is being built on branch `feat/pixel-art`. Phases 01 to 05 are done: foundation, sprites, UI kit (previewed on the temporary `/kit` route), content, and the fixed shell (world scene, HUD, ground bar, day/night toggle). The shell matches the reference pixel for pixel when both use the same font files. `/` shows the shell with no stage content, the hero is still off screen, and nothing navigates yet. The next step is phase 06.
 - Progress lives in the checklist in `docs/plan/README.md`. That checklist, not this file, says which phase is next.
 - `feat/pixel-art` was created from `feat/chloellia-project`, which holds the plan and the design file and is ahead of `main`. Neither branch is pushed. Do not branch from `main` until that work is merged.
 
@@ -121,5 +121,7 @@ Kept unchanged in v2: `src/app/actions/contact.ts`, `src/lib/validations/contact
 - Name spelling: the site says "Mohammad Shaquqa", while the CV file and the GitHub account say "Shakokah". One spelling is needed before deployment.
 - Still missing: profile photo, public email, LinkedIn and GitHub URLs, domain. They are `null` in `src/content/site.ts`, and components hide whatever is `null`.
 - `public/projects/Chloellia/PORTFOLIO.md`, `public/projects/SooqSuria/PORTFOLIO.md` and `public/projects/Klardent/klardent-portfolio.md` are working notes that get served publicly because they sit in `public/`.
+- Font hinting on Windows: `next/font/google` bundles Press Start 2P without TrueType hinting, while the reference gets a hinted file from Google on Windows. At 10px and 12px the horizontal edges of that text are slightly softer than in the reference, on Windows only. Matching it means `next/font/local` with the original font file, which changes the technical decision in `docs/plan/00-overview.md` to load fonts through `next/font/google`. Details are in the notes at the end of `docs/plan/05-world-hud.md`.
+- Should `.prettierignore` cover `design/`, `docs/`, `public/` and `CLAUDE.md`? See the `npm run format` gotcha above.
 
 The full table is in `docs/plan/13-deploy.md`.

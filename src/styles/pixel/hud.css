@@ -1,1 +1,200 @@
-/* المرحلة 05 */
+/* HUD: الأسطر 815–875 من design/pixel art.html */
+.hud {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 30;
+  height: var(--hud-h);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  background: var(--ink);
+  box-shadow:
+    0 var(--b) 0 var(--indigo-lo),
+    0 calc(2 * var(--b)) 0 var(--ink);
+}
+.hud-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  text-decoration: none;
+}
+.hud-avatar {
+  flex: none;
+  width: 48px;
+  height: 36px;
+  background: var(--spr-head) center / contain no-repeat;
+}
+.hud-name {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.hud-name b {
+  font: 10px/1 var(--f-pixel);
+  color: #fff;
+  white-space: nowrap;
+}
+.hud-name small {
+  font: 8px/1 var(--f-pixel);
+  color: var(--gold);
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.hud-name .short {
+  display: none;
+}
+
+.hud-nav {
+  margin-left: auto;
+}
+.hud-nav ol {
+  display: flex;
+  gap: 2px;
+}
+.hud-nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 9px;
+  font: 10px/1 var(--f-pixel);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+}
+.hud-nav a:hover {
+  color: #fff;
+}
+.hud-num {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  background: var(--panel-2);
+  color: #fff;
+  font-size: 8px;
+}
+.hud-nav a[aria-current="page"] {
+  color: var(--gold);
+}
+.hud-nav a[aria-current="page"] .hud-num {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.hud-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+}
+.hud-nav + .hud-tools {
+  margin-left: 8px;
+}
+.hud-player + .hud-tools {
+  margin-left: auto;
+}
+.hud-gems {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px;
+  font: 10px/1 var(--f-pixel);
+  color: #fff;
+  white-space: nowrap;
+}
+.gem-ico {
+  flex: none;
+  width: 20px;
+  height: 18px;
+  background: var(--spr-gem0) center / contain no-repeat;
+}
+.menu-btn {
+  display: none;
+}
+.cv-short {
+  display: none;
+}
+
+@media (max-width: 1239px) {
+  .hud-nav {
+    display: none;
+  }
+  .hud-player + .hud-tools,
+  .hud-nav + .hud-tools {
+    margin-left: auto;
+  }
+  .menu-btn {
+    display: inline-flex;
+  }
+}
+@media (max-width: 719px) {
+  .hud {
+    gap: 8px;
+    padding: 0 10px;
+  }
+  .hud-avatar {
+    width: 32px;
+    height: 24px;
+  }
+  .hud-name .full {
+    display: none;
+  }
+  .hud-name .short {
+    display: inline;
+  }
+  .hud-name small {
+    display: none;
+  }
+  .hud-tools {
+    gap: 6px;
+  }
+  .hud-tools .sound-btn {
+    display: none;
+  }
+  .cv-full {
+    display: none;
+  }
+  .cv-short {
+    display: inline;
+  }
+  .hud .btn {
+    min-height: 40px;
+  }
+  .hud .btn-icon {
+    width: 40px;
+  }
+  .hud .btn-cv {
+    padding: 0 10px;
+  }
+  .hud-gems {
+    padding: 0 2px;
+  }
+  .menu-btn {
+    width: 40px;
+    padding: 0;
+  }
+  .menu-label {
+    display: none;
+  }
+}
+@media (max-width: 479px) {
+  .hud-gems {
+    display: none;
+  }
+}
+@media (max-width: 379px) {
+  .hud-name {
+    display: none;
+  }
+}
+
+/* إضافة عن المرجع: أيقونة زر النهار/الليل من data-time مباشرة. المرجع بيبدّل class بالـ JS بعد التحميل،
+   وهون الـ boot script حاطط data-time قبل أول paint، فالأيقونة الصح بتطلع من الأول بدون flash */
+.time-ico {
+  --i: var(--ico-moon);
+}
+[data-time="night"] .time-ico {
+  --i: var(--ico-sun);
+}

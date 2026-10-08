@@ -1,1 +1,36 @@
-/* المرحلة 05 */
+/* GROUND BAR: الأسطر 1231–1241 من design/pixel art.html */
+.ground-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  height: calc(var(--ground-h) - 6 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 16px calc(env(safe-area-inset-bottom) / 2);
+  pointer-events: none;
+}
+.ground-bar > * {
+  pointer-events: auto;
+}
+.ground-bar .btn {
+  font-size: 10px;
+  min-height: 42px;
+  padding: 10px 14px;
+}
+.credits-mini {
+  font: 8px/1.6 var(--f-pixel);
+  color: #ffe4c7;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+  text-align: center;
+  text-transform: uppercase;
+}
+html:not([data-js]) .ground-bar {
+  display: none;
+}
+.spacer {
+  width: 1px;
+}
