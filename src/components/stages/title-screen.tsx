@@ -24,7 +24,7 @@ export function TitleScreen() {
         >
           {words.map((word, w) => (
             <Fragment key={word}>
-              {/* المسافة ضرورية: السطرين block بالـ CSS بس، وبدونها النص الخام بيصير "MohammadShaquqa" */}
+              {/* المسافة ضرورية: السطرين block بالـ CSS بس، وبدونها النص الخام بيصير "MohammadShakokah" */}
               {w > 0 && " "}
               <span className={cn("row", w % 2 === 1 && "row-gold")} aria-hidden="true">
                 {[...word].map((letter, l) => (

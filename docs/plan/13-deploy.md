@@ -16,7 +16,7 @@
 | حسابات تانية (X، Stack Overflow، dev.to، Medium...) | `site.socials.others` | ✅ Facebook: `https://www.facebook.com/mohammed.shakokah` (2026-10-09). الباقي اختياري |
 | رقم الاتصال والواتساب | `site.phone` و`site.whatsapp` | ✅ `+963 933 981 269` (محلياً 0933 981 269، نفس الرقم للاتنين) (2026-10-09) |
 | الإيميل العام للتواصل | `site.email` | ⏳ TODO (هلق `null`) |
-| **تهجئة الاسم** | `site.name`، `site.shortName`، `site.alternateNames`، واسم ملف الـ CV | ⏳ الموقع "Mohammad Shaquqa"، وملف الـ CV "Mouhammad-Shakokah". **لازم تهجئة وحدة** (القسم 6) |
+| **تهجئة الاسم** | `site.name`، `site.shortName`، `site.alternateNames`، واسم ملف الـ CV | ✅ الكنية انحسمت (2026-10-09): الموقع صار "Mohammad Shakokah"، متل ملف الـ CV وحساب GitHub. ⏳ ضل الاسم الأول: ملف الـ CV "Mouhammad"، والحسابات "mohammed" (القسم 6) |
 | هل لسا شغّال بـ Davinda؟ | `davinda.period.end` بـ `src/content/experience.ts` | ⏳ هلق `"2026-09"` ← الشارة "Quest complete" |
 | الـ Domain | `NEXT_PUBLIC_SITE_URL` | ⏳ TODO |
 | روابط المشاريع | `links` بـ `src/content/projects.ts` | ✅ Klardent إله Live site (`klardent.net`، موقع نظامي). Chloéllia إله رابطين (من 2026-10-09): Live demo على `chloellia.davinda.dev` (بيانات كاملة) وLive site على `chloellia.com` (موقع الزبون، بياناته لسا مش كاملة). SooqSuria بدون رابط عام (`accessNote`) |
@@ -108,7 +108,7 @@ git push -u origin feat/pixel-art
 | **توقيع الإيميل** | رابط الموقع. |
 
 > **استعمل نفس الاسم بالضبط بكل مكان** ونفس الصورة الشخصية. هالشي بيساعد Google يربط الحسابات ببعض.
-> هلق في تهجئتين: "Mohammad Shaquqa" (الموقع) و"Mouhammad Shakokah" (ملف الـ CV، وحساب GitHub `mohammedshakokah123`). اختار وحدة، وحط الباقي بـ `site.alternateNames` مشان اللي بيبحث فيهم يلاقيك.
+> الكنية صارت وحدة بكل مكان: "Shakokah" (الموقع من 2026-10-09، ملف الـ CV، وحساب GitHub `mohammedshakokah123`). الاسم الأول لسا بتلات أشكال: "Mohammad" (الموقع)، "Mouhammad" (ملف الـ CV)، و"mohammed" (الحسابات). اعتمد واحد، وحط الباقي بـ `site.alternateNames` مشان اللي بيبحث فيهم يلاقيك.
 
 ## 7. فحص ما بعد النشر
 - [ ] المراحل الست بتفتح بالتنقل وبالرابط المباشر (`/#about`، `/#skills`، `/#experience`، `/#projects`، `/#contact`)، وBack/Forward شغالين.

@@ -198,3 +198,15 @@
 [data-time="night"] .time-ico {
   --i: var(--ico-sun);
 }
+
+/* إضافة عن المرجع: بأول نطاقين (من 720px، ومن 1240px) الـ HUD أعرض من الشاشة، والـ hud-player هو الوحيد اللي
+   بينضغط، فاسم اللاعب (nowrap) كان يركب عاللي جنبه: على عدّاد الجواهر من 720px، وعلى أول رابط من 1240px.
+   بالمرجع كمان. زر الـ CV بياخد نصه القصير بهالعروض (108px أقل)، والاسم بيضل كامل وبمحله */
+@media (min-width: 720px) and (max-width: 819px), (min-width: 1240px) and (max-width: 1309px) {
+  .cv-full {
+    display: none;
+  }
+  .cv-short {
+    display: inline;
+  }
+}

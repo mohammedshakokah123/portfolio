@@ -896,7 +896,7 @@ export default function HomePage() {
 ## Definition of Done
 **الانتقال (قارن التوقيت مع المرجع جنب بعض):**
 - [x] كبسة عـ "Skills" بالـ HUD: الشخصية بتركض وبتطلع من اليمين ← الـ wipe بيغطي من فوق-يسار ← بطاقة "Stage 2 / Skills" مع الشخصية عم تركض ← الكشف ← الشخصية بتفوت من اليسار وبتوقف.
-- [x] الرابط بيصير `/#skills`، والـ title "Skills | Mohammad Shaquqa"، و"Skills" بالـ HUD دهبي، والـ ground bar "About" و"Experience".
+- [x] الرابط بيصير `/#skills`، والـ title "Skills | Mohammad Shakokah"، و"Skills" بالـ HUD دهبي، والـ ground bar "About" و"Experience".
 - [x] العالم بيتبدّل والشاشة مغطّاية (الـ skyline بـ Experience، صندوق البريد بـ Contact).
 - [x] الرجوع لـ Title (كبسة عالاسم بالـ HUD): البطاقة "Back to / Title screen"، والرابط بيرجع `/` بدون hash.
 
@@ -932,7 +932,7 @@ export default function HomePage() {
 - [x] ما في hydration warnings، و`npm run lint && npm run build && npm run sprites:check` ناجحين.
 
 ## ملاحظات التنفيذ
-- **إضافة عن الخطة بـ `router.ts`: مراقبة الـ `<title>`.** `render(first)` بيحط عنوان المرحلة، وبعده بـ 4ms تقريباً React بيعمل hydration للـ `<title>` وبيرجّع نصه لعنوان الرئيسية. النتيجة كانت: فتح `/#projects` مباشرة عنوانه "Mohammad Shaquqa | Frontend Engineer"، والمرجع بيطلّع "Projects | Mohammad Shaquqa". انحط `MutationObserver` على الـ `<head>` بيرجّع عنوان المرحلة الحالية، وبينفصل بالـ cleanup. نفس المشكلة كانت رح تطلع بالرجوع من صفحة الـ 404.
+- **إضافة عن الخطة بـ `router.ts`: مراقبة الـ `<title>`.** `render(first)` بيحط عنوان المرحلة، وبعده بـ 4ms تقريباً React بيعمل hydration للـ `<title>` وبيرجّع نصه لعنوان الرئيسية. النتيجة كانت: فتح `/#projects` مباشرة عنوانه "Mohammad Shakokah | Frontend Engineer"، والمرجع بيطلّع "Projects | Mohammad Shakokah". انحط `MutationObserver` على الـ `<head>` بيرجّع عنوان المرحلة الحالية، وبينفصل بالـ cleanup. نفس المشكلة كانت رح تطلع بالرجوع من صفحة الـ 404.
 - **`pause-menu.tsx`: العدّاد نص واحد.** `<span>0/{GEM_IDS.length}</span>` بيطلع قطعتين نص ("0/" و"5")، وخط Pixelify Sans فيه kerning، فعرض النص طلع أكبر بـ 0.02px وحرف بآخر السطر تحرّك بكسل. انكتب `` {`0/${GEM_IDS.length}`} ``، ونفس الشي للنص اللي بعده. **`GemCounter` بالمرحلة 11 مكتوب `{gems.length}/{GEM_IDS.length}`: لازم ينكتب كنص واحد كمان.** عدّاد الـ HUD بخط Press Start 2P (بدون kerning)، فما تأثر وبقي متل الخطة.
 - **مقارنة الحركة مع المرجع:** نفس السكربت اشتغل عالمرجع وعالنسخة وسجّل كل تغيير (المرحلة، الـ wipe، البطاقة، الشخصية، الرابط، الـ title، الـ focus، الـ announcer، الـ HUD، الـ ground bar). 13 سيناريو: كبسة بالـ HUD، الأسهم، Back وForward (بدون أي request للـ document)، كبسة عالمرحلة الحالية، 4 كبسات سريعة، الرجوع للـ Title، "Press start" بالكيبورد، سهم جوّا input، الـ skip link، رابط مباشر، وreduced motion. التسلسل مطابق بكل السيناريوهات، وأكبر فرق بالتوقيت 43ms.
 - **الصوت:** انسجّلت كل الـ oscillators (النوع، الترددات، المدة، الـ gain، التأخير) بالمرجع وبالنسخة لنفس الأفعال (toggle، select، warp، jump، start): مطابقة.

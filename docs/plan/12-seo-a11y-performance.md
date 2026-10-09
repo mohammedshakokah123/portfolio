@@ -335,7 +335,7 @@ npm ls --depth=0                          # الحزم: next react react-dom + r
 | الفحص | المتوقع |
 |-------|---------|
 | View Source لـ `/` | `<title>` و`<meta name="description">` و`<link rel="canonical">` متل v1 |
-| `h1` | واحد بس: `Mohammad Shaquqa` |
+| `h1` | واحد بس: `Mohammad Shakokah` |
 | النصوص | كل نصوص المراحل الست وتفاصيل الـ 3 مشاريع موجودة بالـ HTML الخام (مش بس بعد الـ JS) |
 | `/sitemap.xml` | رابط واحد (الرئيسية) |
 | `/robots.txt` | متل v1 |

@@ -180,7 +180,7 @@ export const labels = {
 **ج. الـ object `site`:** الحقول من `name` لـ `socials` متل ما هي، مع إضافة `shortName` بعد `name`:
 ```ts
   name,
-  shortName: "M. Shaquqa",
+  shortName: "M. Shakokah",
 ```
 
 **د. استبدل `nav` و`sections` و`hero` و`about` بهدول:**

@@ -72,7 +72,7 @@ export function TitleScreen() {
         >
           {words.map((word, w) => (
             <Fragment key={word}>
-              {/* المسافة ضرورية: السطرين block بالـ CSS بس، وبدونها النص الخام بيصير "MohammadShaquqa" */}
+              {/* المسافة ضرورية: السطرين block بالـ CSS بس، وبدونها النص الخام بيصير "MohammadShakokah" */}
               {w > 0 && " "}
               <span className={cn("row", w % 2 === 1 && "row-gold")} aria-hidden="true">
                 {[...word].map((letter, l) => (
@@ -335,19 +335,19 @@ export function AboutStage() {
 
 ## Definition of Done
 **شاشة البداية (قارن مع المرجع):**
-- [x] الاسم بسطرين: "MOHAMMAD" أبيض و"SHAQUQA" دهبي، بظل أزرق وأسود، وما بينكسر السطر حتى على 375px.
+- [x] الاسم بسطرين: "MOHAMMAD" أبيض و"SHAKOKAH" دهبي، بظل أزرق وأسود، وما بينكسر السطر حتى على 375px.
 - [x] على `npm run build && npm run start`، فتح `/`: الحروف بتنزل وحدة ورا التانية (حوالي ثانيتين)، وبعدها الشخصية بتفوت.
 - [x] فتح `/#about` وبعدين الرجوع لـ Title: الحروف **ما** بتنزل مرة تانية (الحركة لأول تحميل بس).
 - [x] أيقونة "Press start" بتومض، والزر أكبر من الباقي (54px)، وعلى الموبايل بياخد العرض كله.
 - [x] الـ facts: 3 chips، والتالتة أيقونتها خضرا. النص من `site.home.facts`.
 - [x] الـ hint بيختفي عالموبايل وعلى شاشات اللمس.
-- [x] View Source: الـ `h1` نصه `Mohammad Shaquqa` (مع مسافة)، وما في غير `h1` واحد بالصفحة.
+- [x] View Source: الـ `h1` نصه `Mohammad Shakokah` (مع مسافة)، وما في غير `h1` واحد بالصفحة.
 
 **About:**
 - [x] على 1280px: بطاقة اللاعب عاليسار (340px)، والـ bio والـ abilities عاليمين.
 - [x] على 1023px: البطاقة فوق، والصورة جنب الـ stats. على 719px: كله عمود واحد.
 - [x] الـ stats 5 أسطر بخطوط فاصلة، والتسمية بخط الـ pixel الصغير.
-- [x] الـ bio: "Mohammad Shaquqa" و"Davinda" بالأبيض وأثقل.
+- [x] الـ bio: "Mohammad Shakokah" و"Davinda" بالأبيض وأثقل.
 - [x] الـ abilities: 3 أعمدة بأيقونات teal جوّا slot، وعلى 859px بيصيروا تحت بعض والأيقونة عاليسار.
 - [x] بدون صورة: راس الشخصية بنص الإطار، وما في زر "HD photo".
 

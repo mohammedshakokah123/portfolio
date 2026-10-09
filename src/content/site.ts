@@ -31,7 +31,7 @@ function resolveSiteUrl() {
   }
 }
 
-const name = "Mohammad Shaquqa";
+const name = "Mohammad Shakokah";
 const role = "Frontend Engineer";
 const availability = "Available for full-time roles";
 /** مجموع سنين الخبرة الهندسية (مش بس الـ production) */
@@ -45,9 +45,9 @@ export const contentUpdatedAt = "2026-10-09";
 
 export const site: SiteConfig = {
   name,
-  shortName: "M. Shaquqa",
+  shortName: "M. Shakokah",
   // TODO(SEO): أكّد كل طرق كتابة الاسم اللي ممكن حدا يبحث فيها
-  alternateNames: ["محمد شقوقة" /* , "Mohammad Shakokah", "Mohammed Shaquqa" ... */],
+  alternateNames: ["محمد شقوقة" /* , "Mouhammad Shakokah", "Mohammed Shakokah" ... */],
   role,
   url: resolveSiteUrl(),
   description: `${name}, ${role} specializing in React, Next.js and TypeScript. ${engineeringYears} years of engineering experience building production web applications.`,

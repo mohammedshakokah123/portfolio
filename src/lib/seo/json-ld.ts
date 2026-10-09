@@ -20,7 +20,7 @@ export function personJsonLd() {
     name: site.name,
     alternateName: site.alternateNames,
     givenName: "Mohammad",
-    familyName: "Shaquqa",
+    familyName: "Shakokah",
     jobTitle: site.role,
     description: site.description,
     url: site.url,

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description: site.ogDescription,
     firstName: "Mohammad",
-    lastName: "Shaquqa",
+    lastName: "Shakokah",
   },
 };
 

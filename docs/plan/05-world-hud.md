@@ -450,7 +450,7 @@ export function GameRoot() {
 
 **الـ ground bar:**
 - [x] `/`: ما في زر يسار، واليمين "About". `/#skills`: "About" يسار و"Experience" يمين. `/#contact`: "Projects" يسار و"Title" يمين.
-- [x] النص بالنص `© 2026 Mohammad Shaquqa`، وبيختفي تحت 720px.
+- [x] النص بالنص `© 2026 Mohammad Shakokah`، وبيختفي تحت 720px.
 
 **عام:**
 - [x] ما في hydration warnings، و`npm run lint && npm run build && npm run sprites:check` ناجحين.

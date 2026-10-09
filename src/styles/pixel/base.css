@@ -81,3 +81,83 @@ h4 {
 .skip:focus {
   top: 12px;
 }
+
+/* إضافة عن المرجع (طلب صاحب الموقع): scrollbar بشكل الـ kit بدل شكل النظام، وين ما في scroll (الصفحة،
+   المودال، الـ lightbox، الـ textarea). المرجع ما بيلمسه.
+   السكة بلون الـ HUD وعلى طرفها خط الـ indigo تبعه. المسكة block دهبي بنفس bevel الأزرار (hi فوق ويسار،
+   lo تحت ويمين)، زواياه مقصوصة بكسل، وبينكبس متل الزر (:active).
+   الزوايا والـ bevel طبقات خلفية (linear-gradient بلون واحد)، بدون border-image ولا filter */
+:root {
+  --sb-notch:
+    linear-gradient(var(--ink) 0 0) 0 0 / var(--b) var(--b) no-repeat,
+    linear-gradient(var(--ink) 0 0) 100% 0 / var(--b) var(--b) no-repeat,
+    linear-gradient(var(--ink) 0 0) 0 100% / var(--b) var(--b) no-repeat,
+    linear-gradient(var(--ink) 0 0) 100% 100% / var(--b) var(--b) no-repeat;
+  --sb-up:
+    linear-gradient(var(--gold-hi) 0 0) 0 0 / 100% var(--b) no-repeat,
+    linear-gradient(var(--gold-hi) 0 0) 0 0 / var(--b) 100% no-repeat,
+    linear-gradient(var(--gold-lo) 0 0) 0 100% / 100% var(--b) no-repeat,
+    linear-gradient(var(--gold-lo) 0 0) 100% 0 / var(--b) 100% no-repeat;
+  --sb-down:
+    linear-gradient(var(--gold-lo) 0 0) 0 0 / 100% var(--b) no-repeat,
+    linear-gradient(var(--gold-lo) 0 0) 0 0 / var(--b) 100% no-repeat;
+  --sb-dot: linear-gradient(var(--panel-3) 0 0);
+}
+/* بس لأجهزة الماوس: عالـ touch الـ scrollbar الأصلي بيطفو فوق الصفحة وما بياخد مساحة، وهاد بياخد 21px من عرضها */
+@media (hover: hover) and (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: calc(7 * var(--b));
+    height: calc(7 * var(--b));
+  }
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: var(--ink);
+  }
+  ::-webkit-scrollbar-track:vertical {
+    box-shadow: inset var(--b) 0 0 var(--indigo-lo);
+  }
+  ::-webkit-scrollbar-track:horizontal {
+    box-shadow: inset 0 var(--b) 0 var(--indigo-lo);
+  }
+  /* الـ border الشفاف هو الفراغ حوالين المسكة: b من كل جهة، و2b من جهة خط الـ indigo */
+  ::-webkit-scrollbar-thumb {
+    border: var(--b) solid transparent;
+    background: var(--sb-notch), var(--sb-up), var(--gold);
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:vertical {
+    min-height: 48px;
+    border-left-width: calc(2 * var(--b));
+  }
+  ::-webkit-scrollbar-thumb:horizontal {
+    min-width: 48px;
+    border-top-width: calc(2 * var(--b));
+  }
+  /* متل brightness(1.1) تبع .btn:hover: طبقة بيضا شفافة فوق الـ bevel، فبيضل ظاهر */
+  ::-webkit-scrollbar-thumb:hover {
+    background:
+      var(--sb-notch), linear-gradient(rgb(255 255 255 / 0.22) 0 0), var(--sb-up), var(--gold);
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: var(--sb-notch), var(--sb-down), var(--gold);
+    background-clip: padding-box;
+  }
+  /* مسكة تكبير الـ textarea: 3 نقط بالزاوية (درج) بدل خطوط النظام. كل نقطة b × b، وبينهم b.
+     3 بس: بدون scrollbar مربع المسكة 15px، وأكتر من هيك بينقص */
+  ::-webkit-resizer {
+    background:
+      var(--sb-dot) right 3px bottom 3px,
+      var(--sb-dot) right 9px bottom 3px,
+      var(--sb-dot) right 3px bottom 9px;
+    background-size: var(--b) var(--b);
+    background-repeat: no-repeat;
+  }
+}
+/* Firefox ما بيعرف ::-webkit-scrollbar: بياخد الألوان بس. جوّا @supports لأن Chrome بيترك الشكل اللي فوق
+   وبيرسم scrollbar النظام ملوّن إذا شاف scrollbar-color */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: var(--gold) var(--ink);
+  }
+}
