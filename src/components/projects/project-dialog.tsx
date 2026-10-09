@@ -20,7 +20,7 @@ export function ProjectDialogs() {
 function ProjectDialog({ project }: { project: Project }) {
   const id = `project-${project.slug}`;
   const { links, nda } = project;
-  const hasLinks = Boolean(links.demo || links.source);
+  const hasLinks = Boolean(links.demo || links.live || links.source);
   // الصورة الرئيسية أول المعرض، وبعدها باقي الصور
   const shots: Shot[] = [
     ...(project.image ? [{ ...project.image, caption: projectLabels.overviewShot }] : []),
@@ -95,6 +95,19 @@ function ProjectDialog({ project }: { project: Project }) {
                   <a className={small} href={links.demo} target="_blank" rel="noopener noreferrer">
                     <PixelIcon name="external" />
                     {projectLabels.liveDemo}
+                    <NewTabHint />
+                  </a>
+                )}
+                {/* إضافة عن المرجع: موقع الزبون الحقيقي جنب الـ demo (المرجع فيه Live demo وSource code بس) */}
+                {links.live && (
+                  <a
+                    className={links.demo ? smallGhost : small}
+                    href={links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <PixelIcon name="external" />
+                    {projectLabels.liveSite}
                     <NewTabHint />
                   </a>
                 )}

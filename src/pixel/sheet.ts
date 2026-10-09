@@ -3,7 +3,7 @@ import { ART, ART_PAL, GEM } from "./sprites/art.ts";
 import { FRAME_PAL, FRAMES } from "./sprites/frames.ts";
 import { DIRT, GROUND, SCENE_PAL } from "./sprites/ground.ts";
 import { HEAD, HERO, HERO_PAL } from "./sprites/hero.ts";
-import { ICONS } from "./sprites/icons.ts";
+import { EXTRA_ICONS, ICONS } from "./sprites/icons.ts";
 import { strip, svg, uri, type Palette, type PixelMap } from "./svg.ts";
 
 /**
@@ -39,4 +39,18 @@ export function buildSpriteCss(): string {
   }
 
   return `${css}}${icons}`;
+}
+
+/**
+ * إضافة عن المرجع: الأيقونات اللي مش بالملف المرجعي (EXTRA_ICONS)، بنفس صيغة أيقوناته.
+ * برّا buildSpriteCss بقصد: ناتجه لازم يضل مطابق للمرجع حرف بحرف، وهدول بينكتبوا بعده بالملف المولّد.
+ */
+export function buildExtraSpriteCss(): string {
+  let vars = "";
+  let classes = "";
+  for (const [name, map] of Object.entries(EXTRA_ICONS)) {
+    vars += `--ico-${name}:${uri(svg(map, { "#": "#000" }))};`;
+    classes += `.i-${name}{--i:var(--ico-${name})}`;
+  }
+  return `:root{${vars}}${classes}`;
 }

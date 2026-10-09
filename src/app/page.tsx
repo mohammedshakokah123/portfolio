@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 import { ProjectDialogs } from "@/components/projects/project-dialog";
 import { JsonLd } from "@/components/shared/json-ld";
 import { AboutStage } from "@/components/stages/about";
+import { ContactStage } from "@/components/stages/contact";
 import { ExperienceStage } from "@/components/stages/experience";
 import { ProjectsStage } from "@/components/stages/projects";
 import { SkillsStage } from "@/components/stages/skills";
-import { Stage } from "@/components/stages/stage";
 import { TitleScreen } from "@/components/stages/title-screen";
 import { site } from "@/content/site";
 import { homeJsonLd } from "@/lib/seo/json-ld";
@@ -30,20 +30,13 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={homeJsonLd()} />
-
       <TitleScreen />
       <AboutStage />
       <SkillsStage />
       <ExperienceStage />
       <ProjectsStage />
-
-      {/* مؤقت: بيتبدّل بالمرحلة 10 */}
-      <Stage id="contact">
-        <div className="win">
-          <p>Contact content comes in the next phase.</p>
-        </div>
-      </Stage>
-
+      <ContactStage />
+      {/* برّا المراحل بقصد: <dialog> مفتوح جوّا مرحلة مخفية بيقفل الصفحة (المرحلة 09) */}
       <ProjectDialogs />
     </>
   );

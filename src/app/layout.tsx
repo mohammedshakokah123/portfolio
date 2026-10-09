@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Pixelify_Sans, Press_Start_2P } from "next/font/google";
 
 import { GameRoot } from "@/components/game/game-root";
 import { GroundBar } from "@/components/game/ground-bar";
@@ -12,21 +11,9 @@ import { site } from "@/content/site";
 import { bootScript } from "@/game/boot";
 import { defaultTitle, sharedOpenGraph, sharedTwitter } from "@/lib/seo/metadata";
 
+// الخطين (نفس ملفات المرجع): هالـ import بيحط الـ @font-face والـ preload بكل صفحة، والتفاصيل بـ src/lib/fonts.ts
+import "@/lib/fonts";
 import "./globals.css";
-
-// self-hosted: ما في request لـ Google. الـ variable بتنحط عالـ <html> وبتنقرأ بـ tokens.css
-const pressStart = Press_Start_2P({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-press-start",
-  display: "swap",
-});
-// خط variable (400–700): التصميم بيستعمل 400 و500 و600
-const pixelify = Pixelify_Sans({
-  subsets: ["latin"],
-  variable: "--font-pixelify",
-  display: "swap",
-});
 
 // الـ canonical والـ og:url والـ profile بـ app/page.tsx مش هون: كل صفحة ما بتعرّفهم (متل الـ 404)
 // كانت بتورثهم وبتقول لـ Google إنها نسخة عن الرئيسية
@@ -65,13 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // القيم الافتراضية (home، day) هي اللي بيشوفها اللي مطفّي الـ JS. الـ boot script بيصححها قبل أول paint،
     // فالـ DOM بيختلف عن اللي React متوقعه ← suppressHydrationWarning
-    <html
-      lang="en"
-      data-stage="home"
-      data-time="day"
-      className={`${pressStart.variable} ${pixelify.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" data-stage="home" data-time="day" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>

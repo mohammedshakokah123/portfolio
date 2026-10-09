@@ -32,7 +32,7 @@
 | `<dialog>` native للمودالات والـ lightbox | focus trap وEsc و`::backdrop` ببلاش، و`radix-ui` بتنشال |
 | نهار/ليل بدل dark/light | `next-themes` بتنشال، والحالة بـ `html[data-time]` |
 | 31 أيقونة pixel بدل `lucide-react` | نفس أيقونات التصميم، والمحتوى بيصير serializable (أسماء نصية) |
-| الخطوط بـ `next/font/google` | self-hosted، بدون request لـ Google، ومع fallback مقيوس بيقلل الـ layout shift |
+| الخطوط بـ `next/font/local` مع نفس ملفات المرجع (صار بالمرحلة 10 بطلب صاحب الموقع، قبلها `next/font/google`) | self-hosted وبدون request لـ Google. الملفات نفسها اللي بيعطيها Google للمرجع عـ Windows (فيها hinting)، فالنص بيطلع متل المرجع بالبكسل. `next/font/google` كان ياخد نسخة الـ Mac بدون hinting |
 | الفورم بيضل Server Action + Resend | المرجع بيفتح `mailto:`، وهاد تراجع عن اللي عنا |
 
 ## تحليل التصميم
@@ -175,7 +175,7 @@
 | `cn` | بتضل | دمج الـ classes (`@/lib/utils`) |
 | `next-themes`، `sonner`، `radix-ui`، `shadcn`، `class-variance-authority`، `tw-animate-css` | **بتنشال بالمرحلة 01** | - |
 | `lucide-react` | **بتنشال بالمرحلة 04** | بعد ما المحتوى يتحوّل لأيقونات الـ pixel |
-| حزم جديدة | **ولا وحدة** | الخطوط من `next/font/google`، والمولّد بيشتغل بـ Node مباشرة (≥ 22.18) |
+| حزم جديدة | **ولا وحدة** | الخطوط ملفات بالـ repo (`next/font/local`)، والمولّد بيشتغل بـ Node مباشرة (≥ 22.18) |
 
 ## هيكل المجلدات النهائي
 
@@ -190,7 +190,7 @@ portfolio/
 │   └── build-sprites.mjs           ← بيولّد sprites.generated.css وبيفحص التطابق
 └── src/
     ├── app/
-    │   ├── layout.tsx              ← الخطوط، الـ boot script، الـ shell (HUD، العالم، الـ overlays)
+    │   ├── layout.tsx              ← import الخطوط (lib/fonts.ts)، الـ boot script، الـ shell (HUD، العالم، الـ overlays)
     │   ├── page.tsx                ← الـ 6 مراحل + مودالات المشاريع + JSON-LD
     │   ├── globals.css             ← tailwind + imports الـ pixel + @theme
     │   ├── not-found.tsx · icon.svg · apple-icon.png · opengraph-image.tsx · sitemap.ts · robots.ts
@@ -202,7 +202,7 @@ portfolio/
     │   ├── stages.ts · persist.ts · boot.ts · util.ts
     │   ├── store.ts · stage-store.ts · time.ts · sound.ts · gems.ts
     │   ├── hero.ts · wipe.ts · router.ts · dialogs.ts · effects.ts · engine.ts
-    ├── assets/fonts/               ← PressStart2P-Regular.ttf (لصورة الـ OG بس)
+    ├── assets/fonts/               ← خطين الموقع (woff2، latin، من المرحلة 10) + PressStart2P-Regular.ttf لصورة الـ OG (المرحلة 12)
     ├── styles/pixel/
     │   ├── tokens · base · kit · hud · world · stages · home · about · skills · experience
     │   ├── projects · contact · ground-bar · overlays · responsive · keyframes (.css)  ← الـ 16 قسم تبع المرجع
@@ -217,7 +217,7 @@ portfolio/
     │   ├── contact/                ← contact-form
     │   └── shared/                 ← json-ld · new-tab-hint
     ├── content/                    ← site.ts · labels.ts · skills.ts · experience.ts · projects.ts
-    ├── lib/                        ← utils.ts · dates.ts · validations/contact.ts · seo/*
+    ├── lib/                        ← utils.ts · dates.ts · fonts.ts · validations/contact.ts · seo/*
     └── types/                      ← content.ts
 ```
 
@@ -233,7 +233,7 @@ portfolio/
 1. **الـ CSS بـ `src/styles/pixel/` بنفس أسماء classes المرجع.** أي قاعدة مش موجودة بالمرجع بتنكتب تحت تعليق `/* إضافة عن المرجع: السبب */`.
 2. **ترتيب الـ imports بـ `globals.css` = ترتيب الأقسام بالمرجع.** في قواعد بنفس الـ specificity وبيغلب فيها اللي بيجي بالآخر. مثال: `.win { padding: 16px }` بالـ responsive (السطر 1329) بتغلب `.modal-win { padding: 0 }` (السطر 1278) عالموبايل. مشان هيك الـ responsive بملف لحاله بالآخر، وما بيتوزّع عالملفات.
 3. **`src/pixel/**` بيتشغّل بـ Node مباشرة** (المولّد)، فإله 3 قواعد: الـ imports النسبية مع الامتداد (`./svg.ts`)، استيراد الأنواع بـ `import type`، وبدون `enum` أو `namespace` (syntax بينمسح بس).
-4. **`sprites.generated.css` ما بينعدّل بالإيد.** عدّل الخريطة بـ `src/pixel/sprites/` وشغّل `npm run sprites`.
+4. **`sprites.generated.css` ما بينعدّل بالإيد.** عدّل الخريطة بـ `src/pixel/sprites/` وشغّل `npm run sprites`. أيقونة مش موجودة بالمرجع بتنضاف بـ `EXTRA_ICONS` (بنفس ملف `icons.ts`) مش بـ `ICONS`: المولّد بيكتبها بعد ناتج المرجع، و`sprites:check` بيضل يقارن ناتج المرجع لحاله.
 5. **الـ client components ما بتستورد `@/content/site`.** الملف بيحسب الـ site URL وبيرمي error إذا الـ env ناقص، وبيجيب كل المحتوى للـ bundle. النصوص اللي بيلزموا بتتمرّق كـ props من الـ Server Component. (`@/content/labels` مسموح: ثوابت بس.)
 6. **التعديل المباشر عالـ DOM من المحرك** (classes، `textContent`، `style`) مسموح بس على عناصر رسمها Server Component (ما بتنعاد ترسم). أي `aria-*` أو نص بيتغيّر مع الحالة بيكون بـ client component مشترك بـ store.
 7. **الروابط بين المراحل `<a href="#about">` عادية**، متل المرجع. المحرك بيلقطها بـ listener واحد عالـ `document`. ما في `next/link` إلا لرابط الرجوع بصفحة الـ 404 (وروابط المراحل هنيك بتروح للرئيسية بـ `router.push`).
@@ -247,6 +247,7 @@ portfolio/
 | شارة الـ quest (`Current quest` / `Quest complete`) بتطلع من التاريخ | بالمحتوى الحالي Davinda خالصة بـ `2026-09`، فبتطلع "Quest complete" (المرجع كاتب "Current") |
 | صورة الكارتريدج بنسبة 5:2 بدل 2:1 | صور `00-cover.webp` الموجودة 1920×768 |
 | المودال فيه قسم Screenshots مع lightbox | صفحات المشاريع انحذفت، والمعرض لازم يضل |
+| زر "Live site" بالمودال للموقع الحقيقي، لحاله أو جنب "Live demo" | Klardent موقع نظامي شغّال، فزره "Live site" مش "Live demo". Chloéllia إله رابطين: موقع الزبون بياناته لسا مش كاملة، والـ demo ببيانات كاملة. المرجع فيه "Live demo" و"Source code" بس |
 | زر الـ X بالمودال ثابت 44×44. عالموبايل وصف المشروع تحت العنوان والزر على العرض كله، وعنوان المودال بيصغر تحت 352px | بالمرجع `.btn-icon` بينضغط جوّا الـ flex لما العنوان يلف: 28px على 375 بمحتواه، و24px بعناويننا الأطول (تصليح بعد المرحلة 09) |
 | `h1` واحد بالصفحة (الاسم)، وعناوين المراحل `h2`، واللي جوّاها `h3` / `h4` | المرجع فيه `h1` لكل مرحلة. مع الـ JS مطفي كل المراحل ظاهرة، فبيطلعوا 6 `h1` |
 | `.block` ← `.q-block` | `block` اسم utility بـ Tailwind |
@@ -255,8 +256,10 @@ portfolio/
 | الجواهر المجموعة بتتخبّى بـ CSS (`html[data-gems~="about"]`) | الـ boot script بيحطها قبل أول paint، فما بتبين وبتختفي |
 | أيقونة زر النهار/الليل بالـ CSS (`[data-time="night"] .time-ico`) | نفس السبب: بدون flash |
 | الـ sprites ملف CSS ثابت | قرار تقني (فوق) |
-| الخطوط بـ `next/font` | قرار تقني (فوق) |
+| الخطوط self-hosted (`next/font/local`) بدل رابط Google Fonts، وبالـ preload، والـ latin بس | نفس الملفات اللي بياخدها المرجع. المرجع بيعرّف كمان latin-ext وcyrillic وgreek، وولا حرف منهم بنص الموقع (المرحلة 10) |
 | الفورم Server Action بدل `mailto:` | عنا إرسال حقيقي |
+| سطور Phone وWhatsApp وحسابات `socials.others` (Facebook) بنافذة الروابط، وأيقونتين جداد `phone` و`chat` | محتوى صاحب الموقع (2026-10-09). المرجع فيه Email وLinkedIn وGitHub وLocation بس، وما فيه أيقونة تلفون ولا محادثة |
+| زر الإرسال وقت الإرسال: loader مكان الأيقونة، والزر المعطّل ما بياخد hover ولا كبسة | طلب صاحب الموقع بعد المرحلة 10. المرجع بيعطّل الزر بدون أي إشارة عليه |
 
 **اللي بيروح مع صفحات المشاريع:** رابط مباشر لكل مشروع، صورة OG لكل مشروع، وروابطهم بالـ sitemap. التعويض: كل تفاصيل المشاريع بتضل بـ HTML الرئيسية، ومعها `CreativeWork` لكل مشروع بالـ JSON-LD.
 

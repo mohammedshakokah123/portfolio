@@ -36,7 +36,7 @@ mkdir -p src/assets/fonts
 curl -L -o src/assets/fonts/PressStart2P-Regular.ttf \
   https://github.com/google/fonts/raw/main/ofl/pressstart2p/PressStart2P-Regular.ttf
 ```
-(الرخصة OFL: مسموح ينحط بالـ repo.)
+(الرخصة OFL: مسموح ينحط بالـ repo. المجلد موجود من المرحلة 10 وفيه خطين الموقع بصيغة woff2، و`ImageResponse` ما بيقرأ woff2، فالـ TTF لازم.)
 
 **`src/lib/seo/og-card.tsx`** (استبدل الملف كله):
 ```tsx
@@ -395,7 +395,7 @@ Lighthouse (Mobile وبعدين Desktop) على `/`: **3 مرات وخد الو�
 | Performance | ≥ 95 | شوف الـ LCP والـ TBT تحت |
 | Accessibility / Best Practices | 100 | الـ report بيسمّي العنصر |
 | SEO | 100 | إذا البند "legible font sizes": بينكتب بالجدول تحت |
-| CLS | 0 | الخطين: `next/font` بيحط fallback مقيوس. تأكد إنو ما في request لـ Google Fonts |
+| CLS | 0 | الخطين بـ preload من `next/font/local`، وبدون fallback مقيوس من المرحلة 10 (مشان الـ `font-family` يطلع متل المرجع). تأكد إنو ما في request لـ Google Fonts. إذا طلع CLS من تبديل الخط: اكتب الرقم وارجع لصاحب الموقع قبل ما ترجّع الـ fallback المقيوس |
 | LCP | نص نافذة شاشة البداية أو الاسم | إذا الاسم هو الـ LCP ومتأخر: حركة الحروف بتبلّش من `opacity: 0`. قيس مع `prefers-reduced-motion` للمقارنة، واكتب الفرق |
 | TBT | قريب من الصفر | الـ JS صار أقل من v1 (بدون radix وsonner وnext-themes وlucide). سجّل حجم الـ First Load JS من output الـ `npm run build`، وإذا بدك تقارن: `git switch main && npm run build` |
 | حجم `sprites.generated.css` | حوالي 10KB بعد الضغط | تاب الـ Network، عمود الـ Size |

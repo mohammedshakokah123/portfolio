@@ -1,1 +1,234 @@
-/* المرحلة 10 */
+/* CONTACT: الأسطر 1186–1226 من design/pixel art.html */
+.contact-grid {
+  display: grid;
+  gap: 26px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  align-items: start;
+}
+.links {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.link-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  text-decoration: none;
+  background: var(--panel-2) padding-box;
+  border: calc(2 * var(--b)) solid var(--ink);
+  border-image: var(--frame-slot) 2 / calc(2 * var(--b)) stretch;
+}
+a.link-row:hover {
+  border-image-source: var(--frame-slot-on);
+}
+.link-ico {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  color: var(--ink);
+  background: var(--teal);
+  box-shadow: inset -3px -3px 0 #1c9e8c;
+}
+.link-text {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.link-text b {
+  font: 8px/1.4 var(--f-pixel);
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.link-text span {
+  font-size: 17px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  color: #fff;
+}
+
+.form {
+  display: grid;
+  gap: 4px;
+}
+.form-row {
+  display: grid;
+  gap: 0 18px;
+  grid-template-columns: 1fr 1fr;
+}
+.field {
+  display: grid;
+  gap: 8px;
+}
+.field label {
+  font: 10px/1 var(--f-pixel);
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 11px 14px;
+  font: 400 19px/1.4 var(--f-body);
+  color: #fff;
+  background: var(--ink-2) padding-box;
+  border: calc(2 * var(--b)) solid #fff;
+  border-image: var(--frame-field) 2 / calc(2 * var(--b)) stretch;
+  caret-color: var(--gold);
+  caret-shape: block;
+  outline: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+.field :is(input, textarea)::placeholder {
+  color: #8187bf;
+}
+.field :is(input, textarea):focus {
+  border-image-source: var(--frame-field-on);
+}
+.field :is(input, textarea)[aria-invalid="true"] {
+  border-image-source: var(--frame-field-bad);
+}
+.field-error {
+  min-height: 1.5em;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--red);
+}
+.form-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 6px;
+}
+.form-note {
+  font-size: 16px;
+  color: var(--muted);
+}
+.form-status {
+  min-height: 1.5em;
+  margin-top: 12px;
+  font-size: 18px;
+}
+.form-status.ok {
+  color: var(--green);
+}
+.form-status.bad {
+  color: var(--red);
+}
+
+/* إضافة عن المرجع (بطلب صاحب الموقع): loader مكان أيقونة زر الإرسال وقت الإرسال. نفس مقاس الـ .ico (18px)،
+   فالزر ما بيتغيّر عرضه. حلقة من 8 مربعات بلون ظل الزر (--lo)، ومربع بلون النص بيلف عليها ووراه ذيل */
+.loader {
+  --dot: var(--lo, currentColor);
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background:
+    linear-gradient(var(--dot), var(--dot)) 0 0,
+    linear-gradient(var(--dot), var(--dot)) 7px 0,
+    linear-gradient(var(--dot), var(--dot)) 14px 0,
+    linear-gradient(var(--dot), var(--dot)) 14px 7px,
+    linear-gradient(var(--dot), var(--dot)) 14px 14px,
+    linear-gradient(var(--dot), var(--dot)) 7px 14px,
+    linear-gradient(var(--dot), var(--dot)) 0 14px,
+    linear-gradient(var(--dot), var(--dot)) 0 7px;
+  background-size: 4px 4px;
+  background-repeat: no-repeat;
+}
+.loader::before,
+.loader::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  animation: loader-walk 0.8s step-end infinite;
+}
+/* الذيل */
+.loader::before {
+  opacity: 0.45;
+}
+/* الراس: خطوة قدّام الذيل. مكانه الثابت (7px 0) هو اللي بيبين مع reduced motion، لأن الحركة بتوقف */
+.loader::after {
+  translate: 7px 0;
+  animation-delay: -0.1s;
+}
+@keyframes loader-walk {
+  0% {
+    translate: 0 0;
+  }
+  12.5% {
+    translate: 7px 0;
+  }
+  25% {
+    translate: 14px 0;
+  }
+  37.5% {
+    translate: 14px 7px;
+  }
+  50% {
+    translate: 14px 14px;
+  }
+  62.5% {
+    translate: 7px 14px;
+  }
+  75% {
+    translate: 0 14px;
+  }
+  87.5% {
+    translate: 0 7px;
+  }
+}
+/* إضافة عن المرجع (بطلب صاحب الموقع): الزر وقت الإرسال disabled، فما لازم يبين إنو بينكبس.
+   بدون pointer events ما في مؤشر إيد ولا تفتيح الـ hover ولا نزلة الكبسة */
+.form .btn:disabled {
+  pointer-events: none;
+}
+
+.credits {
+  margin-top: 26px;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.credits h3 {
+  font-size: 14px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.credits p {
+  color: var(--muted);
+}
+.credit-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 22px;
+  font-size: 17px;
+}
+.credit-links a {
+  color: #fff;
+  /* إضافة عن المرجع: الـ preflight تبع Tailwind بيشيل الـ underline الافتراضي عن الروابط */
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.credit-links a:hover {
+  color: var(--gold);
+}

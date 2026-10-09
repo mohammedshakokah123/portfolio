@@ -158,7 +158,7 @@ export const projects: readonly Project[] = [
       "Firebase (Firestore, Cloud Messaging)",
       "Stripe",
     ],
-    links: { demo: "https://klardent.net/" },
+    links: { live: "https://klardent.net/" }, // موقع نظامي شغّال، مش نسخة تجربة ← زر "Live site"
     nda: false,
     gallery: [
       {
@@ -273,9 +273,9 @@ export const projects: readonly Project[] = [
       "Framer Motion",
       "i18next",
     ],
-    links: {},
+    // رابطين: موقع الزبون بياناته لسا مش كاملة، فالـ demo (نفس الموقع ببيانات كاملة) هو الزر الأساسي
+    links: { demo: "https://chloellia.davinda.dev/", live: "https://chloellia.com/" },
     nda: false,
-    accessNote: "Client project, live storefront",
     gallery: [
       {
         src: `${chloellia}/01-home-hero.webp`,
@@ -365,6 +365,7 @@ export const projectLabels = {
   noPublicDemo: "No public demo available", // مشروع مش NDA بس ما إلو رابط (أو داشبورد خاص)
   requestWalkthrough: "Request a walkthrough",
   liveDemo: "Live demo",
+  liveSite: "Live site",
   sourceCode: "Source code",
 } as const;
 

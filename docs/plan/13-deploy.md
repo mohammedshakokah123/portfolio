@@ -12,13 +12,14 @@
 | المعلومة | المكان بالكود | القيمة |
 |---------|---------------|--------|
 | رابط LinkedIn | `site.socials.linkedin` | ⏳ TODO (هلق `null`) |
-| رابط GitHub | `site.socials.github` | ⏳ TODO (هلق `null`) |
-| حسابات تانية (X، Stack Overflow، dev.to، Medium...) | `site.socials.others` | ⏳ TODO (اختياري) |
+| رابط GitHub | `site.socials.github` | ✅ `https://github.com/mohammedshakokah123` (2026-10-09) |
+| حسابات تانية (X، Stack Overflow، dev.to، Medium...) | `site.socials.others` | ✅ Facebook: `https://www.facebook.com/mohammed.shakokah` (2026-10-09). الباقي اختياري |
+| رقم الاتصال والواتساب | `site.phone` و`site.whatsapp` | ✅ `+963 933 981 269` (محلياً 0933 981 269، نفس الرقم للاتنين) (2026-10-09) |
 | الإيميل العام للتواصل | `site.email` | ⏳ TODO (هلق `null`) |
 | **تهجئة الاسم** | `site.name`، `site.shortName`، `site.alternateNames`، واسم ملف الـ CV | ⏳ الموقع "Mohammad Shaquqa"، وملف الـ CV "Mouhammad-Shakokah". **لازم تهجئة وحدة** (القسم 6) |
 | هل لسا شغّال بـ Davinda؟ | `davinda.period.end` بـ `src/content/experience.ts` | ⏳ هلق `"2026-09"` ← الشارة "Quest complete" |
 | الـ Domain | `NEXT_PUBLIC_SITE_URL` | ⏳ TODO |
-| روابط المشاريع | `links` بـ `src/content/projects.ts` | ✅ Klardent إله Live demo. SooqSuria وChloéllia بدون رابط عام (`accessNote`) |
+| روابط المشاريع | `links` بـ `src/content/projects.ts` | ✅ Klardent إله Live site (`klardent.net`، موقع نظامي). Chloéllia إله رابطين (من 2026-10-09): Live demo على `chloellia.davinda.dev` (بيانات كاملة) وLive site على `chloellia.com` (موقع الزبون، بياناته لسا مش كاملة). SooqSuria بدون رابط عام (`accessNote`) |
 
 **ملفات:**
 
@@ -112,7 +113,7 @@ git push -u origin feat/pixel-art
 ## 7. فحص ما بعد النشر
 - [ ] المراحل الست بتفتح بالتنقل وبالرابط المباشر (`/#about`، `/#skills`، `/#experience`، `/#projects`، `/#contact`)، وBack/Forward شغالين.
 - [ ] زر الـ CV بينزّل الملف (بالـ HUD، بشاشة البداية، وبمرحلة Contact).
-- [ ] مودالات الـ 3 مشاريع بتفتح، والمعرض والـ lightbox شغالين، وزر "Live demo" تبع Klardent بيفتح.
+- [ ] مودالات الـ 3 مشاريع بتفتح، والمعرض والـ lightbox شغالين، وزر "Live site" تبع Klardent بيفتح، وزرّين Chloéllia ("Live demo" و"Live site") كمان.
 - [ ] `/xyz` و`/projects/klardent-dental-lab-saas` ← صفحة "Game over".
 - [ ] **الفورم:** ابعت رسالة حقيقية وتأكد إنها وصلت (وشوف الـ Spam).
 - [ ] الصوت، الليل، والجواهر بينحفظوا بعد refresh.

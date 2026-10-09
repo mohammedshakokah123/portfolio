@@ -345,4 +345,33 @@ export const ICONS = {
   ],
 } as const satisfies Record<string, PixelMap>;
 
-export type PixelIconName = keyof typeof ICONS;
+/**
+ * إضافة عن المرجع: أيقونات مش موجودة بالملف المرجعي (سطرين التلفون والواتساب بمرحلة Contact).
+ * برّا ICONS بقصد: ناتج ICONS لازم يضل مطابق للمرجع حرف بحرف (npm run sprites:check). نفس الصيغة: 9×9 بلون واحد.
+ */
+export const EXTRA_ICONS = {
+  phone: [
+    "###......",
+    "###......",
+    "###......",
+    ".##......",
+    ".##......",
+    "..##..###",
+    "..#######",
+    "...######",
+    ".....####",
+  ],
+  chat: [
+    ".#######.",
+    "#########",
+    "#########",
+    "##.#.#.##",
+    "#########",
+    "#########",
+    ".#######.",
+    ".##......",
+    ".#.......",
+  ],
+} as const satisfies Record<string, PixelMap>;
+
+export type PixelIconName = keyof typeof ICONS | keyof typeof EXTRA_ICONS;

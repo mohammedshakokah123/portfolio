@@ -22,6 +22,10 @@ export type SiteConfig = {
   ogDescription: string;
   keywords: string[]; // ← SEO
   email: string | null; // null = لسا ما وصل ← المكوّن بيخفيه
+  /** بالصيغة الدولية متل ما بتنعرض: "+963 933 981 269". رابط الـ tel: بينبنى من أرقامها. null ← ما بينعرض */
+  phone: string | null;
+  /** رقم الواتساب بنفس الصيغة (ممكن يكون نفس رقم الاتصال). الرابط wa.me/<الأرقام>. null ← ما بينعرض */
+  whatsapp: string | null;
   location: string;
   cvPath: string;
   profileImage: string | null; // null = راس الشخصية الـ pixel
@@ -29,7 +33,8 @@ export type SiteConfig = {
   socials: {
     linkedin: string | null; // null = لسا ما وصل ← المكوّن بيخفيه
     github: string | null;
-    others?: { label: string; url: string }[]; // X، Stack Overflow، dev.to...
+    /** Facebook، X، Stack Overflow... كل واحد سطر بنافذة الروابط ورابط بالـ credits. icon الافتراضي profile */
+    others?: { label: string; url: string; icon?: PixelIconName }[];
   };
   /** السطر تحت عنوان كل مرحلة. العنوان نفسه من STAGE_NAMES */
   stageSubs: Record<Exclude<StageId, "home">, string>;
@@ -88,7 +93,8 @@ export type Project = {
   architecture: string;
   features: string[];
   stack: string[];
-  links: { demo?: string; source?: string };
+  /** demo: زر "Live demo" (الأساسي). live: موقع الزبون الحقيقي، زر "Live site" (ثانوي إذا في demo كمان) */
+  links: { demo?: string; live?: string; source?: string };
   nda: boolean;
   accessNote?: string; // بيبدّل نص الشارة لما ما في روابط (متل "Client project, admin access only")
   gallery?: Shot[];

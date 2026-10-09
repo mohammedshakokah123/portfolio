@@ -24,6 +24,8 @@ export const labels = {
   contact: {
     links: "Links",
     email: "Email",
+    phone: "Phone",
+    whatsapp: "WhatsApp",
     linkedin: "LinkedIn",
     github: "GitHub",
     location: "Location",

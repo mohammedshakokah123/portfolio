@@ -37,8 +37,11 @@ const availability = "Available for full-time roles";
 /** مجموع سنين الخبرة الهندسية (مش بس الـ production) */
 const engineeringYears = "3+";
 
+/** رقم الاتصال والواتساب (محلياً 0933 981 269) بالصيغة الدولية */
+const phone = "+963 933 981 269";
+
 /** آخر مرة تغيّر فيها المحتوى (الـ sitemap والـ JSON-LD). حدّثه يدوياً، مش new Date() */
-export const contentUpdatedAt = "2026-09-26";
+export const contentUpdatedAt = "2026-10-09";
 
 export const site: SiteConfig = {
   name,
@@ -61,14 +64,17 @@ export const site: SiteConfig = {
     "Syria",
   ],
   email: null, // TODO: الإيميل الحقيقي
+  phone,
+  whatsapp: phone, // نفس الرقم
   location: "Latakia, Syria, open to remote and relocation",
   cvPath: "/cv/Mouhammad-Shakokah-CV.pdf",
   profileImage: null, // TODO: "/profile.jpg" لما تنحط الصورة
   availability,
   socials: {
     linkedin: null, // TODO: رابط LinkedIn الحقيقي
-    github: null, // TODO: رابط GitHub الحقيقي
-    others: [], // TODO: أي حسابات تانية (X، Stack Overflow...)
+    github: "https://github.com/mohammedshakokah123",
+    // أي حساب تاني (X، Stack Overflow...) بينضاف هون
+    others: [{ label: "Facebook", url: "https://www.facebook.com/mohammed.shakokah" }],
   },
   stageSubs: {
     about: "Player profile: who I am and how I work.",

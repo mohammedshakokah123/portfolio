@@ -4,11 +4,11 @@ import { btn } from "@/components/pixel/btn";
 import { PixelIcon } from "@/components/pixel/pixel-icon";
 import { Tags } from "@/components/pixel/tags";
 import { FRAMES } from "@/pixel/sprites/frames";
-import { ICONS, type PixelIconName } from "@/pixel/sprites/icons";
+import { EXTRA_ICONS, ICONS, type PixelIconName } from "@/pixel/sprites/icons";
 
 export const metadata: Metadata = { title: "UI kit", robots: { index: false } };
 
-const iconNames = Object.keys(ICONS) as PixelIconName[];
+const iconNames = [...Object.keys(ICONS), ...Object.keys(EXTRA_ICONS)] as PixelIconName[];
 const row = { display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" } as const;
 
 export default function KitPage() {

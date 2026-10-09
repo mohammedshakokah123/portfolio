@@ -31,8 +31,9 @@
   --sky-4: #bde5fc;
   --on-sky: var(--ink);
 
-  --f-pixel: var(--font-press-start), ui-monospace, Menlo, Consolas, monospace;
-  --f-body: var(--font-pixelify), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* العائلتين بالاسم متل المرجع. الـ @font-face من src/lib/fonts.ts */
+  --f-pixel: "Press Start 2P", ui-monospace, Menlo, Consolas, monospace;
+  --f-body: "Pixelify Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --o2:
     -2px -2px 0 var(--ink), 0 -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 0 0 var(--ink),
