@@ -254,7 +254,6 @@ portfolio/
 | `.js` / `.no-js` / `.intro` ← `html[data-js]` / `html:not([data-js])` / `html[data-intro]` | React بيدير `className` تبع `<html>`، والـ attributes أسلم |
 | مودال لكل مشروع بدل مودال واحد و`<template>` | المحتوى بيترسم عالسيرفر (SEO) وبدون JS للنسخ |
 | الجواهر المجموعة بتتخبّى بـ CSS (`html[data-gems~="about"]`) | الـ boot script بيحطها قبل أول paint، فما بتبين وبتختفي |
-| عدّاد الجواهر بيزيد وقت الكبسة | خطة المرحلة 11 كاتبته هيك. المرجع بيغيّر الرقم بعد 500ms، لما الجوهرة تختفي. ⏳ مستني قرار صاحب الموقع (ملاحظات [11-gems.md](11-gems.md)) |
 | أيقونة زر النهار/الليل بالـ CSS (`[data-time="night"] .time-ico`) | نفس السبب: بدون flash |
 | الـ sprites ملف CSS ثابت | قرار تقني (فوق) |
 | الخطوط self-hosted (`next/font/local`) بدل رابط Google Fonts، وبالـ preload، والـ latin بس | نفس الملفات اللي بياخدها المرجع. المرجع بيعرّف كمان latin-ext وcyrillic وgreek، وولا حرف منهم بنص الموقع (المرحلة 10) |

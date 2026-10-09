@@ -15,15 +15,21 @@ function initialGems(): readonly GemId[] {
   return Array.isArray(saved) ? GEM_IDS.filter((id) => saved.includes(id)) : [];
 }
 
-/** مصفوفة جديدة مع كل تغيير (مش Set بيتعدّل بمكانه): useSyncExternalStore بيقارن بالـ reference */
-export const gemsStore = createStore<readonly GemId[]>(initialGems());
+/** اللي انجمع فعلاً: بيتحدّث وقت الكبسة (الحفظ، ومنع الكبسة التانية على نفس الجوهرة) */
+let collected = initialGems();
+
+/**
+ * اللي العدّاد بيعرضه. متل المرجع، بيلحق `collected` بعد نص ثانية، لما الجوهرة تخلص طيران وتختفي.
+ * مصفوفة جديدة مع كل تغيير (مش Set بيتعدّل بمكانه): useSyncExternalStore بيقارن بالـ reference
+ */
+export const gemsStore = createStore<readonly GemId[]>(collected);
 
 function collect(button: HTMLElement) {
   const id = button.dataset.gem;
-  if (!isGemId(id) || gemsStore.get().includes(id)) return;
+  if (!isGemId(id) || collected.includes(id)) return;
 
-  const gems = [...gemsStore.get(), id];
-  gemsStore.set(gems); // العدّاد بيزيد فوراً
+  const gems = [...collected, id];
+  collected = gems;
   writeJson(KEYS.gems, gems);
   play("gem");
 
@@ -36,6 +42,7 @@ function collect(button: HTMLElement) {
   button.classList.add("is-collected"); // حركة gem-get: بتطير لفوق وبتختفي (0.5s)
   setTimeout(() => {
     button.classList.remove("is-collected");
+    gemsStore.set(gems); // العدّاد بيزيد هون، مع اختفاء الجوهرة (renderGems بالمرجع)
     document.documentElement.dataset.gems = gems.join(" "); // الـ CSS بيخبّيها من هلق وطالع
     if (document.activeElement === document.body) heading?.focus({ preventScroll: true });
   }, 500);

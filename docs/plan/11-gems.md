@@ -54,15 +54,21 @@ function initialGems(): readonly GemId[] {
   return Array.isArray(saved) ? GEM_IDS.filter((id) => saved.includes(id)) : [];
 }
 
-/** مصفوفة جديدة مع كل تغيير (مش Set بيتعدّل بمكانه): useSyncExternalStore بيقارن بالـ reference */
-export const gemsStore = createStore<readonly GemId[]>(initialGems());
+/** اللي انجمع فعلاً: بيتحدّث وقت الكبسة (الحفظ، ومنع الكبسة التانية على نفس الجوهرة) */
+let collected = initialGems();
+
+/**
+ * اللي العدّاد بيعرضه. متل المرجع، بيلحق `collected` بعد نص ثانية، لما الجوهرة تخلص طيران وتختفي.
+ * مصفوفة جديدة مع كل تغيير (مش Set بيتعدّل بمكانه): useSyncExternalStore بيقارن بالـ reference
+ */
+export const gemsStore = createStore<readonly GemId[]>(collected);
 
 function collect(button: HTMLElement) {
   const id = button.dataset.gem;
-  if (!isGemId(id) || gemsStore.get().includes(id)) return;
+  if (!isGemId(id) || collected.includes(id)) return;
 
-  const gems = [...gemsStore.get(), id];
-  gemsStore.set(gems); // العدّاد بيزيد فوراً
+  const gems = [...collected, id];
+  collected = gems;
   writeJson(KEYS.gems, gems);
   play("gem");
 
@@ -75,6 +81,7 @@ function collect(button: HTMLElement) {
   button.classList.add("is-collected"); // حركة gem-get: بتطير لفوق وبتختفي (0.5s)
   setTimeout(() => {
     button.classList.remove("is-collected");
+    gemsStore.set(gems); // العدّاد بيزيد هون، مع اختفاء الجوهرة (renderGems بالمرجع)
     document.documentElement.dataset.gems = gems.join(" "); // الـ CSS بيخبّيها من هلق وطالع
     if (document.activeElement === document.body) heading?.focus({ preventScroll: true });
   }, 500);
@@ -188,7 +195,7 @@ export function GemCounter() {
 ## Definition of Done
 **الجمع (قارن مع المرجع):**
 - [x] بكل مرحلة من الخمسة جوهرة teal بتدور وبتطلع وبتنزل، عاليمين جنب العنوان. شاشة البداية ما فيها.
-- [x] كبسة: بتطير لفوق وبتختفي، 12 قطعة confetti، toast "Gem 1 of 5 found" لـ 3.6 ثانية، والعدّاد بالـ HUD بيصير `1/5` فوراً.
+- [x] كبسة: بتطير لفوق وبتختفي، 12 قطعة confetti، toast "Gem 1 of 5 found" لـ 3.6 ثانية، والعدّاد بالـ HUD بيصير `1/5` بعد نص ثانية، لما الجوهرة تختفي (متل المرجع).
 - [x] الجوهرة الخامسة: toast "All 5 gems found. Thanks for exploring!"، confetti كبير من نص الشاشة، وصوت النجاح.
 - [x] عدّاد قائمة الـ pause نفس رقم الـ HUD.
 
@@ -211,13 +218,13 @@ export function GemCounter() {
 
 ## ملاحظات التنفيذ
 - **الكود متل الخطة، إلا العدّاد انكتب كنص واحد.** `GemCounter` بيرسم `` {`${gems.length}/${GEM_IDS.length}`} ``، وبقائمة الـ pause النص اللي بعده ضل `` {` ${labels.pause.gems}`} ``. الصيغة اللي كانت مكتوبة هون (`{gems.length}/{GEM_IDS.length}`، و`<GemCounter /> {labels.pause.gems}`) بتطلّع كذا قطعة نص، والـ kerning بخط Pixelify بيوقف عند كل قطعة (ملاحظة المرحلة 06). كود الخطوتين 4 و5 فوق تعدّل ليطابق اللي انكتب.
-- **⏳ فرق عن المرجع جاي من الخطة: العدّاد بيزيد وقت الكبسة.** بالمرجع `renderGems()` بتنادى جوّا الـ `setTimeout` تبع الـ 500ms (السطر 2416)، فالرقم بالـ HUD وبقائمة الـ pause بيتغيّر لما الجوهرة تخلص طيران وتختفي. الخطة بتزيده وقت الكبسة (التعليق بالكود، وسطر الـ DoD "فوراً")، وهيك انعمل. بالقياس: النسخة بعد 2ms من الكبسة، والمرجع بعد ~510ms. كل شي تاني (الـ toast، الـ confetti، الصوت، حركة الجوهرة، الـ focus) بنفس التوقيت بالصفحتين. **مستني قرار صاحب الموقع:** يضل هيك، ولا يصير متل المرجع (4 أسطر بـ `gems.ts`: الـ store بيتحدّث جوّا الـ timeout مع `data-gems`). مكتوب بجدول الفروقات بـ [00-overview.md](00-overview.md).
+- **✅ العدّاد بيزيد لما الجوهرة تختفي، متل المرجع (قرار صاحب الموقع، 2026-10-09).** الخطة كانت كاتبته يزيد وقت الكبسة (التعليق بالكود، وسطر الـ DoD "فوراً")، وهيك انعمل بالأول: النسخة بعد 2ms من الكبسة والمرجع بعد ~510ms، لأن `renderGems()` بالمرجع بتنادى جوّا الـ `setTimeout` تبع الـ 500ms (السطر 2416). بعد القرار، `gems.ts` بيحفظ اللي انجمع وقت الكبسة بمتغيّر `collected` (للحفظ ولمنع الكبسة التانية)، و`gemsStore` اللي العدّاد بيقرأه بيتحدّث جوّا نفس الـ timeout مع `data-gems`. كود الخطوة 2 وسطر الـ DoD فوق تعدّلوا. انعاد فحص الجمع والكيبورد وreduced motion مقابل المرجع (59 فحص): كله مطابق، والعدّاد بيتغيّر بعد 502–516ms، بنفس لحظة اختفاء الجوهرة.
 - **العدّاد بعد الـ refresh (متل ما الخطة كاتبة: السيرفر بيرسم `0/5`).**
   - الجواهر المجموعة ما بتبين ولا لحظة. الفحص أخد عيّنة كل 4ms من أول لحظة بالصفحة (780 عيّنة، و623 مع CPU مبطّأ 6 مرات): ولا وحدة فيها الجوهرة مرسومة. ومع سكربتات التطبيق محجوبة كلها (الـ boot script لحاله) بتضل مخفية.
   - الرقم غير. عالجهاز العادي الـ hydration بتخلص قبل أول paint (`2/5` عند 83ms، وأول paint عند 108ms)، فما بيبين `0/5`. مع CPU مبطّأ 6 مرات بيبين `0/5` من أول paint (288ms) لحد ~1.2 ثانية، وبعدها `2/5`. المرجع ما بيبيّن `0/5` أبداً (السكربت تبعه بيشتغل قبل أول paint).
   - تحت 480px عدّاد الـ HUD مخفي، فهاد بيبين بس على شاشة أعرض مع جهاز بطيء، ولحدا راجع وجامع جواهر. ما انعمل عليه شي (الخطة ما بتطلب).
-- **فحص السلوك** (112 فحص على الـ production build، Chrome 154). كل تسلسل انعمل عالمرجع كمان (الملف مباشرة، بخطوطه من Google) والنتيجتين انقارنوا سطر بسطر: 105 مطابقين، والـ 7 الباقيين فرقهم الوحيد توقيت العدّاد اللي فوق.
-  - **الجمع بالماوس، الخمسة ورا بعض:** 5 جواهر (وحدة بكل مرحلة، وشاشة البداية بدون)، `button` بـ `aria-label="Collect bonus gem"`، 40×36، طرفها اليمين على طرف الـ `stage-head`، وبتمر على الـ 4 frames وبتطلع وبتنزل. الكبسة: `is-collected` (حركة `gem-get`، و`pointer-events: none`)، 12 قطعة confetti من نص الجوهرة، toast "Gem N of 5 found" (طفى بعد 3620ms)، نغمتين الـ gem، و`ms-gems` بينكتب فوراً. بعد ~510ms الـ class بينشال، الجوهرة بتختفي، و`html[data-gems]` بيتحدّث بترتيب المراحل. الخامسة: بعد 461ms toast "All 5 gems found. Thanks for exploring!" و48 قطعة من (نص العرض، تلت الارتفاع) ونغمات النجاح.
+- **فحص السلوك** (112 فحص على الـ production build، Chrome 154). كل تسلسل انعمل عالمرجع كمان (الملف مباشرة، بخطوطه من Google) والنتيجتين انقارنوا سطر بسطر: 105 مطابقين، والـ 7 الباقيين كان فرقهم الوحيد توقيت العدّاد، وصاروا مطابقين بعد القرار اللي فوق.
+  - **الجمع بالماوس، الخمسة ورا بعض:** 5 جواهر (وحدة بكل مرحلة، وشاشة البداية بدون)، `button` بـ `aria-label="Collect bonus gem"`، 40×36، طرفها اليمين على طرف الـ `stage-head`، وبتمر على الـ 4 frames وبتطلع وبتنزل. الكبسة: `is-collected` (حركة `gem-get`، و`pointer-events: none`)، 12 قطعة confetti من نص الجوهرة، toast "Gem N of 5 found" (طفى بعد 3620ms)، نغمتين الـ gem، و`ms-gems` بينكتب فوراً. بعد ~510ms الـ class بينشال، الجوهرة بتختفي، العدّاد بيزيد، و`html[data-gems]` بيتحدّث بترتيب المراحل. الخامسة: بعد 461ms toast "All 5 gems found. Thanks for exploring!" و48 قطعة من (نص العرض، تلت الارتفاع) ونغمات النجاح.
   - **العدّادين:** قائمة الـ pause نفس رقم الـ HUD بعد كل جوهرة، وبالآخر انفتحت القائمة على 1024px و"5/5 bonus gems found" ظاهر.
   - **الحفظ:** `["about","skills"]` بالحرف بعد جوهرتين. بعد refresh العدّاد `2/5`، الجوهرتين مخفيين، والتلاتة الباقيين بمحلهم. `removeItem("ms-gems")` وrefresh ← الخمسة رجعوا و`0/5`. قيم خربانة بالـ storage (`{"a":1}`، نص مش JSON، `"about"`، مصفوفة فيها ids غلط ومكرّرة) ما بتكسر شي: بتنفلتر وبيضل الصح بس.
   - **الكيبورد:** Tab من عنوان المرحلة بيوقف عالجوهرة (حلقة focus وردية 3px). Enter وSpace بيجمعوها، والـ focus بيروح لعنوان المرحلة فوراً وبيضل عليه (ولا مرة عالـ `<body>`). الـ Tab اللي بعدها بيروح لأول رابط بالمحتوى، وبعد refresh الجوهرة المجموعة برّا ترتيب الـ Tab.
