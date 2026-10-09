@@ -1,3 +1,6 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
 import { ImageResponse } from "next/og";
 
 import { site } from "@/content/site";
@@ -7,15 +10,21 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = `${site.name} | ${site.role}`;
 
-// TODO: لما تنحط الصورة الشخصية، حطها دائرة عاليمين: الرابط بيبين أوضح لما ينشارك على LinkedIn
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
+  const pressStart = await readFile(
+    join(process.cwd(), "src/assets/fonts/PressStart2P-Regular.ttf"),
+  );
+
   return new ImageResponse(
     <OgCard
-      eyebrow={site.role}
-      title={site.name}
-      subtitle="React · Next.js · TypeScript"
-      meta={new URL(site.url).host}
+      name={site.name}
+      role={site.role}
+      stack="React / Next.js / TypeScript"
+      host={new URL(site.url).host}
     />,
-    size,
+    {
+      ...size,
+      fonts: [{ name: "Press Start 2P", data: pressStart, weight: 400, style: "normal" }],
+    },
   );
 }

@@ -33,6 +33,8 @@
 > بعد أي تعديل بالمحتوى: حدّث `contentUpdatedAt` بـ `src/content/site.ts`.
 
 ## 2. الدمج لـ `main`
+> ✅ **انعمل بـ 2026-10-09، بطريقة أقصر بطلب صاحب الموقع:** `main` انعمله fast-forward لـ `feat/pixel-art` وانرفع لحاله (`git push origin main`)، بدون PR وبدون رفع الـ branch. انعمل قبل ما تخلص المرحلة 12 (الجزء المرئي منها بس كان جاهز)، مشان النشر يصير بسرعة. الخطوات تحت هي الطريقة الأصلية، للمرات الجاية.
+
 الـ repo موجود على GitHub (`origin`)، وVercel بينشر من `main`.
 ```bash
 git switch feat/pixel-art

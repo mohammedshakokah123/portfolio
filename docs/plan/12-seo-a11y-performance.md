@@ -421,9 +421,9 @@ Lighthouse (Mobile وبعدين Desktop) على `/`: **3 مرات وخد الو�
 `src/app/{icon.svg,apple-icon.png,opengraph-image.tsx,not-found.tsx}`، `src/lib/seo/og-card.tsx`، `src/assets/fonts/PressStart2P-Regular.ttf`، `src/styles/pixel/fallbacks.css`، `src/app/globals.css`، `src/components/layout/hud.tsx`، `src/content/site.ts`، وحذف `src/app/favicon.ico` و`src/app/kit/`
 
 ## Definition of Done
-- [ ] أيقونة التاب راس الشخصية، و`/apple-icon.png` 180×180 بخلفية سماوية.
-- [ ] `/opengraph-image` بالشكل الجديد.
-- [ ] `/xyz` ← صفحة "Game over" مع الـ HUD والعالم.
+- [x] أيقونة التاب راس الشخصية، و`/apple-icon.png` 180×180 بخلفية سماوية.
+- [x] `/opengraph-image` بالشكل الجديد.
+- [x] `/xyz` ← صفحة "Game over" مع الـ HUD والعالم.
 - [ ] جدول فحص الـ SEO (القسم 7): كل الصفوف.
 - [ ] axe: صفر violations على المراحل الست بالنهار وبالليل، ومع الـ pause ومودال مشروع.
 - [ ] قوائم الكيبورد، قارئ الشاشة، بدون JS، الطباعة، وreduced motion (القسم 8): كلها.
@@ -431,3 +431,19 @@ Lighthouse (Mobile وبعدين Desktop) على `/`: **3 مرات وخد الو�
 - [ ] جدول "اللي ما تحقق" معبّى (أو فاضي عن حق).
 - [ ] الجولة الأخيرة (القسم 10): كلها.
 - [ ] أوامر التنضيف (القسم 6) ما بترجّع شي، و`npm run lint && npm run build && npm run sprites:check` ناجحين.
+
+## ملاحظات التنفيذ
+- **المرحلة انعملت على دفعتين.** الدفعة الأولى (2026-10-09، بطلب صاحب الموقع قبل النشر): الخطوات 1 و2 و3 و4، وحذف `/kit` من الخطوة 6. الباقي لسا: الخطوة 5 (`fallbacks.css`)، باقي الخطوة 6 (ملفات `.gitkeep` و`npm ls`)، وفحوصات الخطوات 7 لـ 10 (axe، قارئ الشاشة، Lighthouse، الجولة الأخيرة).
+- **الكود متل الخطة بالحرف** (`og-card.tsx`، `opengraph-image.tsx`، `not-found.tsx`). الأيقونتين انولّدوا بنفس أمرين الخطة، وملف الخط نزل من `google/fonts` (118KB، TrueType).
+- **الخطوة 2:** الـ `viewport` بـ `layout.tsx` فيه `themeColor: "#14142B"` بس، وما ضل شي من v1. بدون تعديل.
+- **الأيقونة:** `<head>` الرئيسية فيه رابطين بس: `/icon.svg` (`image/svg+xml`، `sizes="any"`) و`/apple-icon.png` (180×180، خلفية سماوية). `/favicon.ico` صار 404 متل ما الخطة قاصدة (انحذف مع شعار v1).
+- **صورة الـ OG:** 1200×630، PNG 22KB: السما، راس الشخصية، "MOHAMMAD" أبيض و"SHAKOKAH" دهبي بظل، الدور، سطر التقنيات والـ host، والأرض. كل النص حروف (ولا مربع). الـ `og:image` والـ `twitter:image` بيأشروا عليها، والـ alt "Mohammad Shakokah | Frontend Engineer". الـ host بالصورة بيطلع من `NEXT_PUBLIC_SITE_URL` (محلياً `localhost:3000`).
+- **صفحة الـ 404** (11 فحص على الـ production build، كلهم ناجحين):
+  - `/xyz` بيرجّع status 404 وفيه "Error 404" و"Game over" والنافذة وزر Continue، جوّا الـ HUD والعالم والأرض. العنوان "Page not found | Mohammad Shakokah"، ومعه `noindex`. `h1` واحد.
+  - `/kit` و`/projects/klardent-dental-lab-saas` بيرجّعوا نفس الصفحة بـ 404. `/kit` طلع من قائمة الـ routes بالـ build.
+  - Continue بيرجّع للرئيسية بدون reload، والمحرك شغّال بعدها (السهم اليمين ودّى على About والـ focus على عنوانها).
+  - رابط مرحلة من HUD صفحة الـ 404 بيفتح `/#skills` عالرئيسية.
+  - على 375px بالليل: بدون scroll أفقي.
+  - أيقونة زر Continue بتومض نص ثانية ونص ثانية، متل زر "Press start" (نفس الـ class `btn-start`).
+- **فحص بقايا v1 (الخطوة 6):** ولا نتيجة بالكود. الكلمة الوحيدة اللي طلعت هي "shadcn/ui" بنصوص المشاريع (`projects.ts`)، وهي محتوى مش كود.
+- **Safari وFirefox ما انفحصوا** (ومنهم أيقونة الـ SVG بالتاب).
