@@ -1,12 +1,13 @@
 "use client";
 
+import { GemCounter } from "@/components/game/gem-counter";
 import { SoundToggle } from "@/components/game/sound-toggle";
 import { TimeToggle } from "@/components/game/time-toggle";
 import { btn } from "@/components/pixel/btn";
 import { PixelIcon } from "@/components/pixel/pixel-icon";
 import { labels } from "@/content/labels";
 import { stageStore } from "@/game/stage-store";
-import { GEM_IDS, STAGE_NAMES, STAGES, type StageId } from "@/game/stages";
+import { STAGE_NAMES, STAGES, type StageId } from "@/game/stages";
 import { useStore } from "@/game/store";
 import type { PixelIconName } from "@/pixel/sprites/icons";
 
@@ -39,8 +40,7 @@ export function PauseMenu() {
         <p className="pause-gems">
           <span className="gem-ico" aria-hidden="true" />
           <span>
-            {/* ثابت لهلق. المرحلة 11 بتبدّل الـ 0 بـ <GemCounter /> */}
-            <span>{`0/${GEM_IDS.length}`}</span>
+            <GemCounter />
             {` ${labels.pause.gems}`}
           </span>
         </p>

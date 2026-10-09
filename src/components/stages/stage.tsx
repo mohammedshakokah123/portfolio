@@ -1,3 +1,4 @@
+import { labels } from "@/content/labels";
 import { site } from "@/content/site";
 import { STAGE_NAMES, STAGES, type StageId } from "@/game/stages";
 
@@ -18,7 +19,7 @@ export function Stage({ id, children }: StageProps) {
             {STAGE_NAMES[id]}
           </h2>
           <p className="stage-sub">{site.stageSubs[id]}</p>
-          {/* المرحلة 11 بتضيف زر الجوهرة هون */}
+          <button type="button" className="gem" data-gem={id} aria-label={labels.gems.collect} />
         </header>
         {children}
       </div>

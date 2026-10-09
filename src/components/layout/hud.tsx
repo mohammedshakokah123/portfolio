@@ -1,3 +1,4 @@
+import { GemCounter } from "@/components/game/gem-counter";
 import { HudNav } from "@/components/game/hud-nav";
 import { SoundToggle } from "@/components/game/sound-toggle";
 import { TimeToggle } from "@/components/game/time-toggle";
@@ -5,7 +6,6 @@ import { btn } from "@/components/pixel/btn";
 import { PixelIcon } from "@/components/pixel/pixel-icon";
 import { labels } from "@/content/labels";
 import { site } from "@/content/site";
-import { GEM_IDS } from "@/game/stages";
 
 export function Hud() {
   return (
@@ -27,8 +27,7 @@ export function Hud() {
         <p className="hud-gems" title={labels.gems.title}>
           <span className="gem-ico" aria-hidden="true" />
           <span className="sr-only">{labels.gems.title}:</span>
-          {/* ثابت لهلق. المرحلة 11 بتبدّله بـ <GemCounter /> */}
-          <span>0/{GEM_IDS.length}</span>
+          <GemCounter />
         </p>
         <SoundToggle className={btn({ variant: "ghost", size: "icon" }, "sound-btn")} />
         <TimeToggle className={btn({ variant: "ghost", size: "icon" })} />

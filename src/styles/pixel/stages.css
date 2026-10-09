@@ -93,3 +93,13 @@ html[data-js][data-stage="contact"] #contact {
 html[data-js] .stage.stage-solo {
   display: block;
 }
+
+/* إضافة عن المرجع: المرجع بيخبّي الجوهرة المجموعة بـ hidden من الـ JS بعد التحميل. هون من data-gems
+   اللي الـ boot script بيحطها قبل أول paint، فما بتبين وبتختفي */
+html[data-gems~="about"] .gem[data-gem="about"],
+html[data-gems~="skills"] .gem[data-gem="skills"],
+html[data-gems~="experience"] .gem[data-gem="experience"],
+html[data-gems~="projects"] .gem[data-gem="projects"],
+html[data-gems~="contact"] .gem[data-gem="contact"] {
+  display: none;
+}
